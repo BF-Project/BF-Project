@@ -339,7 +339,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide2 {
 	height:100%;
-	background-image:url(../images/slider/slide2_bg.jpg);
+	background-image:url(../images/slider/background2.jpg);
 	background-size:cover;
 	background-attachment:fixed !important;
 }
@@ -351,7 +351,7 @@ html[xmlns] .slides {display: block;}
 	top:45%;
 	width:100%;
 	margin-left:-585px;
-	color:#fff;
+	color:black;
 	transform: translateY(-50%);
 	-o-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
@@ -365,7 +365,7 @@ html[xmlns] .slides {display: block;}
 
 .top_slider .slide3 {
 	height:100%;
-	background-image:url(../images/slider/slide3_bg.jpg);
+	background-image:url(../images/slider/background3.jpg);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
@@ -377,7 +377,7 @@ html[xmlns] .slides {display: block;}
 	top:45%;
 	width:100%;
 	margin-left:-585px;
-	color:#fff;
+	color:black;
 	transform: translateY(-50%);
 	-o-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);

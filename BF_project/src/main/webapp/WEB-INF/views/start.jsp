@@ -55,9 +55,9 @@
 			</div>
 			<div id="carousel">
 				<ul class="slides">
-					<li><img src="resources/images/slider/slide1_bg.jpg" alt="" /></li>
-					<li><img src="resources/images/slider/slide2_bg.jpg" alt="" /></li>
-					<li><img src="resources/images/slider/slide3_bg.jpg" alt="" /></li>
+					<li><img src="resources/images/slider/background1.jpg" alt="" /></li>
+					<li><img src="resources/images/slider/background2.jpg" alt="" /></li>
+					<li><img src="resources/images/slider/background3.jpg" alt="" /></li>
 				</ul>
 			</div><!-- //TOP SLIDER -->
 		</section><!-- //HOME -->
