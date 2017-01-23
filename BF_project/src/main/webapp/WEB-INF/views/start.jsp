@@ -31,19 +31,19 @@
 						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
 					<li class="slide2">
 						<div class="flex_caption1">
-							<p class="title1 captionDelay6 FromLeft">Responsive</p>
-							<p class="title2 captionDelay4 FromLeft">Design</p>
-							<p class="title3 captionDelay2 FromLeft">Theme</p>
-							<p class="title4 captionDelay7 FromLeft">The template is suitable for any company and the direction that appreciates style, purity and quality of the web site.</p>
+							<p class="title1 captionDelay6 FromLeft">Community</p>
+							<p class="title2 captionDelay4 FromLeft"></p>
+							<p class="title3 captionDelay2 FromLeft"></p>
+							<p class="title4 captionDelay7 FromLeft"></p>
 						</div>
 						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
 					</li>
 					<li class="slide3">
 						<div class="flex_caption1">
-							<p class="title1 captionDelay1 FromBottom">Amazing</p>
-							<p class="title2 captionDelay2 FromBottom">Video</p>
-							<p class="title3 captionDelay3 FromBottom">Background</p>
-							<p class="title4 captionDelay5 FromBottom">The template is suitable for any company and the direction that appreciates style, purity and quality of the web site.</p>
+							<p class="title1 captionDelay1 FromBottom">Simulation</p>
+							<p class="title2 captionDelay2 FromBottom"></p>
+							<p class="title3 captionDelay3 FromBottom"></p>
+							<p class="title4 captionDelay5 FromBottom"></p>
 						</div>
 						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
 						
