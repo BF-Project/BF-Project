@@ -4,7 +4,7 @@
 
 	<!-- 일반 회원 -->
 	<decorator name="main" page="WEB-INF/page_decorator.jsp">
-		<pattern>/*</pattern>
+		<pattern>/</pattern>
 	</decorator>
 	
 	<!-- 관리자 -->

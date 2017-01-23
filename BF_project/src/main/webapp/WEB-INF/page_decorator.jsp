@@ -99,7 +99,7 @@
 					
 					<!-- LOGO -->
 					<div class="logo pull-left">
-						<a href="start" ><img style="width:200px; heigth:160px" src="resources/images/logo/logo.jpg" id="logo" alt="성공하는 사람들" /></a>
+						<a href="<%=request.getContextPath()%>/start" ><img style="width:200px; heigth:160px" src="resources/images/logo/logo.jpg" id="logo" alt="성공하는 사람들" /></a>
 					</div><!-- //LOGO -->
 					
 					<!-- SEARCH FORM -->
@@ -142,7 +142,7 @@
 								
 								<li class="scroll_btn last"><a href="#contacts" style="font-size: 14px">Contacts</a></li>
 								
-								<li class="?"><a href="#" style="font-size: 14px">회원가입</a></li>
+								<li><a href="<%=request.getContextPath()%>/join/joinForm" style="font-size: 14px">회원가입</a></li>
 								
 							</ul>
 						</nav>
@@ -235,8 +235,7 @@
 			<div class="row copyright">
 				<div class="col-lg-12 text-center">
 				
-				
-				 <p>Crafted with <i class="fa fa-heart"></i>, <a style="color:skyblue">Designscrazed</a></p>
+				 <p>Crafted with <i class="fa fa-heart"></i>, <a style="color:skyblue">대표 : 차승현 (010-6480-5736)</a></p>
 				</div>
 			
 			</div><!-- //ROW -->
