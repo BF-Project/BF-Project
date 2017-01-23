@@ -207,21 +207,21 @@ blockquote:before {content:'“'; position:absolute; left:15px; top:13px; font-s
 
 /* __________ breadcrumb __________ */
 .breadcrumbs_block {
-	padding:81px 0;
+	padding:55px 0;
 	background-image:url(../images/clean_code_bg.jpg);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
 .breadcrumbs_block h2 {
 	margin-bottom:15px;
-	line-height:80px;
-	font-size:80px;
+	line-height:40px;
+	font-size:40px;
 	color:#fff;
 }
 .breadcrumbs_block p {
 	margin:0;
 	line-height:34px;
-	font-size:26px;
+	font-size:20px;
 	color:#999;
 }
 
@@ -1778,7 +1778,7 @@ input[type="color"]:focus {
 	
 
 /* __________ All Styles __________ */
-	.breadcrumbs_block {padding:50px 0;}
+	.breadcrumbs_block {padding:55px 0;}
 	
 	
 	.map_hide {margin-left:435px;}
@@ -1864,9 +1864,9 @@ input[type="color"]:focus {
 	
 
 /* __________ All Styles __________ */
-	.breadcrumbs_block {padding:50px 0;}
-	.breadcrumbs_block h2 {font-size:60px; line-height:64px;}
-	.breadcrumbs_block p {font-size:21px; line-height:24px;}
+	.breadcrumbs_block {padding:55px 0;}
+	.breadcrumbs_block h2 {font-size:40px; line-height:64px;}
+	.breadcrumbs_block p {font-size:20px; line-height:24px;}
 	
 
 /* __________ Footer __________ */
@@ -2002,9 +2002,9 @@ input[type="color"]:focus {
 	
 
 /* __________ All Styles __________ */
-	.breadcrumbs_block {padding:40px 0;}
-	.breadcrumbs_block h2 {font-size:50px; line-height:54px;}
-	.breadcrumbs_block p {font-size:16px; line-height:20px;}
+	.breadcrumbs_block {padding:55px 0;}
+	.breadcrumbs_block h2 {font-size:40px; line-height:54px;}
+	.breadcrumbs_block p {font-size:20px; line-height:20px;}
 
 
 /* __________ Footer __________ */
