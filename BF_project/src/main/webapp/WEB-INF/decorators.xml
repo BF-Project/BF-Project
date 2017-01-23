@@ -15,13 +15,8 @@
 
 
 
-<!--  	
 	<excludes>
-		<pattern>/idsearch.do*</pattern>
-     	<pattern>/pwdsearch.do*</pattern>
-		<pattern>/findZipNum.do*</pattern>
-		<pattern>/idCheckForm.do*</pattern>	
-		<pattern>/admin/adminLoginForm.do</pattern>	
+		<pattern>/join/joinForm</pattern>
 	</excludes>
--->	
+	
 </decorators>
