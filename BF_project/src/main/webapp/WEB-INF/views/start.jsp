@@ -23,10 +23,10 @@
 				<ul class="slides">
 					<li class="slide1">
 						<div class="flex_caption1">
-							<p class="title1 captionDelay2 FromTop">Creative</p>
-							<p class="title2 captionDelay4 FromTop">White</p>
-							<p class="title3 captionDelay6 FromTop">Templates</p>
-							<p class="title4 captionDelay7 FromBottom">The template is suitable for any company and the direction that appreciates style, purity and quality of the web site.</p>
+							<p class="title1 captionDelay2 FromTop">Consulting</p>
+							<p class="title2 captionDelay4 FromTop"></p>
+							<p class="title3 captionDelay6 FromTop"></p>
+							<p class="title4 captionDelay7 FromBottom"></p>
 						</div>
 						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
 					<li class="slide2">
