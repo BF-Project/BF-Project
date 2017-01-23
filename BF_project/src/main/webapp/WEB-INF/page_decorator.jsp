@@ -235,7 +235,8 @@
 			<div class="row copyright">
 				<div class="col-lg-12 text-center">
 				
-				 <p>Crafted with <i class="fa fa-heart"></i>, <a href="http://designscrazed.org/" >Designscrazed</a></p>
+				
+				 <p>Crafted with <i class="fa fa-heart"></i>, <a style="color:skyblue">Designscrazed</a></p>
 				</div>
 			
 			</div><!-- //ROW -->
