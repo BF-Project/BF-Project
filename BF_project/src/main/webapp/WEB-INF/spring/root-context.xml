@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- DaoImple Bean 등록 / DaoImpl에 setter가 있어야 한다.-->
+	<bean id="addressDAOImpl" class="com.pro.bf.daoImpl.AddrDaoImpl" p:client-ref="client" />
+	<bean id="adminDAOImpl" class="com.pro.bf.daoImpl.AdminDaoImpl" p:client-ref="client" />
+	<bean id="cmtDAOImpl" class="com.pro.bf.daoImpl.CmtDaoImpl" p:client-ref="client" />
+	<bean id="communityDAOImpl" class="com.pro.bf.daoImpl.CommunityDaoImpl" p:client-ref="client" />
+	<bean id="flowageDAOImpl" class="com.pro.bf.daoImpl.FlowageDaoImpl" p:client-ref="client" />
+	<bean id="freeDAOImpl" class="com.pro.bf.daoImpl.FreeDaoImpl" p:client-ref="client" />
+	<bean id="lentDAOImpl" class="com.pro.bf.daoImpl.LentDaoImpl" p:client-ref="client" />
+	<bean id="mbrDAOImpl" class="com.pro.bf.daoImpl.MbrDaoImpl" p:client-ref="client" />
+	<bean id="motelDAOImpl" class="com.pro.bf.daoImpl.MotelDaoImpl" p:client-ref="client" />
+	<bean id="msgDAOImpl" class="com.pro.bf.daoImpl.MsgDaoImpl" p:client-ref="client" />
+	<bean id="noticeDAOImpl" class="com.pro.bf.daoImpl.NoticeDaoImpl" p:client-ref="client" />
+	<bean id="offlineDAOImpl" class="com.pro.bf.daoImpl.OfflineDaoImpl" p:client-ref="client" />
+	<bean id="OnlineDAOImpl" class="com.pro.bf.daoImpl.OnlineDaoImpl" p:client-ref="client" />
+	<bean id="paymentDAOImpl" class="com.pro.bf.daoImpl.PaymentDaoImpl" p:client-ref="client" />
+	<bean id="populationDAOImpl" class="com.pro.bf.daoImpl.PopulationDaoImpl" p:client-ref="client" />
+	<bean id="ptf_dldDAOImpl" class="com.pro.bf.daoImpl.PTF_DldDaoImpl" p:client-ref="client" />
+	<bean id="ptfDAOImpl" class="com.pro.bf.daoImpl.PTFDaoImpl" p:client-ref="client" />
+	<bean id="qnaDAOImpl" class="com.pro.bf.daoImpl.QnADaoImpl" p:client-ref="client" />
+	<bean id="qttDAOImpl" class="com.pro.bf.daoImpl.QttDaoImpl" p:client-ref="client" />
+	<bean id="shopDAOImpl" class="com.pro.bf.daoImpl.ShopDaoImpl" p:client-ref="client" />
+	<bean id="touristDAOImpl" class="com.pro.bf.daoImpl.TouristDaoImpl" p:client-ref="client" />
+	
+</beans>

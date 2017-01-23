@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<decorators defaultdir="/">	
+
+	<!-- 일반 회원 -->
+	<decorator name="main" page="WEB-INF/page_decorator.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	
+	<!-- 관리자 -->
+<!-- 	<decorator name="admin" page="admin_decorator.jsp"> -->
+<!-- 		<pattern>/admin/*.do</pattern> -->
+<!-- 	</decorator> -->
+
+
+<!--  	
+	<excludes>
+		<pattern>/idsearch.do*</pattern>
+     	<pattern>/pwdsearch.do*</pattern>
+		<pattern>/findZipNum.do*</pattern>
+		<pattern>/idCheckForm.do*</pattern>	
+		<pattern>/admin/adminLoginForm.do</pattern>	
+	</excludes>
+-->	
+</decorators>
