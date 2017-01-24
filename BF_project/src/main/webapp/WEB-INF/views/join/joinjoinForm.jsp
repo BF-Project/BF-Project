@@ -107,36 +107,56 @@
 	});
 </script>
 
+<!-- checkbox를 꾸미기 위함 -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<style>
+.checks {position: relative;} 
+
+.checks input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */ 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); border: 0 } 
+
+.checks input[type="checkbox"] + label {
+	display: inline-block; 
+	position: relative; 
+	cursor: pointer; 
+	-webkit-user-select: none; 
+	-moz-user-select: none; 
+	-ms-user-select: none; } 
+
+.checks input[type="checkbox"] + label:before { /* 가짜 체크박스 */ 
+	content: ' '; 
+	display: inline-block; 
+	width: 21px; /* 체크박스의 너비를 지정 */ 
+	height: 21px; /* 체크박스의 높이를 지정 */ 
+	line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */ 
+	margin: -2px 8px 0 0; 
+	text-align: center; 
+	vertical-align: middle; 
+	background: white; 
+	border: 1px solid #000000; 
+	border-radius : 3px; 
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); } 
+
+.checks input[type="checkbox"] + label:active:before, .checks input[type="checkbox"]:checked + label:active:before { 
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1); } 
+
+.checks input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을때 */ 
+	content: '\2714'; /* 체크표시 유니코드 사용 */ 
+	color: #FF0000; 
+	text-shadow: 1px 1px #FF0000; 
+	background: white; 
+ 	border-color: #000000; /* 검정 */
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1); }
+</style>
 </head>
 <body>
-
-	<!-- body -->
-
-	<img id="preloader"
-		src="<%=request.getContextPath()%>/resources/images/preloader.gif"
-		alt="" />
-	<!-- 로딩 이미지 -->
-
-	<div class="preloader_hide">
-
-		<!-- PAGE -->
-		<div id="page" class="single_page">
-
-			<!-- BREADCRUMBS -->
-			<section class="breadcrumbs_block clearfix parallax">
-				<div class="container center">
-					<img src="<%=request.getContextPath()%>/resources/images/logo/logo.jpg" 
-					style="z-index:0; width:380px; height: 240px">
-						<br><br>
-						<br><br>
-					<h2>
-						<b>Join</b> membership
-					</h2>
-					<p>'성공하는 사람들 회원가입' 페이지 입니다.</p>
-				</div>
-			</section>
-			<!-- //BREADCRUMBS -->
-		</div>
-	</div>
+	
 </body>
 </html>

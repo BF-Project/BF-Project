@@ -17,7 +17,16 @@ public class MbrVO {
 	private Date mbr_brt; // 생년월일
 	private String mbr_gnd; // 성별
 	private Date mbr_date; // 아이디 생성날짜
+	private char mbr_eml_yn; // 이메일 수신 여부 (default 'Y')
 	
+	public char getMbr_eml_yn() {
+		return mbr_eml_yn;
+	}
+
+	public void setMbr_eml_yn(char mbr_eml_yn) {
+		this.mbr_eml_yn = mbr_eml_yn;
+	}
+
 	public String getMbr_id() {
 		return mbr_id;
 	}
