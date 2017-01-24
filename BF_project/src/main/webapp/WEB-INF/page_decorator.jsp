@@ -174,9 +174,9 @@ body {
 					<div class="pull-right">
 						<nav class="navmenu center">
 							<ul id="ul-menu">
-								<li class="first active scroll_btn"><a href="#home"
+								<li class="first active scroll_btn"><a href="<%=request.getContextPath()%>/start#home"
 									style="font-size: 14px">Home</a></li>
-								<li class="scroll_btn"><a href="#about"
+								<li class="scroll_btn"><a href="<%=request.getContextPath()%>/start#about"
 									style="font-size: 14px">Site 소개</a></li>
 								<li class="sub-menu"><a href="javascript:void(0);"
 									style="font-size: 14px">컨설팅</a>

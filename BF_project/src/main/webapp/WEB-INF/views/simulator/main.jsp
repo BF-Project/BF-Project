@@ -18,115 +18,98 @@
     <script>
         var HOME_PATH = '<%=request.getContextPath()%>/resources';
     </script>
+
 </head>
 <body>
 
 <!-- @category DataLayer -->
 
+<div id="page">
+
 <div id="wrap" class="section">
     <br><br>
-<div style="text-align:center;"><h2>SIMULATOR</h2></div>
+<div style="text-align:center;"><h2>SIMULATOR</h2>
+(창업할 지역을 선택해주세요)</div>
 <hr color="grey" width="1000px">
     <div id="map" style="width:70%;height:600px; margin:0 auto;"></div>
 </div>
 <script id="code">
-var HOME_PATH = window.HOME_PATH || '.',
-    urlPrefix = HOME_PATH +'/data/region',
-    urlSuffix = '.json',
-    regionGeoJson = [],
-    loadCount = 0;
-
-for (var i = 1; i < 18; i++) {
-    var keyword = i +'';
-
-    if (keyword.length === 1) {
-        keyword = '0'+ keyword;
-    }
-
-    $.ajax({
-        url: urlPrefix + keyword + urlSuffix,
-        success: function(idx) {
-            return function(geojson) {
-                regionGeoJson[idx] = geojson;
-
-                loadCount++;
-
-                if (loadCount === 17) {
-                    startDataLayer();
-                }
-            }
-        }(i - 1)
-    });
-}
-
 var map = new naver.maps.Map(document.getElementById('map'), {
-    zoom: 2,
+    zoom: 6,
     mapTypeId: 'normal',
-    center: new naver.maps.LatLng(36.4203004, 128.317960)
+    center: new naver.maps.LatLng(33.3718377, 126.5298401)
+
+});
+
+var HOME_PATH = window.HOME_PATH || '.';
+
+$.ajax({
+    url: HOME_PATH +'/data/jeju_test.geojson',
+    dataType: 'json',
+    success: startDataLayer
 });
 
 var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
-
 tooltip.appendTo(map.getPanes().floatPane);
 
-function startDataLayer() {
+function startDataLayer(geojson) {
+    map.data.addGeoJson(geojson);
+
     map.data.setStyle(function(feature) {
-        var styleOptions = {
-            fillColor: '#ff0000',
-            fillOpacity: 0.0001,
-            strokeColor: '#ff0000',
-            strokeWeight: 2,
-            strokeOpacity: 0.4
-        };
+        var color = 'lightgreen';
 
-        if (feature.getProperty('focus')) {
-            styleOptions.fillOpacity = 0.6;
-            styleOptions.fillColor = '#0f0';
-            styleOptions.strokeColor = '#0f0';
-            styleOptions.strokeWeight = 4;
-            styleOptions.strokeOpacity = 1;
+        if (feature.getProperty('isColorful')) {
+            color = feature.getProperty('color');
         }
-
-        return styleOptions;
-    });
-
-    regionGeoJson.forEach(function(geojson) {
-        map.data.addGeoJson(geojson);
+ 
+        return {
+            //fillColor: none,
+            strokeColor: color,
+            strokeWeight: 2,
+            icon: null
+        };
     });
 
     map.data.addListener('click', function(e) {
-        var feature = e.feature;
+        e.feature.setProperty('isColorful', true);
+        var myWindow = window.open("", "MsgWindow", "width=200,height=100");
+        myWindow.document.write(e.feature.getProperty('EMD_KOR_NM'));
+    });
 
-        if (feature.getProperty('focus') !== true) {
-            feature.setProperty('focus', true);
-        } else {
-            feature.setProperty('focus', false);
+    map.data.addListener('dblclick', function(e) {
+        var bounds = e.feature.getBounds();
+
+        if (bounds) {
+            map.panToBounds(bounds);
         }
     });
 
     map.data.addListener('mouseover', function(e) {
+        map.data.overrideStyle(e.feature, {
+            strokeWeight: 8,
+            icon: HOME_PATH +'/images/pin_spot.png'
+        });
+        
         var feature = e.feature,
-            regionName = feature.getProperty('area1');
-
+        regionName = feature.getProperty('EMD_KOR_NM');
+        
         tooltip.css({
             display: '',
             left: e.offset.x,
             top: e.offset.y
         }).text(regionName);
-
-        map.data.overrideStyle(feature, {
-            fillOpacity: 0.6,
-            strokeWeight: 4,
-            strokeOpacity: 1
-        });
+        
     });
 
     map.data.addListener('mouseout', function(e) {
-        tooltip.hide().empty();
+    	tooltip.hide().empty();
         map.data.revertStyle();
     });
 }
+
+
 </script>
+</div>
 
 </body>
 </html>
