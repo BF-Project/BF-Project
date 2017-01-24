@@ -15,6 +15,7 @@
 
 	<excludes>
 		<pattern>/join/joinForm</pattern>
+		<pattern>/join/joinjoinForm</pattern>
 	</excludes>
 	
 </decorators>
