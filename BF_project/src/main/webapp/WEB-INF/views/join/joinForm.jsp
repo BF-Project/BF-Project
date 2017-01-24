@@ -169,9 +169,14 @@
 		}
 	}
 </script>
+
+<!-- alert창 꾸미기 -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/wow-alert.css">
+<!-- <script src="//code.jquery.com/jquery-2.1.3.js"></script> -->
+<script src="<%=request.getContextPath()%>/resources/js/wow-alert.js"></script>
+
 </head>
 <body>
-
 	<!-- body -->
 
 	<img id="preloader"
@@ -328,14 +333,15 @@
 		function gojoin(){
 			var chk = document.getElementsByName('check');
 			var tot = chk.length;
-			if(!chk[0].checked || !chk[1].checked)
+			if(!chk[0].checked || !chk[1].checked){
 				alert('이용약관과 개인정보 수집에 동의해주세요(필수)');
+			}
 			
 			if(chk[0].checked && chk[1].checked){
 				if(!chk[2].checked){
 					location.href="<%=request.getContextPath()%>/join/joinjoinForm?email=N";
 				}else{
-					location.href="<%=request.getContextPath()%>/join/joinjoinForm";
+					location.href="<%=request.getContextPath()%>/join/joinjoinForm?email=Y";
 				}
 				// 이메일 수신 체크 안될 경우 'N'  /
 				// 이메일 수신 체크 default 'Y'
