@@ -108,55 +108,190 @@
 </script>
 
 <!-- checkbox를 꾸미기 위함 -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <style>
-.checks {position: relative;} 
+.checks {
+	position: relative;
+}
 
-.checks input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */ 
-	position: absolute; 
-	width: 1px; 
-	height: 1px; 
-	padding: 0; 
-	margin: -1px; 
-	overflow: hidden; 
-	clip:rect(0,0,0,0); border: 0 } 
+.checks input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0
+}
 
-.checks input[type="checkbox"] + label {
-	display: inline-block; 
-	position: relative; 
-	cursor: pointer; 
-	-webkit-user-select: none; 
-	-moz-user-select: none; 
-	-ms-user-select: none; } 
+.checks input[type="checkbox"]+label {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
 
-.checks input[type="checkbox"] + label:before { /* 가짜 체크박스 */ 
-	content: ' '; 
-	display: inline-block; 
-	width: 21px; /* 체크박스의 너비를 지정 */ 
-	height: 21px; /* 체크박스의 높이를 지정 */ 
-	line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */ 
-	margin: -2px 8px 0 0; 
-	text-align: center; 
-	vertical-align: middle; 
-	background: white; 
-	border: 1px solid #000000; 
-	border-radius : 3px; 
-	box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); } 
+.checks input[type="checkbox"]+label:before { /* 가짜 체크박스 */
+	content: ' ';
+	display: inline-block;
+	width: 21px; /* 체크박스의 너비를 지정 */
+	height: 21px; /* 체크박스의 높이를 지정 */
+	line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */
+	margin: -2px 8px 0 0;
+	text-align: center;
+	vertical-align: middle;
+	background: white;
+	border: 1px solid #000000;
+	border-radius: 3px;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
+		rgba(0, 0, 0, 0.05);
+}
 
-.checks input[type="checkbox"] + label:active:before, .checks input[type="checkbox"]:checked + label:active:before { 
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1); } 
+.checks input[type="checkbox"]+label:active:before, .checks input[type="checkbox"]:checked+label:active:before
+	{
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px
+		rgba(0, 0, 0, 0.1);
+}
 
-.checks input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을때 */ 
-	content: '\2714'; /* 체크표시 유니코드 사용 */ 
-	color: #FF0000; 
-	text-shadow: 1px 1px #FF0000; 
-	background: white; 
- 	border-color: #000000; /* 검정 */
-	box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1); }
+.checks input[type="checkbox"]:checked+label:before { /* 체크박스를 체크했을때 */
+	content: '\2714'; /* 체크표시 유니코드 사용 */
+	color: #FF0000;
+	text-shadow: 1px 1px #FF0000;
+	background: white;
+	border-color: #000000; /* 검정 */
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
+		rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+}
 </style>
+
+<script>
+	// 체크박스를 라디오 버튼처럼 사용하기 : 라디오버튼이 css때문에 안먹힘...
+	$(function(){
+		$('input[type="checkbox"][name="check"]').click(function(){
+			// click 이벤트가 발생했는지 체크
+			if($(this).prop('checked')){
+				// checkbox 전체를 checked 해제 후 click한 요소만 true 지정
+				$('input[type="checkbox"][name="check"]').prop('checked', false);
+				$(this).prop('checked', true);
+			}
+		});
+	});		
+</script>
+
 </head>
 <body>
-	
+	<!-- body -->
+
+	<img id="preloader"
+		src="<%=request.getContextPath()%>/resources/images/preloader.gif"
+		alt="" />
+	<!-- 로딩 이미지 -->
+
+	<div class="preloader_hide">
+
+		<!-- PAGE -->
+		<div id="page" class="single_page">
+
+			<!-- BREADCRUMBS -->
+			<section class="breadcrumbs_block clearfix parallax">
+				<div class="container center">
+					<a href="<%=request.getContextPath()%>/start"> 
+						<img src="<%=request.getContextPath()%>/resources/images/logo/logo.jpg"	style="z-index: 0; width: 590px; height: 170px">
+					</a> 
+					<br> <br> <br>
+					<br>
+					<h2>
+						<b>Join</b> membership
+					</h2>
+					<p>'성공하는 사람들 회원가입' 페이지 입니다.</p>
+				</div>
+			</section>
+
+			<!-- 회원가입 form -->
+
+			<article class="container">
+				<div class="page-header">
+				</div>
+				<div class="col-md-6 col-md-offset-3">
+					<form role="form">
+						<div class="form-group">
+							<label for="InputId">아이디</label> 
+								<input type="email" class="form-control" name="InputId" placeholder="아이디를 입력해주세요">
+						</div>
+						<div class="form-group">
+							<label for="InputPassword1">비밀번호</label>
+								<input type="password" class="form-control" name="InputPassword1" placeholder="비밀번호를 입력해주세요">
+						</div>
+						<div class="form-group">
+							<label for="InputPassword2">비밀번호 확인</label> 
+								<input type="password" class="form-control" name="InputPassword2" placeholder="비밀번호 재확인">
+							<p class="help-block">비밀번호 확인을 위해 다시한번 입력 해 주세요</p>
+						</div>
+						<div class="form-group">
+							<label for="username">이름</label> 
+								<input type="email" class="form-control" name="username" placeholder="이름을 입력해 주세요">
+						</div>
+						<div class="form-group">
+							<label for="usernumber">휴대폰 번호</label>
+							<div class="input-group">
+								<input type="tel" class="form-control" name="usernumber" placeholder=" - 없이 입력해 주세요">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="InputEmail">이메일</label> 
+								<input type="email" class="form-control" name="InputEmail" placeholder="이메일 주소를 입력해 주세요">
+						</div>
+						
+						<!-- 주소 -->
+						<div class="form-group">
+							<label for="InputAddr">주소</label>
+								<input type="email" class="form-control" name="InputAddr1" placeholder="검색해주세요" style="width:400px" readonly>
+								<input type="button" value="Search" style="position:absolute; left:420px; bottom:368.1px; background-color:#000000; color=#FFF0F0; height:35px; width:75px; margin:0; padding:0;" class="btn btn-info">
+								<input type="email" class="form-control" name="InputAddr2" placeholder="상세주소를 입력해주세요" style="width:400px; margin-top: 8px">
+						</div>
+						
+						<!-- 생년월일 -->
+						<div class="form-group">
+							<label for="InputBirth">생년월일</label>
+							<div class="input-group">
+								<input type="tel" class="form-control" name="InputBirth" placeholder="ex : 19910505">
+								<p class="help-block">숫자로만 생년월일을 입력해주세요</p>
+							</div>
+						</div>
+						
+						<!-- 성별 -->
+						<label for="InputGender">성별</label><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="checks">
+							<input type="checkbox" id="agree-one" name="check" value="남자"> 남자
+							<label for="agree-one"></label>
+						</span>
+						&nbsp;
+						<span class="checks">
+							<input type="checkbox" id="agree-two" name="check" value="여자"> 여자
+							<label for="agree-two"></label>
+						</span>
+						
+						<br><br><br><br><br><br>
+						<div class="form-group text-center">
+							<button type="submit" class="btn btn-info">
+								회원가입&nbsp;<i class="fa fa-check spaceLeft"></i>
+							</button>
+							<button type="submit" class="btn btn-warning">
+								가입취소&nbsp;<i class="fa fa-times spaceLeft"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+			</article>
+			<!--  -->
+
+		</div>
+	</div>	
 </body>
 </html>
