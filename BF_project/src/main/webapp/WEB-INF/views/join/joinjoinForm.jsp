@@ -281,16 +281,7 @@
 						
 						<!-- check box로 성별을 구분해서 값을 가져가기 힘들다. 그래서 사용한 구문 -->
 						
-<!-- 						<span id="i_result"></span> -->
-						<input type="text" id="i_result" name="gender">
-<%-- 						<c:choose> --%>
-<%-- 							<c:when test="${i_result eq '남자'}"> --%>
-<!-- 								<input type="hidden" name="gender" value="남자"> -->
-<%-- 							</c:when>	 --%>
-<%-- 							<c:otherwise> --%>
-<!-- 								<input type="hidden" name="gender" value="여자"> -->
-<%-- 							</c:otherwise>			 --%>
-<%-- 						</c:choose> --%>
+						<input type="hidden" id="i_result" name="gender">
 						
 						<!-- ////////////////////////////////////////////////// -->
 						<br><br><br>
@@ -376,19 +367,19 @@
 											if ($('.sex1').is(":checked")){ 
 												var gender = $('.sex1').val(); // 남자
 												$(function(){
-													document.getElementById("i_result").innerText=gender;
+													$('#i_result').val('남자');
 												});
 												// 링크걸기
-// 													form.method="post";
-// 													form.submit();
+													form.method="post";
+													form.submit();
 											}else if($('.sex2').is(":checked")){
 												var gender = $('.sex2').val(); // 여자
 												$(function(){
-													document.getElementById("i_result").innerText=gender;
+													$('#i_result').val('여자');
 												});
 												// 링크걸기
-// 													form.method="post";
-// 													form.submit();
+													form.method="post";
+													form.submit();
 											}else{
 												alert('성별을 선택해 주세요.');
 												document.abc.check.focus();
