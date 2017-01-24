@@ -1125,7 +1125,7 @@ ul.project_info li span {color:#979797;}
 
 footer {
 	overflow:hidden;
-	position:fixed;
+	position:relative;
 	z-index:1;
 	bottom:0;
 	left:50%;

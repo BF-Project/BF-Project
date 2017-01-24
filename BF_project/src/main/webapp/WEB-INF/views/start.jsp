@@ -24,28 +24,28 @@
 					<li class="slide1">
 						<div class="flex_caption1">
 							<p class="title1 captionDelay2 FromTop">Consulting</p>
-							<p class="title2 captionDelay4 FromTop"></p>
-							<p class="title3 captionDelay6 FromTop"></p>
+							<p class="title2 captionDelay4 FromTop">With</p>
+							<p class="title3 captionDelay6 FromTop">Specialist</p>
 							<p class="title4 captionDelay7 FromBottom"></p>
 						</div>
-						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
+						<a class="slide_btn FromRight" href="javascript:void(0);" >실시간 상담</a>
 					<li class="slide2">
 						<div class="flex_caption1">
-							<p class="title1 captionDelay6 FromLeft">Community</p>
-							<p class="title2 captionDelay4 FromLeft"></p>
-							<p class="title3 captionDelay2 FromLeft"></p>
+							<p class="title1 captionDelay6 FromLeft">Communicate</p>
+							<p class="title2 captionDelay4 FromLeft">With</p>
+							<p class="title3 captionDelay2 FromLeft">Others</p>
 							<p class="title4 captionDelay7 FromLeft"></p>
 						</div>
-						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
+						<a class="slide_btn FromRight" href="javascript:void(0);" >실시간 상담</a>
 					</li>
 					<li class="slide3">
 						<div class="flex_caption1">
 							<p class="title1 captionDelay1 FromBottom">Simulation</p>
-							<p class="title2 captionDelay2 FromBottom"></p>
-							<p class="title3 captionDelay3 FromBottom"></p>
+							<p class="title2 captionDelay2 FromBottom">For</p>
+							<p class="title3 captionDelay3 FromBottom">Success</p>
 							<p class="title4 captionDelay5 FromBottom"></p>
 						</div>
-						<a class="slide_btn FromRight" href="javascript:void(0);" >Read More</a>
+						<a class="slide_btn FromRight" href="javascript:void(0);" >실시간 상담</a>
 						
 						<!-- VIDEO BACKGROUND -->
 						<a id="P2" class="player" data-property="{videoURL:'tDvBwPzJ7dY',containment:'.top_slider .slide3',autoPlay:true, mute:true, startAt:0, opacity:1}" ></a>
@@ -165,12 +165,13 @@
 	</div><!-- //PAGE -->
 	
 	<!-- MAP -->
-	<section id="contacts">
+	
+<!-- <section id="contacts">
 		<div id="map">
 			<a class="map_hide" href="javascript:void(0);" ><i class="fa fa-angle-right"></i><i class="fa fa-angle-left"></i></a>
 			<iframe src="http://maps.google.com/maps?f=q&amp;give%20a%20hand=s_q&amp;hl=en&amp;geocode=&amp;q=london&amp;sll=37.0625,-95.677068&amp;sspn=42.631141,90.263672&amp;ie=UTF8&amp;hq=&amp;hnear=London,+United+Kingdom&amp;ll=51.500141,-0.126257&amp;spn=0.026448,0.039396&amp;z=14&amp;output=embed" ></iframe>
-		</div><!-- //MAP -->
-	</section>
+		</div>
+	</section> -->
 
 </div>
 <!-- </body> -->
