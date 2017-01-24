@@ -218,10 +218,10 @@
 				<div class="page-header">
 				</div>
 				<div class="col-md-6 col-md-offset-3">
-					<form role="form">
+					<form role="form" name="abc" action="<%= request.getContextPath() %>/join/joinjoinForm">
 						<div class="form-group">
 							<label for="InputId">아이디</label> 
-								<input type="email" class="form-control" name="InputId" placeholder="아이디를 입력해주세요">
+								<input type="email" class="form-control" name="InputId" placeholder="아이디를 입력해주세요" id="id">
 						</div>
 						<div class="form-group">
 							<label for="InputPassword1">비밀번호</label>
@@ -245,14 +245,16 @@
 						<div class="form-group">
 							<label for="InputEmail">이메일</label> 
 								<input type="email" class="form-control" name="InputEmail" placeholder="이메일 주소를 입력해 주세요">
+								<p class="help-block">ex : aaaa12@naver.com 과 같이 올바르게 입력해주세요</p>
 						</div>
 						
 						<!-- 주소 -->
 						<div class="form-group">
 							<label for="InputAddr">주소</label>
 								<input type="email" class="form-control" name="InputAddr1" placeholder="검색해주세요" style="width:400px" readonly>
-								<input type="button" value="Search" style="position:absolute; left:420px; bottom:368.1px; background-color:#000000; color=#FFF0F0; height:35px; width:75px; margin:0; padding:0;" class="btn btn-info">
-								<input type="email" class="form-control" name="InputAddr2" placeholder="상세주소를 입력해주세요" style="width:400px; margin-top: 8px">
+								<input type="button" value="Search" style="position:absolute; left:420px; bottom:332.4px; background-color:#000000; color=#FFF0F0; height:35px; width:75px; margin:0; padding:0;" 
+											class="btn btn-info" onclick="searchAddr()">
+								<input type="email" class="form-control" name="InputAddr2" placeholder="상세주소를 입력해주세요" style="width:470px; margin-top: 8px">
 						</div>
 						
 						<!-- 생년월일 -->
@@ -268,23 +270,38 @@
 						<label for="InputGender">성별</label><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="checks">
-							<input type="checkbox" id="agree-one" name="check" value="남자"> 남자
+							<input type="checkbox" id="agree-one" class="sex1" name="check" value="남자"> 남자
 							<label for="agree-one"></label>
 						</span>
 						&nbsp;
 						<span class="checks">
-							<input type="checkbox" id="agree-two" name="check" value="여자"> 여자
+							<input type="checkbox" id="agree-two" class="sex2" name="check" value="여자"> 여자
 							<label for="agree-two"></label>
 						</span>
 						
-						<br><br><br><br><br><br>
+						<!-- check box로 성별을 구분해서 값을 가져가기 힘들다. 그래서 사용한 구문 -->
+						<c:choose>
+							<c:when test="${gender eq '남자' }">
+								<input type="hidden" name="gender" value="남자">
+							</c:when>	
+							<c:otherwise>
+								<input type="hidden" name="gender" value="여자">
+							</c:otherwise>			
+						</c:choose>
+						<!-- ////////////////////////////////////////////////// -->
+						<br><br><br>
+						
 						<div class="form-group text-center">
-							<button type="submit" class="btn btn-info">
-								회원가입&nbsp;<i class="fa fa-check spaceLeft"></i>
+							<button type="button" class="btn btn-info" onclick="goJoin(this.form)" style="padding:17px">
+								<b style="font-size:20px">회원가입</b>&nbsp;<i class="fa fa-check spaceLeft"></i>
 							</button>
-							<button type="submit" class="btn btn-warning">
-								가입취소&nbsp;<i class="fa fa-times spaceLeft"></i>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							
+							<button type="button" class="btn btn-warning" onclick="gohome()" style="padding:17px">
+								<b style="font-size:20px">가입취소</b>&nbsp;<i class="fa fa-times spaceLeft"></i>
 							</button>
+							<br><br><br>
 						</div>
 					</form>
 				</div>
@@ -294,4 +311,121 @@
 		</div>
 	</div>	
 </body>
+
+<!-- alert창 꾸미기 -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/wow-alert.css">
+<script src="<%=request.getContextPath()%>/resources/js/wow-alert.js"></script>
+
+<script>
+
+	// 주소검색
+	function searchAddr(){
+
+	}
+
+	// 가입취소, 홈으로 돌아가기
+	function gohome(){
+		location.href="<%=request.getContextPath()%>/start"
+	}
+	
+	// 회원가입
+	function goJoin(form){
+		
+		// 정규식
+		var id = document.abc.InputId.value; // 아이디
+		var idPattern = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/; // 처음은 영어 / 영(대,소) + 숫자 조합의 4~16자리
+		
+		var pwd = document.abc.InputPassword1.value; // 패스워드
+		var pwdPattern = /^.*(?=.{8,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/ // 무조껀 영어와 숫자를 혼용하여 최소 8자 ~ 20자 
+		
+		var pwdChk = document.abc.InputPassword2.value; // 패스워드 확인
+		
+		var name = document.abc.username.value; // 이름
+		var namePattern = /^[가-힣]{1,10}|[a-zA-Z]{1,20}$/ // 영어와 한글 혼용 금지
+		
+		var number = document.abc.usernumber.value; // 전화번호 
+		var numberPattern = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}$/ // - 없이 번호 입력
+		
+		var email = document.abc.InputEmail.value; // 이메일
+		var emailPattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){1,2}$/ //
+		
+		//
+		var addr1 = document.abc.InputAddr1.value; // 검색한 주소
+		
+		var addr2 = document.abc.InputAddr2.value; // 입력한 상세주소
+		//
+		
+		var birth = document.abc.InputBirth.value; // 생년월일
+		var birthPattern = /^[0-9]{8}$/ // 8자리 생년월일 ex) 19910505
+				
+		
+		if(idPattern.test(id)==true){
+			if(pwdPattern.test(pwd)==true){
+				if(pwd==pwdChk){
+					if(namePattern.test(name)==true){
+						if(numberPattern.test(number)==true){
+							if(emailPattern.test(email)==true){
+// 								if(){
+// 									if(){
+										if(birthPattern.test(birth)==true){
+											
+											if ($('.sex1').is(":checked")){ 
+												var gender = $('.sex1').val(); // 남자
+												// 링크걸기
+													form.method="post";
+													form.submit();
+											}else if($('.sex2').is(":checked")){
+												var gender = $('.sex2').val(); // 여자
+												// 링크걸기
+													form.method="post";
+													form.submit();
+											}else{
+												alert('성별을 선택해 주세요.');
+												document.abc.check.focus();
+											}
+											
+										}else{
+											alert('생년월일은 8자리로 ex)19910505 와 같이 입력해주세요.');
+											document.abc.InputBirth.value="";
+											document.abc.InputBirth.focus();
+										}
+// 									}else{
+										
+// 									}
+// 								}else{
+									
+// 								}
+							}else{
+								alert('이메일 입력이 잘못되었습니다. 다시확인해주세요.');
+								document.abc.InputEmail.value="";
+								document.abc.InputEmail.focus();
+							}
+						}else{
+							alert('전화번호는 - 없이 숫자로만 입력해주세요.');
+							document.abc.usernumber.value="";
+							document.abc.usernumber.focus();
+						}
+					}else{
+						alert('이름에 공백과 영어와 한글을 혼용할 수 없습니다. 다시 확인해주세요.');
+						document.abc.username.value="";
+						document.abc.username.focus();
+					}
+				}else{
+					alert('비밀번호가 서로 일치하지 않습니다. 다시 확인해주세요.');
+					document.abc.InputPassword2.value="";
+					codument.abc.InputPassword2.focus();
+				}
+			}else{
+				alert('비밀번호는 영어와 숫자를 혼용하여 8 ~ 20자로 입력해주세요.');
+				document.abc.InputPassword1.value="";
+				document.abc.InputPassword1.focus();
+			}
+		}else{
+			alert('아이디의 첫 글자는 영어이며 4 ~ 16자로 입력해주세요.');
+			document.abc.InputId.value="";
+			docuemnt.abc.InputId.focus();
+		}
+	}
+</script>
+
 </html>
