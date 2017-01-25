@@ -1,6 +1,7 @@
 package com.pro.bf.dto;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * @author 차승현<br>
@@ -17,13 +18,22 @@ public class MbrVO {
 	private Date mbr_brt; // 생년월일
 	private String mbr_gnd; // 성별
 	private Date mbr_date; // 아이디 생성날짜
-	private char mbr_eml_yn; // 이메일 수신 여부 (default 'Y')
+	private String mbr_eml_yn; // 이메일 수신 여부 (default 'Y')
+	private String use_yn; // 사용여부(default:Y)
 	
-	public char getMbr_eml_yn() {
+	public String getUse_yn() {
+		return use_yn;
+	}
+
+	public void setUse_yn(String use_yn) {
+		this.use_yn = use_yn;
+	}
+
+	public String getMbr_eml_yn() {
 		return mbr_eml_yn;
 	}
 
-	public void setMbr_eml_yn(char mbr_eml_yn) {
+	public void setMbr_eml_yn(String mbr_eml_yn) {
 		this.mbr_eml_yn = mbr_eml_yn;
 	}
 

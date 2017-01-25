@@ -208,7 +208,7 @@
 					<h2>
 						<b>Join</b> membership
 					</h2>
-					<p>'성공하는 사람들 회원가입' 페이지 입니다.</p>
+					<p>'성공하는 사람들' 회원가입 페이지 입니다.</p>
 				</div>
 			</section>
 
@@ -221,8 +221,15 @@
 					<form role="form" name="abc" action="<%= request.getContextPath() %>/join/joinjoinForm">
 						<div class="form-group">
 							<label for="InputId">아이디</label> 
-								<input type="email" class="form-control" name="InputId" placeholder="아이디를 입력해주세요" id="id">
+								<input type="email" class="form-control" name="InputId" placeholder="아이디를 입력해주세요" id="id" style="width:475px">
+								<input type="button" value="중복확인" style="position:absolute; left:495px; top:25px; background-color:#000000; color=#FFF0F0; height:35px; width:75px; margin:0; padding:0;" 
+											id="idcheck" class="btn btn-info">
 						</div>
+						
+						<!-- 아이디 중복확인을 클릭했는지를 알아보기위함 -->
+						<input type="hidden" id="idcheckyn" name="idcheckyn" value="no">
+						<!-- 아이디 중복확인을 클릭했는지를 알아보기위함 -->
+						
 						<div class="form-group">
 							<label for="InputPassword1">비밀번호</label>
 								<input type="password" class="form-control" name="InputPassword1" placeholder="비밀번호를 입력해주세요">
@@ -252,7 +259,7 @@
 						<div class="form-group">
 							<label for="InputAddr">주소</label>
 								<input type="email" class="form-control" name="InputAddr1" placeholder="검색해주세요" style="width:400px" readonly>
-								<input type="button" value="Search" style="position:absolute; left:420px; bottom:332.4px; background-color:#000000; color=#FFF0F0; height:35px; width:75px; margin:0; padding:0;" 
+								<input type="button" value="Search" style="position:absolute; left:420px; bottom:371.9px; background-color:#000000; color=#FFF0F0; height:35px; width:75px; margin:0; padding:0;" 
 											class="btn btn-info" onclick="searchAddr()">
 								<input type="email" class="form-control" name="InputAddr2" placeholder="상세주소를 입력해주세요" style="width:470px; margin-top: 8px">
 						</div>
@@ -280,9 +287,7 @@
 						</span>
 						
 						<!-- check box로 성별을 구분해서 값을 가져가기 힘들다. 그래서 사용한 구문 -->
-						
 						<input type="hidden" id="i_result" name="gender">
-						
 						<!-- ////////////////////////////////////////////////// -->
 						<br><br><br>
 						
@@ -301,7 +306,7 @@
 					</form>
 				</div>
 			</article>
-			<!--  -->
+			<!-- 회원가입 form -->
 
 		</div>
 	</div>	
@@ -312,10 +317,51 @@
 <script src="<%=request.getContextPath()%>/resources/js/wow-alert.js"></script>
 
 <script>
-
+	// ajax 아이디 중복검사
+	$(function(){
+		$('#idcheck').click(function(){ // 아이디 중복검사 버튼 클릭이벤트
+			//
+			$.ajax({
+				url : "<%=request.getContextPath()%>/join/idcheck",
+				type : "post",
+				dataType:'text',
+				data : ({
+					userid: $("input[name=InputId]").val()
+				}),
+				success:function(data){ // 중복확인 후 return되는 값 data
+					var id = document.abc.InputId.value;
+					var idPattern = /^[A-Za-z]{1}[A-Za-z0-9]{3,15}$/; // 처음은 영어 / 영(대,소) + 숫자 조합의 4~16자리
+					
+					if(!idPattern.test(id)==true){
+						alert('아이디의 첫 글자는 영어이며 4 ~ 16자로 입력해주세요.');
+						$('#idcheckyn').val('no');
+						document.abc.InputId.value="";
+						docuemnt.abc.InputId.focus();
+					}else if(data=='yes'){
+						alert('사용가능한 아이디입니다.');
+						$(function(){
+							$('#idcheckyn').val('yes');
+						});
+						$('input[name=InputPassword1]').focus();
+					}else if(data=='no'){
+						alert('사용하실 수 없는 아이디입니다. 아이디를 다시 입력해주세요.');
+						$('#idcheckyn').val('no');
+						$("input[name=InputId]").val("");
+						$("input[name=InputId]").focus();
+					}
+				},
+				error : function(error){
+					alert('알수없는 error 페이지를 재시작해주세요.');
+				}
+			});
+			//
+		});
+	});
+	
 	// 주소검색
 	function searchAddr(){
-
+		var url = "findZipNum";
+		window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=650, height=450, top=200, left=200, ");
 	}
 
 	// 가입취소, 홈으로 돌아가기
@@ -346,85 +392,92 @@
 		
 		//
 		var addr1 = document.abc.InputAddr1.value; // 검색한 주소
-		
 		var addr2 = document.abc.InputAddr2.value; // 입력한 상세주소
 		//
 		
 		var birth = document.abc.InputBirth.value; // 생년월일
 		var birthPattern = /^[0-9]{8}$/ // 8자리 생년월일 ex) 19910505
 				
+		// 아이디 중복확인을 했는지 확인하기 위함 Yes여야 넘어감
+		var idid = document.abc.idcheckyn.value;
 		
-		if(idPattern.test(id)==true){
-			if(pwdPattern.test(pwd)==true){
-				if(pwd==pwdChk){
-					if(namePattern.test(name)==true){
-						if(numberPattern.test(number)==true){
-							if(emailPattern.test(email)==true){
-// 								if(){
-// 									if(){
-										if(birthPattern.test(birth)==true){
-											
-											if ($('.sex1').is(":checked")){ 
-												var gender = $('.sex1').val(); // 남자
-												$(function(){
-													$('#i_result').val('남자');
-												});
-												// 링크걸기
-													form.method="post";
-													form.submit();
-											}else if($('.sex2').is(":checked")){
-												var gender = $('.sex2').val(); // 여자
-												$(function(){
-													$('#i_result').val('여자');
-												});
-												// 링크걸기
-													form.method="post";
-													form.submit();
+		if(idid=='yes'){
+			if(idPattern.test(id)==true){
+				if(pwdPattern.test(pwd)==true){
+					if(pwd==pwdChk){
+						if(namePattern.test(name)==true){
+							if(numberPattern.test(number)==true){
+								if(emailPattern.test(email)==true){
+									if(!addr1==null || !addr1==""){
+										if(!addr2==null || !addr2==""){
+											if(birthPattern.test(birth)==true){
+												
+												if ($('.sex1').is(":checked")){ 
+													var gender = $('.sex1').val(); // 남자
+													$(function(){
+														$('#i_result').val('남자');
+													});
+													// 링크걸기
+														form.method="post";
+														form.submit();
+												}else if($('.sex2').is(":checked")){
+													var gender = $('.sex2').val(); // 여자
+													$(function(){
+														$('#i_result').val('여자');
+													});
+													// 링크걸기
+														form.method="post";
+														form.submit();
+												}else{
+													alert('성별을 선택해 주세요.');
+													document.abc.check.focus();
+												}
+												
 											}else{
-												alert('성별을 선택해 주세요.');
-												document.abc.check.focus();
+												alert('생년월일은 8자리로 ex)19910505 와 같이 입력해주세요.');
+												document.abc.InputBirth.value="";
+												document.abc.InputBirth.focus();
 											}
-											
 										}else{
-											alert('생년월일은 8자리로 ex)19910505 와 같이 입력해주세요.');
-											document.abc.InputBirth.value="";
-											document.abc.InputBirth.focus();
+											alert('상세주소를 입력해주세요.');
+											document.abc.InputAddr2.fucus();
 										}
-// 									}else{
-										
-// 									}
-// 								}else{
-									
-// 								}
+									}else{
+										alert('주소를 검색해주세요.');
+										document.abc.InputAddr1.focus();
+									}
+								}else{
+									alert('이메일 입력이 잘못되었습니다. 다시확인해주세요.');
+									document.abc.InputEmail.value="";
+									document.abc.InputEmail.focus();
+								}
 							}else{
-								alert('이메일 입력이 잘못되었습니다. 다시확인해주세요.');
-								document.abc.InputEmail.value="";
-								document.abc.InputEmail.focus();
+								alert('전화번호는 - 없이 숫자로만 입력해주세요.');
+								document.abc.usernumber.value="";
+								document.abc.usernumber.focus();
 							}
 						}else{
-							alert('전화번호는 - 없이 숫자로만 입력해주세요.');
-							document.abc.usernumber.value="";
-							document.abc.usernumber.focus();
+							alert('이름에 공백과 영어와 한글을 혼용할 수 없습니다. 다시 확인해주세요.');
+							document.abc.username.value="";
+							document.abc.username.focus();
 						}
 					}else{
-						alert('이름에 공백과 영어와 한글을 혼용할 수 없습니다. 다시 확인해주세요.');
-						document.abc.username.value="";
-						document.abc.username.focus();
+						alert('비밀번호가 서로 일치하지 않습니다. 다시 확인해주세요.');
+						document.abc.InputPassword2.value="";
+						codument.abc.InputPassword2.focus();
 					}
 				}else{
-					alert('비밀번호가 서로 일치하지 않습니다. 다시 확인해주세요.');
-					document.abc.InputPassword2.value="";
-					codument.abc.InputPassword2.focus();
+					alert('비밀번호는 영어와 숫자를 혼용하여 8 ~ 20자로 입력해주세요.');
+					document.abc.InputPassword1.value="";
+					document.abc.InputPassword1.focus();
 				}
 			}else{
-				alert('비밀번호는 영어와 숫자를 혼용하여 8 ~ 20자로 입력해주세요.');
-				document.abc.InputPassword1.value="";
-				document.abc.InputPassword1.focus();
+				alert('아이디의 첫 글자는 영어이며 4 ~ 16자로 입력해주세요.');
+				document.abc.InputId.value="";
+				docuemnt.abc.InputId.focus();
 			}
 		}else{
-			alert('아이디의 첫 글자는 영어이며 4 ~ 16자로 입력해주세요.');
-			document.abc.InputId.value="";
-			docuemnt.abc.InputId.focus();
+			alert('아이디 중복확인을 해주세요.');
 		}
 	}
 </script>

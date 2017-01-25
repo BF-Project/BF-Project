@@ -6,7 +6,8 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- DaoImple Bean 등록 / DaoImpl에 setter가 있어야 한다.-->
+	<!-- DaoImpl Bean 등록 / DaoImpl에 setter가 있어야 한다.-->
+	<!-- DAOImpl -->
 	<bean id="addressDAOImpl" class="com.pro.bf.daoImpl.AddrDaoImpl" p:client-ref="client" />
 	<bean id="adminDAOImpl" class="com.pro.bf.daoImpl.AdminDaoImpl" p:client-ref="client" />
 	<bean id="cmtDAOImpl" class="com.pro.bf.daoImpl.CmtDaoImpl" p:client-ref="client" />
@@ -29,4 +30,12 @@
 	<bean id="shopDAOImpl" class="com.pro.bf.daoImpl.ShopDaoImpl" p:client-ref="client" />
 	<bean id="touristDAOImpl" class="com.pro.bf.daoImpl.TouristDaoImpl" p:client-ref="client" />
 	
+	<!-- Service -->
+	<bean id="addrServiceImpl" class="com.pro.bf.serviceImpl.AddrServiceImpl">
+		<property name="addressDAO" ref="addressDAOImpl" />
+	</bean>
+	
+	<bean id="mbrServiceImpl" class="com.pro.bf.serviceImpl.MbrServiceImpl">
+		<property name="mbrDAO" ref="mbrDAOImpl" />
+	</bean>
 </beans>

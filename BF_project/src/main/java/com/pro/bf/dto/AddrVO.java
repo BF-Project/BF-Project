@@ -6,27 +6,27 @@ package com.pro.bf.dto;
  */
 public class AddrVO {
 	
-	private int addr_srl_num; // key, 주소 일련번호
-	private String addr_zce_num; // 우편번호
+	private String addr_zip_num; // 우편번호?
 	private String addr_sd; // 시도
-	private String addr_ggn; // 구군
+	private String addr_gugun; // 구군
 	private String addr_dong; // 동
-	private String addr_fsz_scz; //본번_부번
+	private int addr_zip_code; // 각 지역에 매긴 번호 
+	private String addr_bunji; // 번지
 	
-	public int getAddr_srl_num() {
-		return addr_srl_num;
+	@Override
+	public String toString() {
+		return "AddrVO [addr_zip_num=" + addr_zip_num + ", addr_sd=" + addr_sd
+				+ ", addr_gugun=" + addr_gugun + ", addr_dong=" + addr_dong
+				+ ", addr_zip_code=" + addr_zip_code + ", addr_bunji="
+				+ addr_bunji + "]";
+	}
+
+	public String getAddr_zip_num() {
+		return addr_zip_num;
 	}
 	
-	public void setAddr_srl_num(int addr_srl_num) {
-		this.addr_srl_num = addr_srl_num;
-	}
-	
-	public String getAddr_zce_num() {
-		return addr_zce_num;
-	}
-	
-	public void setAddr_zce_num(String addr_zce_num) {
-		this.addr_zce_num = addr_zce_num;
+	public void setAddr_zip_num(String addr_zip_num) {
+		this.addr_zip_num = addr_zip_num;
 	}
 	
 	public String getAddr_sd() {
@@ -37,12 +37,12 @@ public class AddrVO {
 		this.addr_sd = addr_sd;
 	}
 	
-	public String getAddr_ggn() {
-		return addr_ggn;
+	public String getAddr_gugun() {
+		return addr_gugun;
 	}
 	
-	public void setAddr_ggn(String addr_ggn) {
-		this.addr_ggn = addr_ggn;
+	public void setAddr_gugun(String addr_gugun) {
+		this.addr_gugun = addr_gugun;
 	}
 	
 	public String getAddr_dong() {
@@ -53,11 +53,19 @@ public class AddrVO {
 		this.addr_dong = addr_dong;
 	}
 	
-	public String getAddr_fsz_scz() {
-		return addr_fsz_scz;
+	public int getAddr_zip_code() {
+		return addr_zip_code;
 	}
 	
-	public void setAddr_fsz_scz(String addr_fsz_scz) {
-		this.addr_fsz_scz = addr_fsz_scz;
+	public void setAddr_zip_code(int addr_zip_code) {
+		this.addr_zip_code = addr_zip_code;
+	}
+	
+	public String getAddr_bunji() {
+		return addr_bunji;
+	}
+	
+	public void setAddr_bunji(String addr_bunji) {
+		this.addr_bunji = addr_bunji;
 	}
 }
