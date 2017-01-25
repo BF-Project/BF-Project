@@ -6,8 +6,15 @@
 <sqlMap namespace="Mbr">
 	<typeAlias alias="str" type="java.lang.String" />
 	<typeAlias alias="int" type="java.lang.Integer" />
-	<typeAlias alias="mbr" type="com.pro.bf.dtd.MbrVO" />
+	<typeAlias alias="mbr" type="com.pro.bf.dto.MbrVO" />
 	
 	<!-- Query 문 작성란 -->
-		
+	<insert id="insertMember" parameterClass="mbr" >
+		insert into mbr(mbr_id, mbr_pwd, mbr_nm, mbr_eml, mbr_phone, mbr_addr, mbr_brt, mbr_gnd, mbr_eml_yn) 
+		values(#mbr_id#, #mbr_pwd#, #mbr_nm#, #mbr_eml#, #mbr_phone#, #mbr_addr#, #mbr_brt#, #mbr_gnd#, #mbr_eml_yn#)
+	</insert>
+	
+	<select id="idcheck" parameterClass="str" resultClass="str">
+		select mbr_id from mbr where mbr_id=#userid#
+	</select>
 </sqlMap>

@@ -106,6 +106,11 @@
 		});
 	});
 </script>
+
+<!-- alert창 꾸미기 -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/wow-alert.css">
+<script src="<%=request.getContextPath()%>/resources/js/wow-alert.js"></script>
+
 <style>
 #logo {
 	vertical-align: middle;
@@ -197,20 +202,14 @@ body {
 										<li><a href="javascript:void(3);" style="font-size: 13px">자유게시판</a></li>
 										<li><a href="javascript:void(0);" style="font-size: 13px">커뮤니티
 												게시판</a></li>
-										<li><a href="javascript:void(0);" style="font-size: 13px">Q
-												& A 게시판</a></li>
+										<li><a href="javascript:void(0);" style="font-size: 13px">Q	& A 게시판</a></li>
 									</ul></li>
 
 								<li class="scroll_btn"><a href="#" style="font-size: 14px">공지사항</a></li>
 
 								<!-- c 태그 사용해서 회원 로그인 일때 / 아닐때 -->
 
-								<li class="scroll_btn last"><a href="#contacts"
-									style="font-size: 14px">Contacts</a></li>
-
-								<li><a href="<%=request.getContextPath()%>/join/joinForm"
-									style="font-size: 14px">회원가입</a></li>
-
+								<li><a href="<%=request.getContextPath()%>/join/joinForm" style="font-size: 14px">회원가입</a></li>
 							</ul>
 						</nav>
 					</div>

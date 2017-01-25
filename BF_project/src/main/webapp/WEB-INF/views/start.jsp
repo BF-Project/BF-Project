@@ -4,6 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 
+
+<c:if test="${!empty sessionScope.joinSuccess}">
+	<script>
+		alert('회원님의 가입을 환영합니다.');
+	</script>
+	<c:remove var="joinSuccess" scope="session" />
+</c:if>
 <!-- <body> -->
 
 <!-- PRELOADER -->

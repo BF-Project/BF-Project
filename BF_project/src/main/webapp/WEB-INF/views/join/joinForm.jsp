@@ -200,7 +200,7 @@
 					<h2>
 						<b>Join</b> membership
 					</h2>
-					<p>'성공하는 사람들 회원가입' 페이지 입니다.</p>
+					<p>'성공하는 사람들' 회원가입 페이지 입니다.</p>
 				</div>
 			</section>
 			<!-- //BREADCRUMBS -->

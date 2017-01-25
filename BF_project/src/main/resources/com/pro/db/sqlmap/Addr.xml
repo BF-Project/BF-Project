@@ -9,5 +9,8 @@
 	<typeAlias alias="addr" type="com.pro.bf.dto.AddrVO" />
 	
 	<!-- Query 문 작성란 -->
-		
+	<select id="selectAddressByDong" parameterClass="str" resultClass="addr">
+		select * from addr where addr_dong like '%'||#dong#||'%'
+	</select>	
+	
 </sqlMap>
