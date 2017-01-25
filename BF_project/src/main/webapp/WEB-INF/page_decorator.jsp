@@ -38,6 +38,7 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
+ 
 
 <!-- FONTS -->
 <link
@@ -74,8 +75,10 @@
 	type="text/javascript"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/js/jquery.BlackAndWhite.js"></script>
+	
 <script src="<%=request.getContextPath()%>/resources/js/myscript.js"
 	type="text/javascript"></script>
+
 
 <script>
 	//PrettyPhoto

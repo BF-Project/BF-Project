@@ -150,10 +150,10 @@ button[disabled], html input[disabled] {
 	cursor: default
 }
 
-input[type="checkbox"], input[type="radio"] {
+/* input[type="checkbox"], input[type="radio"] {
 	padding: 0;
 	box-sizing: border-box
-}
+} */
 
 input[type="search"] {
 	-webkit-box-sizing: content-box;
@@ -1526,7 +1526,7 @@ textarea.form-control {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	vertical-align: middle
-}
+} 
 
 .radio label, .checkbox label {
 	display: inline;
@@ -3923,7 +3923,7 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 		{
 		float: none;
 		margin-left: 0
-	}
+	} */
 }
 
 @media ( max-width :767px) {
