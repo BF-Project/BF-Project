@@ -24,7 +24,7 @@ body {
 	font-weight:300;
 	font-size: 13px;
 	line-height: 20px;
-	color: #666;
+	color: black;
 	background-color:#fff;
 }
 #page {overflow-x:hidden; position:relative; z-index:5;}

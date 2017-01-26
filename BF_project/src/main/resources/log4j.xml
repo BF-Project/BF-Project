@@ -34,7 +34,7 @@
 
 	<!-- 추가 -->
 	<logger name="org.springframework.jdbc">
-		<level value="debug" />
+		<level value="WARN" />
 	</logger>
 	
 	<!-- Root Logger -->
