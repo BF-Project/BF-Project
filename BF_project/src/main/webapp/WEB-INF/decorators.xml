@@ -17,6 +17,7 @@
 	<excludes>
 		<pattern>/join/joinForm</pattern>
 		<pattern>/join/joinjoinForm*</pattern>
+		<!-- <pattern>/simulator*</pattern> -->
 		<pattern>/join/findZipNum*</pattern>
 	</excludes>
 	

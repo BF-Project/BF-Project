@@ -38,6 +38,8 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/examples-base.css" /> --%>
+ 
 
 <!-- FONTS -->
 <link
@@ -74,8 +76,10 @@
 	type="text/javascript"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/js/jquery.BlackAndWhite.js"></script>
+	
 <script src="<%=request.getContextPath()%>/resources/js/myscript.js"
 	type="text/javascript"></script>
+
 
 <script>
 	//PrettyPhoto
@@ -137,6 +141,9 @@ body {
 	margin-top: -1.9em;
 	height: 1.9em
 }
+
+
+
 </style>
 
 
