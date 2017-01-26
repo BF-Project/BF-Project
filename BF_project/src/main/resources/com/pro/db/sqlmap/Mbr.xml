@@ -17,4 +17,12 @@
 	<select id="idcheck" parameterClass="str" resultClass="str">
 		select mbr_id from mbr where mbr_id=#userid#
 	</select>
+	
+	<select id="login" parameterClass="mbr" resultClass="str">
+		select mbr_id from mbr where mbr_id=#mbr_id# and mbr_pwd=#mbr_pwd#
+	</select>
+	
+	<select id="SearchLoginUserName" parameterClass="str" resultClass="str">
+		select mbr_nm from mbr where mbr_id=#login#
+	</select>
 </sqlMap>

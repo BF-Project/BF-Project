@@ -327,6 +327,7 @@
 				dataType:'text',
 				data : ({
 					userid: $("input[name=InputId]").val()
+					
 				}),
 				success:function(data){ // 중복확인 후 return되는 값 data
 					var id = document.abc.InputId.value;

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="euc-kr" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 
 <decorators defaultdir="/">	
 
-	<!-- ÀÏ¹İ È¸¿ø -->
+	<!-- ì¼ë°˜ íšŒì› -->
 	<decorator name="main" page="WEB-INF/page_decorator.jsp">
-		<pattern>/</pattern>
+		<pattern>/**</pattern>
 	</decorator>
 	
-	<!-- °ü¸®ÀÚ -->
+	<!-- ê´€ë¦¬ì -->
 <!-- 	<decorator name="admin" page="admin_decorator.jsp"> -->
 <!-- 		<pattern>/admin/*.do</pattern> -->
 <!-- 	</decorator> -->
