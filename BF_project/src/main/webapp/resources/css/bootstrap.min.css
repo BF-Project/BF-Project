@@ -5190,8 +5190,8 @@ a.list-group-item:hover, a.list-group-item:focus {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
-	opacity: .5;
-	filter: alpha(opacity = 50)
+	opacity: .2;
+	filter: alpha(opacity = 20)
 }
 
 button.close {
@@ -5212,6 +5212,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 }
 
 .modal {
+	margin-top:46px;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -5248,14 +5249,15 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 }
 
 .modal-content {
+	margin-top:26px;
 	position: relative;
 	background-color: #fff;
 	border: 1px solid #999;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	border-radius: 6px;
 	outline: 0;
-	-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 50 50px 9px rgba(0, 0, 0, 0.5);
+	box-shadow: 50 50px 9px rgba(0, 0, 0, 0.5);
 	background-clip: padding-box
 }
 
@@ -5347,7 +5349,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 	}
 	.modal-content {
 		-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+		box-shadow: 50px 50px 10px rgba(0, 0, 0, 0.5)
 	}
 }
 

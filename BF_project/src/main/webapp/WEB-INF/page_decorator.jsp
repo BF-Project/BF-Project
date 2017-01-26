@@ -139,7 +139,84 @@ body {
 }
 </style>
 
+
+<!-- 로그인 모달을 위한 css -->
+<style>
+  .modal-header, h4, .close {
+      background-color: gray;
+      color:white !important;
+      text-align: center;
+      font-size: 30px;
+  }
+  .modal-footer {
+      background-color: #f9f9f9;
+  }
+</style>
+<!-- 로그인 모달을 위한 css : end-->
+	
+<!-- 로그인 모달을 위한 jQuery -->
+<script>
+	$(document).ready(function(){
+	    $("#myBtn").click(function(){
+	        $("#myModal").modal();
+	    });
+	});
+</script>
+
+<!-- 로그인 모달을 위한 jQuery : end -->
+<!-- 아이디찾기 / 비밀번호 찾기 / 로그인 모달 -->
+<script>
+	// 아이디 찾기
+	$(function(){
+		$('#idlook').click(function(){
+			$("#myModal").modal('hide');
+			$("#myModal2").modal('show');
+		});
+	})
+	$(function(){
+		$('#idlook2').click(function(){
+			$("#myModal3").modal('hide');
+			$("#myModal2").modal('show');
+		});
+	})
+	
+	// 로그인
+	$(function(){
+		$('#login').click(function(){
+			$("#myModal2").modal('hide');
+			$("#myModal").modal('show');
+		});
+	});
+	$(function(){
+		$('#login2').click(function(){
+			$("#myModal3").modal('hide');
+			$("#myModal").modal('show');
+		});
+	});
+	
+	// 비밀번호 찾기
+	$(function(){
+		$('#pwdlook').click(function(){
+			$("#myModal").modal('hide');
+			$("#myModal3").modal('show');
+		});
+	})
+	$(function(){
+		$('#pwdlook2').click(function(){
+			$("#myModal2").modal('hide');
+			$("#myModal3").modal('show');
+		});
+	})
+</script>
+<!-- 아이디찾기 / 비밀번호 찾기 / 로그인 모달 : end-->
+
+<!-- 모달 내 function -->
+
+<!-- 모달 내 function : end -->
+
+
 <decorator:head />
+
 
 </head>
 
@@ -164,17 +241,139 @@ body {
 					</div>
 					<!-- //LOGO -->
 
-					<!-- SEARCH FORM -->
+					<!-- Login FORM -->
 					<div id="log-in" class="pull-right">
 						<form method="get" action="#">
-							<a href="#"><img
-								src="<%=request.getContextPath()%>/resources/images/service/login.jpg"
-								style="width: 63px"><br> <span
-								style="margin-left: -20px;">login</span></a>
+							<a class="btn btn-default btn-lg" id="myBtn" style="position:absolute; top:-18px; right:-28px">
+								<img src="<%=request.getContextPath()%>/resources/images/service/login.jpg" style="width: 63px"><br>
+								<span style="position: relative; right: 10px; top:-7px">login</span>
+							</a>
 						</form>
 					</div>
-					<!-- 끝 : SEARCH FORM -->
-
+					<!-- 끝 : Login FORM -->
+					
+					<!-- 로그인 창 모달 / start -->
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+						  
+						    <!-- Modal content-->
+							<div class="modal-content"> <!-- modal-content ?? -->
+								<div class="modal-header" style="padding:15px 30px;">
+									<h4 style="margin-top: 20px"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+								</div>
+							<div class="modal-body" style="padding:30px 20px;">
+								<form role="form">
+									<div class="form-group">
+										<label for="usrname"><b style="font-size:19px">UserID</b></label>
+										<input type="text" class="form-control" id="usrid" placeholder="아이디를 입력해주세요." style="font-size: 14px">
+									</div>
+									<div class="form-group">
+										<label for="psw"><b style="font-size:19px">Password</b></label>
+										<input type="text" class="form-control" id="psw" placeholder="비밀번호를 입력해주세요." style="font-size: 14px">
+									</div>
+									<input type="button" class="btn btn-success btn-block" value="회원가입"
+										style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;"
+										onclick="location='<%=request.getContextPath()%>/join/joinForm'">
+									
+									<button class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: gray; color:white; font-size: 16px; position:absolute;">
+										<b>Login</b>
+									</button>
+									<br><br><br>						
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="width:120px; color:black; font-size: 16px;">
+									Cancel
+								</button>
+								<p style="margin-top:7px;">Forgot Id ? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="idlook"><b>아이디 찾기</b></a></p>
+								<p style="margin-bottom: -33px; margin-top: -6px">Forgot Password ? &nbsp;&nbsp;<a href="#" id="pwdlook"><b>비밀번호 찾기</b></a></p>
+							</div>
+							</div>
+						</div>
+					</div> 
+					<!-- 로그인 창 모달 / end -->
+					
+					<!-- 아이디 찾기 모달  -->
+					<div class="modal fade" id="myModal2" role="dialog">
+						<div class="modal-dialog">
+						  
+						    <!-- Modal content-->
+							<div class="modal-content"> <!-- modal-content ?? -->
+								<div class="modal-header" style="padding:15px 30px;">
+									<h4 style="margin-top: 20px">아이디 찾기</h4>
+								</div>
+							<div class="modal-body" style="padding:30px 20px;">
+								<form role="form">
+									<div class="form-group">
+										<label for="usrname"><b style="font-size:19px">UserName</b></label>
+										<input type="text" class="form-control" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
+									</div>
+									<div class="form-group">
+										<label for="psw"><b style="font-size:19px">E-mail</b></label>
+										<input type="text" class="form-control" id="searchusermail" placeholder="이메일 주소를 입력해주세요." style="font-size: 14px">
+									</div>
+									<button id="pwdlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
+										<b>비밀번호 찾기</b>
+									</button>
+									<button class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
+										<b>아이디 찾기</b>
+									</button>
+									<br><br><br>						
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="width:120px; color:black; font-size: 16px;">
+									Cancel
+								</button>
+								<p style="margin-top:7px;">회원이 아니십니까 ? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location='<%=request.getContextPath()%>/join/joinForm'"><b>회원가입</b></a></p>
+								<p style="margin-bottom: -33px; margin-top: -6px">로그인하러가기  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="login"><b>로그인</b></a></p>
+							</div>
+							</div>
+						</div>
+					</div> 
+					<!-- 아이디 찾기 모달  : end -->
+				
+					<!-- 비밀번호 찾기 모달  -->
+					<div class="modal fade" id="myModal3" role="dialog">
+						<div class="modal-dialog">
+						  
+						    <!-- Modal content-->
+							<div class="modal-content"> <!-- modal-content ?? -->
+								<div class="modal-header" style="padding:15px 30px;">
+									<h4 style="margin-top: 20px">비밀번호 찾기</h4>
+								</div>
+							<div class="modal-body" style="padding:30px 20px;">
+								<form role="form">
+									<div class="form-group">
+										<label for="usrname"><b style="font-size:19px">UserID</b></label>
+										<input type="text" class="form-control" id="usrid" placeholder="아이디를 입력해주세요." style="font-size: 14px">
+									</div>
+									<div class="form-group">
+										<label for="usrname"><b style="font-size:19px">UserName</b></label>
+										<input type="text" class="form-control" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
+									</div>
+									<button id="idlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
+										<b>아이디 찾기</b>
+									</button>
+									<button class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
+										<b>비밀번호 찾기</b>
+									</button>
+									<br><br><br>						
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="width:120px; color:black; font-size: 16px;">
+									Cancel
+								</button>
+								<p style="margin-top:7px;">회원이 아니십니까 ? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location='<%=request.getContextPath()%>/join/joinForm'"><b>회원가입</b></a></p>
+								<p style="margin-bottom: -33px; margin-top: -6px">로그인하러가기  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="login2"><b>로그인</b></a></p>
+							</div>
+							</div>
+						</div>
+					</div>
+					<!-- 비밀번호 찾기 모달 : end -->
+					
+					
 					<!-- MENU -->
 					<div class="pull-right">
 						<nav class="navmenu center">
@@ -222,7 +421,11 @@ body {
 		<!-- //HEADER -->
 
 		<div id="content">
+		
+		
 			<decorator:body />
+			
+			
 		</div>
 	</div>
 
@@ -334,13 +537,11 @@ body {
 				<!-- //ROW -->
 				<div class="row copyright">
 					<div class="col-lg-12 text-center">
-
 						<p>
 							Crafted with <i class="fa fa-heart"></i>, <a
 								style="color: skyblue">대표 : 차승현 (010-6480-5736)</a>
 						</p>
 					</div>
-
 				</div>
 				<!-- //ROW -->
 			</div>
