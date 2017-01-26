@@ -38,6 +38,7 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/examples-base.css" /> --%>
  
 
 <!-- FONTS -->
@@ -140,6 +141,9 @@ body {
 	margin-top: -1.9em;
 	height: 1.9em
 }
+
+
+
 </style>
 
 <decorator:head />

@@ -1,87 +1,105 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>행정구역 GeoJSON 데이터 레이어 표시하기</title>
-    <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/examples-base.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/highlight.min.js"></script>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=B3S2a2PwxQRRyezwDNUx&amp;submodules=panorama"></script>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/examples-base.css" />
-    <script>
-        var HOME_PATH = '<%=request.getContextPath()%>/resources';
-    </script>
-
-<style type="text/css">
-	.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
+<style>
+/*시뮬레이터 CSS*/
+ 	.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
 		.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 		.layer .pop-layer {display:block;}
 
-	.pop-layer {display:none; position: absolute; top: 130px; left: 300px; width: 410px; height:700px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
+	.pop-layer {display:none; position: absolute; top: 130px; left: 300px; width: 400px; height:600px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
 	.pop-layer .pop-container {padding: 20px 25px;}
 	.pop-layer p.ctxt {color: #666; line-height: 25px;}
 	.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
 
 	a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
 	a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
-	
-	
-	
-	.checks {position: relative;} 
 
-.checks input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */ 
-	position: absolute; 
-	width: 1px; 
-	height: 1px; 
-	padding: 0; 
-	margin: -1px; 
-	overflow: hidden; 
-	clip:rect(0,0,0,0); border: 0 } 
 
-.checks input[type="checkbox"] + label {
-	display: inline-block; 
-	position: relative; 
-	cursor: pointer; 
-	-webkit-user-select: none; 
-	-moz-user-select: none; 
-	-ms-user-select: none; } 
+/* input[type="checkbox"] {
+    display:none;
+}
 
-.checks input[type="checkbox"] + label:before { /* 가짜 체크박스 */ 
-	content: ' '; 
-	display: inline-block; 
-	width: 21px; /* 체크박스의 너비를 지정 */ 
-	height: 21px; /* 체크박스의 높이를 지정 */ 
-	line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */ 
-	margin: -2px 8px 0 0; 
-	text-align: center; 
-	vertical-align: middle; 
-	background: white; 
-	border: 1px solid #000000; 
-	border-radius : 3px; 
-	box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); } 
+input[type="checkbox"] + label {
+    color:#f2f2f2;
+}
 
-.checks input[type="checkbox"] + label:active:before, .checks input[type="checkbox"]:checked + label:active:before { 
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1); } 
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) left top no-repeat;
+    cursor:pointer;
+}
 
-.checks input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을때 */ 
-	content: '\2714'; /* 체크표시 유니코드 사용 */ 
-	color: #FF0000; 
-	text-shadow: 1px 1px #FF0000; 
-	background: white; 
- 	border-color: #000000; /* 검정 */
-	box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1); }
+input[type="checkbox"]:checked + label span {
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -19px top no-repeat;
+} */
+
+input[type="radio"] {
+    display:none;
+}
+
+input[type="radio"] + label {
+    color:#f2f2f2;
+    font-family:Arial, sans-serif;
+}
+
+input[type="radio"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
+    cursor:pointer;
+}
+
+input[type="radio"]:checked + label span {
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
+}
+
+
+select { width: 70px; /* 원하는 너비설정 */ 
+	padding: .3em .2em; /* 여백으로 높이 설정 */ 
+	font-family: inherit; /* 폰트 상속 */ 
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+	border: 1px solid #999; border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none; 
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+
+
 </style>
-
 </head>
 <body>
-
+	<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.js"></script> --%>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/examples-base.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/highlight.min.js"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=B3S2a2PwxQRRyezwDNUx&amp;submodules=panorama"></script>
+    
+  <script>
+        var HOME_PATH = '<%=request.getContextPath()%>/resources';
+  </script>
 <!-- @category DataLayer -->
 
 <div id="page">
@@ -94,6 +112,7 @@
     <div id="map" style="width:70%;height:600px; margin:0 auto;"></div>
 </div>
 <script id="code">
+
 var map = new naver.maps.Map(document.getElementById('map'), {
     zoom: 6,
     mapTypeId: 'normal',
@@ -199,7 +218,23 @@ function layer_open(el){
 		e.preventDefault();
 	}); */
 
-}				
+}
+
+function start(form){
+
+	$.ajax({
+		url:"start",
+		type:"post",
+		data:{"radio":$('input:radio[name="radio"]:checked').val(),
+			"addr":$('#address').val(),
+			"sel":$("select[name=sel]").val()
+			
+		},
+		success:function(data){
+			
+		}
+	});
+}
 
 </script>
 </div>
@@ -224,11 +259,17 @@ function layer_open(el){
 
 			<tr>
 				<td>창업종류</td>
-				<td colspan="2"><input type="checkbox" name="checks" value="온라인 창업">온라인
-					창업&nbsp; <input type="checkbox" name="checks" value="오프라인 창업">오프라인
-					창업</td>
+				<td colspan="2">
+					
+						<input type="radio" name="radio" id="radio1" class="radio" value="온라인 창업" checked><label for="radio1" style="color:black;"><span></span>온라인 창업</label>
+					
+					
+						<input type="radio" name="radio" id="radio2" class="radio" value="오프라인 창업"><label for="radio2" style="color:black;"><span></span>오프라인 창업</label>
+					
+					</td>
 			</tr>
-			<tr>
+			<c:if test="document.getElementById('radio1').checked">
+			<tr style="text-align:center;">
 				<td colspan="3"><select style="width: 200px;">
 						<option value="#">선택하세요</option>
 						<option value="chicken">치킨/호프</option>
@@ -237,17 +278,28 @@ function layer_open(el){
 						<option value="pension">숙박/펜션</option>
 				</select></td>
 			</tr>
+			</c:if>
 			<tr>
-				<td>영업기간</td>
-				<td><select>
-						<option value="1">1월</option>
-						<option value="2">2월</option>
-						<option value="3">3월</option>
-				</select> ~ <select>
-						<option value="1">1월</option>
-						<option value="2">2월</option>
-						<option value="3">3월</option>
-				</select></td>
+				<td>영업시간</td>
+				<td>&nbsp;&nbsp;
+				<%
+					String open = "";
+					List<String> openResult = new ArrayList<String>();
+					for(int i=0;i<24;i++){
+						int j=i+1;
+						open = j+"";
+						openResult.add(i, open);
+					}
+				%>
+				<select name="sel">
+					<c:forEach items="<%=openResult%>" var="item" begin="0" end="23">
+						<option value="${item}">${item}</option>
+					</c:forEach>
+				</select>시간
+			</tr>
+			<tr style="height:70px;"></tr>
+			<tr>
+				<td colspan="3"><input type="button" value="start" onclick="start(this.form);"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="reset"/></td>
 			</tr>
 		</table>
 	</form>
@@ -261,12 +313,9 @@ function layer_open(el){
 	</div>
 </div>
 
-<form>
-	<input type="radio" name="test">라디오1
-	<input type="radio" name="test">라디오2
-	<input type="checkbox" name="test1">체크박스1
-	<input type="checkbox" name="test1">체크박스2
-</form>
+<script>
+	
+</script>
 
 </body>
-</html>
+
