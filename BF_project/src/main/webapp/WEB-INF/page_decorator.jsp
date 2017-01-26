@@ -226,17 +226,36 @@ body {
 				success:function(data){
 					if(data=='yes'){
 						$("#myModal").modal('hide');
-						alert('로그인');
-						/* window.location.reload(); */
-						location.href="<%=request.getContextPath()%>/start";
+// 						alert('로그인');
+						window.location.reload();
 					}else{
 						alert('아이디와 비밀번호를 다시 확인해주세요.');
 					}
 				},
 				error:function(error){
-					alert(error);
+					alert('error');
 				}
-			})
+			});
+		});
+		//
+		
+		// 아이디 찾기
+		$('#idSearch').click(function(){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/join/idSearch",
+				type : "post",
+				dataType : "text",
+				data : ({
+					name:$("input[name=nameSearch]").val(),
+					email:$("input[name=mailSearch]").val()
+				}),
+				success:function(data){
+					alert("!!!!!!!!!!!!!!!!!!!!!!!!")
+				},
+				error:function(error){
+					alert('error')
+				}
+			});
 		});
 		//
 	})
@@ -244,6 +263,24 @@ body {
 <!-- 모달 내 function : end -->
 
 <script>
+</script>
+
+<script>
+	function logoutBtn(){
+		$.ajax({
+			url : "<%=request.getContextPath()%>/join/logout",
+			type : "post",
+			dataType : "text",
+			data : ({				
+			}),
+			success:function(data){
+				window.location.reload();
+			},
+			error:function(error){
+				alert('error');
+			}
+		})
+	}
 </script>
 
 <decorator:head />
@@ -278,7 +315,7 @@ body {
 							<c:choose>
 								<c:when test="${!empty sessionScope.loginUser}">
 									<!-- 로그인 O -->
-									<a class="btn btn-default btn-lg" style="position:absolute; top:-18px; right:-28px">
+									<a class="btn btn-default btn-lg" onclick="logoutBtn()" style="position:absolute; top:-18px; right:-28px">
 										<img src="<%=request.getContextPath()%>/resources/images/service/logout.jpg" style="width: 63px"><br>
 										<span style="position: relative; right: 10px; top:-7px">logout</span>
 									</a>
@@ -350,14 +387,14 @@ body {
 								<form role="form">
 									<div class="form-group">
 										<label for="usrname"><b style="font-size:19px">UserName</b></label>
-										<input type="text" class="form-control" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
+										<input type="text" class="form-control" name="nameSearch" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
 									</div>
 									<div class="form-group">
 										<label for="searchusermail"><b style="font-size:19px">E-mail</b></label>
-										<input type="text" class="form-control" id="searchusermail" placeholder="이메일 주소를 입력해주세요." style="font-size: 14px">
+										<input type="text" class="form-control" name="mailSearch" id="searchusermail" placeholder="이메일 주소를 입력해주세요." style="font-size: 14px">
 									</div>
-									<input type="button" value="비밀번호 찾기" id="pwdlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
-									<input type="button" value="아이디 찾기" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
+									<input type="button" value="아이디 찾기" id="idSearch" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: skyblue;">
+									<input type="button" value="비밀번호 찾기" id="pwdlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: gray; color:black; font-size: 16px; position:absolute;">
 									<br><br><br>						
 								</form>
 							</div>

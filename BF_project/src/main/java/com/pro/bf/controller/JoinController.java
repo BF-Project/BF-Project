@@ -150,11 +150,24 @@ public class JoinController {
 			// 로그인한 회원 이름 찾기
 			String loginUserName = mbrService.searchUserName(login);
 			session.setAttribute("loginUserName", loginUserName);
-			System.out.println(session.getAttribute("loginUser"));
-			System.out.println(session.getAttribute("loginUserName"));
 		}else{
 			data = "no";
 		}
 		return data;
+	}
+	
+	@RequestMapping("logout")
+	@ResponseBody
+	public String logout(HttpSession session, HttpServletRequest request){
+		session.removeAttribute("loginUser");
+		session.removeAttribute("loginUserName");
+		System.out.println("삭제됨??");
+		return null;
+	}
+	
+	@RequestMapping("idSearch")
+	@ResponseBody
+	public String idSearch(){
+		return "";
 	}
 }
