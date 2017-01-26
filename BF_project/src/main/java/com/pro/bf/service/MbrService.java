@@ -8,4 +8,6 @@ public interface MbrService {
 
 	void insertMember(MbrVO mbrVo) throws SQLException; 
 	String idCheck(String idcheck) throws SQLException; 
+	String login(MbrVO mbrVo) throws SQLException;
+	String searchUserName(String login) throws SQLException;
 }

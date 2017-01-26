@@ -169,8 +169,8 @@ body {
 	    });
 	});
 </script>
-
 <!-- 로그인 모달을 위한 jQuery : end -->
+
 <!-- 아이디찾기 / 비밀번호 찾기 / 로그인 모달 -->
 <script>
 	// 아이디 찾기
@@ -218,9 +218,40 @@ body {
 <!-- 아이디찾기 / 비밀번호 찾기 / 로그인 모달 : end-->
 
 <!-- 모달 내 function -->
-
+<script>
+	$(function(){
+		// 로그인 기능
+		$('#loginGo').click(function(){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/join/login",
+				type : "post",
+				dataType : "text",
+				data : ({
+					id: $("input[name=loginid]").val(),
+					pwd: $("input[name=loginpwd]").val()
+				}),
+				success:function(data){
+					if(data=='yes'){
+						$("#myModal").modal('hide');
+						alert('로그인');
+						/* window.location.reload(); */
+						location.href="<%=request.getContextPath()%>/start";
+					}else{
+						alert('아이디와 비밀번호를 다시 확인해주세요.');
+					}
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+		});
+		//
+	})
+</script>
 <!-- 모달 내 function : end -->
 
+<script>
+</script>
 
 <decorator:head />
 
@@ -251,10 +282,23 @@ body {
 					<!-- Login FORM -->
 					<div id="log-in" class="pull-right">
 						<form method="get" action="#">
-							<a class="btn btn-default btn-lg" id="myBtn" style="position:absolute; top:-18px; right:-28px">
-								<img src="<%=request.getContextPath()%>/resources/images/service/login.jpg" style="width: 63px"><br>
-								<span style="position: relative; right: 10px; top:-7px">login</span>
-							</a>
+							<c:choose>
+								<c:when test="${!empty sessionScope.loginUser}">
+									<!-- 로그인 O -->
+									<a class="btn btn-default btn-lg" style="position:absolute; top:-18px; right:-28px">
+										<img src="<%=request.getContextPath()%>/resources/images/service/logout.jpg" style="width: 63px"><br>
+										<span style="position: relative; right: 10px; top:-7px">logout</span>
+									</a>
+										<div style="z-index:0; position:absolute; width:500px; left:87px; top:29px"><b>${sessionScope.loginUserName}님 환영합니다.</b></div>
+								</c:when>
+								<c:otherwise>
+									<!-- 로그인 X -->
+									<a class="btn btn-default btn-lg" id="myBtn" style="position:absolute; top:-18px; right:-28px">
+										<img src="<%=request.getContextPath()%>/resources/images/service/login.jpg" style="width: 63px"><br>
+										<span style="position: relative; right: 10px; top:-7px">login</span>
+									</a>
+								</c:otherwise>
+							</c:choose>
 						</form>
 					</div>
 					<!-- 끝 : Login FORM -->
@@ -269,23 +313,23 @@ body {
 									<h4 style="margin-top: 20px"><span class="glyphicon glyphicon-lock"></span> Login</h4>
 								</div>
 							<div class="modal-body" style="padding:30px 20px;">
-								<form role="form">
+								<form role="form" name="loginForm">
 									<div class="form-group">
 										<label for="usrname"><b style="font-size:19px">UserID</b></label>
-										<input type="text" class="form-control" id="usrid" placeholder="아이디를 입력해주세요." style="font-size: 14px">
+										<input type="text" class="form-control" name="loginid" placeholder="아이디를 입력해주세요." style="font-size: 14px">
 									</div>
 									<div class="form-group">
 										<label for="psw"><b style="font-size:19px">Password</b></label>
-										<input type="text" class="form-control" id="psw" placeholder="비밀번호를 입력해주세요." style="font-size: 14px">
+										<input type="password" class="form-control" name="loginpwd" placeholder="비밀번호를 입력해주세요." style="font-size: 14px">
 									</div>
 									<input type="button" class="btn btn-success btn-block" value="회원가입"
 										style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;"
 										onclick="location='<%=request.getContextPath()%>/join/joinForm'">
 									
-									<button class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: gray; color:white; font-size: 16px; position:absolute;">
-										<b>Login</b>
-									</button>
-									<br><br><br>						
+									<input type="button"class="btn btn-success btn-block" value="Login" 
+										style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; 
+												background-color: gray; color:white; font-size: 16px; position:absolute;" id="loginGo">
+									<br><br><br>	
 								</form>
 							</div>
 							<div class="modal-footer">
@@ -316,15 +360,11 @@ body {
 										<input type="text" class="form-control" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
 									</div>
 									<div class="form-group">
-										<label for="psw"><b style="font-size:19px">E-mail</b></label>
+										<label for="searchusermail"><b style="font-size:19px">E-mail</b></label>
 										<input type="text" class="form-control" id="searchusermail" placeholder="이메일 주소를 입력해주세요." style="font-size: 14px">
 									</div>
-									<button id="pwdlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
-										<b>비밀번호 찾기</b>
-									</button>
-									<button class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
-										<b>아이디 찾기</b>
-									</button>
+									<input type="button" value="비밀번호 찾기" id="pwdlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
+									<input type="button" value="아이디 찾기" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
 									<br><br><br>						
 								</form>
 							</div>
@@ -359,12 +399,8 @@ body {
 										<label for="usrname"><b style="font-size:19px">UserName</b></label>
 										<input type="text" class="form-control" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
 									</div>
-									<button id="idlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
-										<b>아이디 찾기</b>
-									</button>
-									<button class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
-										<b>비밀번호 찾기</b>
-									</button>
+									<input type="button" value="아이디 찾기" id="idlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
+									<input type="button" value="비밀번호 찾기" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
 									<br><br><br>						
 								</form>
 							</div>
@@ -414,8 +450,14 @@ body {
 								<li class="scroll_btn"><a href="#" style="font-size: 14px">공지사항</a></li>
 
 								<!-- c 태그 사용해서 회원 로그인 일때 / 아닐때 -->
-
-								<li><a href="<%=request.getContextPath()%>/join/joinForm" style="font-size: 14px">회원가입</a></li>
+								<c:choose>
+									<c:when test="${!empty sessionScope.loginUser}">
+										<li><a href="#" style="font-size: 14px">내 정보</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="<%=request.getContextPath()%>/join/joinForm" style="font-size: 14px">회원가입</a></li>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</nav>
 					</div>

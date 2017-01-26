@@ -126,4 +126,35 @@ public class JoinController {
 //		return null;
 		return data; // 그냥 문자열로 리턴하면 WEB-INF/views/data.jsp로 가게되는 꼴... ResponseBody를 사용한다.(Spring에서)
 	}
+	
+	@RequestMapping("login")
+	@ResponseBody
+	public String login(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws SQLException{
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		
+		MbrVO mbrVo = new MbrVO();
+		mbrVo.setMbr_id(id);
+		mbrVo.setMbr_pwd(pwd);
+		String login = mbrService.login(mbrVo);
+		String data;
+		if(!(login==null)){
+			data = "yes";
+			// 로그인 했을시 세션에 로그인한 id를 세션에 저장
+			session.setAttribute("loginUser", login);			
+			// 로그인한 회원 이름 찾기
+			String loginUserName = mbrService.searchUserName(login);
+			session.setAttribute("loginUserName", loginUserName);
+			System.out.println(session.getAttribute("loginUser"));
+			System.out.println(session.getAttribute("loginUserName"));
+		}else{
+			data = "no";
+		}
+		return data;
+	}
 }

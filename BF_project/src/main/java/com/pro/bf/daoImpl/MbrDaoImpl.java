@@ -25,4 +25,16 @@ public class MbrDaoImpl implements MbrDao{
 		System.out.println("2 리턴받은 아이디 값(Dao) " + data);
 		return data;
 	}
+
+	@Override
+	public String login(MbrVO mbrVo) throws SQLException { // 로그인
+		String login = (String)client.queryForObject("login", mbrVo);
+		return login;
+	}
+
+	@Override
+	public String searchUserName(String login) throws SQLException { // 로그인한 유저 이름 찾기
+		String loginUserName = (String)client.queryForObject("SearchLoginUserName", login);
+		return loginUserName;
+	}
 }
