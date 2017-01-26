@@ -23,9 +23,7 @@ public class SimulatorController {
 	
 	@RequestMapping(value="start",method=RequestMethod.POST)
 	public void start(String radio, String sel, String addr){
-		System.out.println(radio);
-		System.out.println(addr);
-		System.out.println(sel);
+	
 	}
 
 }
