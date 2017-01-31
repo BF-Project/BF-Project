@@ -25,5 +25,5 @@ public interface MbrService {
 
 	public QnAVO getQnaVO(int qna_num) throws SQLException;
 
-	public void insertQna(QnAVO qnaVO, String mbr_id) throws SQLException;
+	public void insertQna(QnAVO qnaVO) throws SQLException;
 }

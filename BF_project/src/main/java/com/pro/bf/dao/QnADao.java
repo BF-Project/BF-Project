@@ -13,7 +13,7 @@ public interface QnADao {
 
 	public QnAVO getQna(int qna_num) throws SQLException;
 
-	public void insertQna(QnAVO qnaVO, String session_id) throws SQLException; // 등록
+	public void insertQna(QnAVO qnaVO) throws SQLException; // 등록
 
 	public int updateQna(QnAVO qnaVO) throws SQLException; // 수정
 	

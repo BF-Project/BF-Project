@@ -11,7 +11,7 @@ public interface QnAService {
 
 	public QnAVO getQnaDetail(String qna_num) throws SQLException; // 상세보기
 
-	public void insertQna(QnAVO qnaVO, String session_id) throws SQLException;
+	public void insertQna(QnAVO qnaVO) throws SQLException;
 
 	public int updateQna(QnAVO qnaVO) throws SQLException; // 답글수정
 

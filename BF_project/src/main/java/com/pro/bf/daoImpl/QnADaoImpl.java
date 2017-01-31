@@ -54,8 +54,8 @@ public class QnADaoImpl implements QnADao {
 	}
 
 	@Override
-	public void insertQna(QnAVO qnaVO, String session_id) throws SQLException {
-		qnaVO.setMbr_id(session_id);
+	public void insertQna(QnAVO qnaVO) throws SQLException {
+		/*qnaVO.setMbr_id(session_id);*/
 		client.insert("insertQna", qnaVO);
 	}
 

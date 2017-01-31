@@ -109,9 +109,9 @@ public class MbrServiceImpl implements MbrService {
 	}
 
 	@Override
-	public void insertQna(QnAVO qnaVO, String mbr_id) throws SQLException {
+	public void insertQna(QnAVO qnaVO) throws SQLException {
 		try {
-			qnaDAO.insertQna(qnaVO, mbr_id);
+			qnaDAO.insertQna(qnaVO);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

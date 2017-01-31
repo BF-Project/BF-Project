@@ -56,9 +56,9 @@ public class QnAServiceImpl implements QnAService{
 	}
 
 	@Override
-	public void insertQna(QnAVO qnaVO, String session_id) throws SQLException {
-		qnaVO.setMbr_id(session_id);
-		qnaDao.insertQna(qnaVO, session_id);
+	public void insertQna(QnAVO qnaVO) throws SQLException {
+		/*qnaVO.setMbr_id(session_id);*/
+		qnaDao.insertQna(qnaVO);
 		
 	}
 

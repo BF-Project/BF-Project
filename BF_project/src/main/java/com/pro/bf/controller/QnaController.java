@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pro.bf.dao.QnADao;
+import com.pro.bf.dto.MbrVO;
 import com.pro.bf.dto.QnAVO;
 import com.pro.bf.service.QnAService;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
@@ -37,10 +38,9 @@ public class QnaController {
 	@Autowired(required = false)
 	QnADao qnaDao;
 
-	/*
-	 * public void setQnaService(QnAService qnaService) { this.qnaService =
-	 * qnaService; }
-	 */
+	public void setQnaService(QnAService qnaService) {
+		this.qnaService = qnaService;
+	}
 
 	public void setQnaService(QnAServiceImpl qnaServiceImpl) {
 		this.qnaServiceImpl = qnaServiceImpl;
@@ -53,8 +53,8 @@ public class QnaController {
 	@RequestMapping("/qnaList")
 	public String qnaList(HttpServletRequest request, HttpSession session,
 			Model model) throws ServletException, IOException {
-		String url = "qna/qnaList";
 
+		String url = "qna/qnaList";
 		String tpage = request.getParameter("tpage");
 
 		if (tpage == null) {
@@ -89,6 +89,7 @@ public class QnaController {
 	@RequestMapping("/delete")
 	public String deleteQna(@RequestParam("qna_num") int qna_num)
 			throws ServletException, IOException {
+
 		String url = "redirect:qnaList";
 
 		try {
@@ -108,6 +109,7 @@ public class QnaController {
 			IOException, SQLException {
 
 		String url = "qna/qnaView";
+
 		QnAVO qnaVO = mbrServiceImpl.getQnaVO(qna_num);
 		model.addAttribute("qnaVO", qnaVO);
 
@@ -117,8 +119,10 @@ public class QnaController {
 	@RequestMapping("/qnaWrite")
 	public String qnaWriteForm(HttpSession session) throws ServletException,
 			IOException {
+
 		String url = "qna/qnaWrite";
 		System.out.println("qnawrite");
+		String loginUser = (String) session.getAttribute("loginUser");
 		return url;
 	}
 
@@ -127,18 +131,21 @@ public class QnaController {
 	public String qnaWrite(@RequestParam("qna_title") String qna_title,
 			@RequestParam("qna_content") String qna_content, HttpSession session)
 			throws ServletException, IOException, SQLException {
+
 		String url = "redirect:qnaList";
 
-		/* QnAVO loginUser = (QnAVO) session.getAttribute("loginUser"); */
+		String loginUser = (String) session.getAttribute("loginUser");
 
 		QnAVO qnaVO = new QnAVO();
 
 		qnaVO.setQna_title(qna_title);
 		qnaVO.setQna_content(qna_content);
-		qnaVO.setMbr_id("test");
+		qnaVO.setMbr_id(loginUser);
+		/* qnaVO.setMbr_id("test"); */
 
-		/* qnaServiceImpl.insertQna(qnaVO, loginUser.getMbr_id()); */
-		qnaServiceImpl.insertQna(qnaVO, qnaVO.getMbr_id());
+		qnaServiceImpl.insertQna(qnaVO);
+
+		/* qnaServiceImpl.insertQna(qnaVO, qnaVO.getMbr_id()); */
 
 		return url;
 	}
@@ -146,9 +153,11 @@ public class QnaController {
 	@RequestMapping("/update")
 	public String qnaUpdate(HttpSession session, String qna_num, Model model)
 			throws ServletException, IOException, SQLException {
+
 		String url = "qna/qnaUpdate";
 
 		QnAVO qnaVO = qnaService.getQnaDetail(qna_num);
+
 		model.addAttribute("qnaVO", qnaVO);
 		model.addAttribute(qna_num);
 
@@ -160,6 +169,7 @@ public class QnaController {
 			@RequestParam("qna_title") String qna_title,
 			@RequestParam("qna_content") String qna_content, Model model)
 			throws ServletException, IOException, SQLException {
+
 		String url = "redirect:qnaList";
 
 		QnAVO qnaVO = new QnAVO();
