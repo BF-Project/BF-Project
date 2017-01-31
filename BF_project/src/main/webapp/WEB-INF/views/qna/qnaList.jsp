@@ -9,12 +9,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A 게시판</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script>
 	function gowrite() {
 		document.form1.action = "qnaWrite";
 		document.form1.submit();
 	}
 </script>
+
+<style>
+ 	#writeBtn {
+		margin-left : 76%;
+	}
+	
+	#paging {
+		margin-left : 48%;
+	}
+	
+	td, th {
+		text-align : center;
+	}
+	
+	#qnaList {
+		margin : auto;
+		width : 70%;
+	}
+</style>
 </head>
 <body>
 	<!-- PRELOADER -->
@@ -40,8 +66,8 @@
 			<!-- //BREADCRUMBS -->
 
 			<form name="form1" method="post">
-				<div>
-					<table id="qnaList" border="1">
+				<div class="container">
+					<table class="table table-hover" id="qnaList">
 						<tr>
 							<th>글번호</th>
 							<th>제목</th>
@@ -61,7 +87,7 @@
 								<c:forEach items="${qnaList}" var="qnaVO">
 									<tr>
 										<td>${qnaVO.qna_num }</td>
-		
+
 										<!-- 수정1. -->
 										<td><a href="qnaView?qna_num=${qnaVO.qna_num}">
 												${qnaVO.qna_title }</td>
@@ -70,15 +96,18 @@
 										<td>${qnaVO.qna_cnt }</td>
 									</tr>
 								</c:forEach>
-								<tr>
-									<td colspan="5" style="text-align:center;">${paging }</td>
-								</tr>
 							</c:otherwise>
 						</c:choose>
 					</table>
+
+					<div id="paging">
+						${paging }
+					</div>
+					<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="color:white; background-color:black;">글 작성</button>
 				</div>
 
-				<input type="button" value="글 작성" onclick="gowrite(this.form)")>
+				<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->
+				
 
 			</form>
 		</div>

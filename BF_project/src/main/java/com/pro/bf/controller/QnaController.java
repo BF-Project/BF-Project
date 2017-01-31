@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pro.bf.dao.QnADao;
-import com.pro.bf.dto.MbrVO;
 import com.pro.bf.dto.QnAVO;
 import com.pro.bf.service.QnAService;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
