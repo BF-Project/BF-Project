@@ -34,8 +34,10 @@
 	<bean id="addrServiceImpl" class="com.pro.bf.serviceImpl.AddrServiceImpl">
 		<property name="addressDAO" ref="addressDAOImpl" />
 	</bean>
-	
 	<bean id="mbrServiceImpl" class="com.pro.bf.serviceImpl.MbrServiceImpl">
 		<property name="mbrDAO" ref="mbrDAOImpl" />
+	</bean>
+	<bean id="adminServiceImpl" class="com.pro.bf.serviceImpl.AdminServiceImpl">
+		<property name="adminDAO" ref="adminDAOImpl"></property>
 	</bean>
 </beans>

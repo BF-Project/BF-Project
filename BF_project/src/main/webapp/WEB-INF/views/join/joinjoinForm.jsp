@@ -277,12 +277,12 @@
 						<label for="InputGender">성별</label><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="checks">
-							<input type="checkbox" id="agree-one" class="sex1" name="check" value="남자"> 남자
+							<input type="checkbox" id="agree-one" class="sex1" name="check" value="남자" checked> 남자
 							<label for="agree-one"></label>
 						</span>
 						&nbsp;
 						<span class="checks">
-							<input type="checkbox" id="agree-two" class="sex2" name="check" value="여자"> 여자
+							<input type="checkbox" id="agree-two" class="sex2" name="check" value="여자" > 여자
 							<label for="agree-two"></label>
 						</span>
 						

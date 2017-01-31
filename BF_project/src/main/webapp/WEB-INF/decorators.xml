@@ -8,16 +8,13 @@
 	</decorator>
 	
 	<!-- 관리자 -->
-<!-- 	<decorator name="admin" page="admin_decorator.jsp"> -->
-<!-- 		<pattern>/admin/*.do</pattern> -->
-<!-- 	</decorator> -->
-
-
+	<decorator name="admin" page="WEB-INF/admin_decorator.jsp">
+		<pattern>/admin/**</pattern>
+	</decorator>
 
 	<excludes>
 		<pattern>/join/joinForm</pattern>
 		<pattern>/join/joinjoinForm*</pattern>
-		<!-- <pattern>/simulator*</pattern> -->
 		<pattern>/join/findZipNum*</pattern>
 	</excludes>
 	

@@ -18,7 +18,6 @@ public class MbrServiceImpl implements MbrService{
 		this.mbrDao = mbrDao;
 	}
 	
-	
 	@Override
 	public void insertMember(MbrVO mbrVo) throws SQLException { // 회원가입
 		mbrDao.insertMember(mbrVo);
@@ -36,7 +35,6 @@ public class MbrServiceImpl implements MbrService{
 		String login = mbrDao.login(mbrVo);
 		return login;
 	}
-
 
 	@Override
 	public String searchUserName(String login) throws SQLException { // 로그인한 유저 이름 찾기

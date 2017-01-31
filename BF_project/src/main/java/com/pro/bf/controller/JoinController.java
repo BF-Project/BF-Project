@@ -27,6 +27,7 @@ import com.pro.bf.dto.AddrVO;
 import com.pro.bf.dto.EmailVO;
 import com.pro.bf.dto.MbrVO;
 import com.pro.bf.serviceImpl.AddrServiceImpl;
+import com.pro.bf.serviceImpl.AdminServiceImpl;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
 
 @Controller
@@ -41,6 +42,9 @@ public class JoinController {
 	
 	@Autowired
 	EmailSender emailSender;
+	
+	@Autowired
+	AdminServiceImpl adminService;
 	
 	@RequestMapping(value="joinForm", method=RequestMethod.GET)
 	public String JoinForm(){
@@ -124,6 +128,12 @@ public class JoinController {
 		String data = "";
 		if(result == null){
 			data = "yes";
+			// 회원 테이블에서는 아이디값이 없지만 admin의 아이디와 동일하면 안되기 때문에 admin테이블에서도 id 중복여부를 확인한다.
+			String adminid = adminService.adminidcheck(userid);
+			if(!(adminid==null)){
+				System.out.println("4-1 관리자아이디 " + adminid);
+				data = "no";
+			}
 		}else{
 			data = "no";
 		}
@@ -142,7 +152,7 @@ public class JoinController {
 		}
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		
+				
 		MbrVO mbrVo = new MbrVO();
 		mbrVo.setMbr_id(id);
 		mbrVo.setMbr_pwd(pwd);
@@ -155,8 +165,15 @@ public class JoinController {
 			// 로그인한 회원 이름 찾기
 			String loginUserName = mbrService.searchUserName(login);
 			session.setAttribute("loginUserName", loginUserName);
-		}else{
-			data = "no";
+		}else{			
+			// 회원 아이디가 없을때 관리자 아이디 로그인 여부
+			String adminLogin = adminService.adminLogin(mbrVo);
+			if(!(adminLogin==null)){
+				data = "admin";
+//				session.setAttribute("loginAdmin", adminLogin); // 로그인한 관리자 아아디 세션에 저장할 필요가 있을까 ? ㄴㄴ
+			}else{
+				data = "no";
+			}
 		}
 		return data;
 	}
@@ -166,7 +183,6 @@ public class JoinController {
 	public String logout(HttpSession session, HttpServletRequest request){
 		session.removeAttribute("loginUser");
 		session.removeAttribute("loginUserName");
-		System.out.println("삭제됨??");
 		return null;
 	}
 	
