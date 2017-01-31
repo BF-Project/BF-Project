@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pro.bf.dto.AddrVO;
+import com.pro.bf.dto.EmailVO;
 import com.pro.bf.dto.MbrVO;
 import com.pro.bf.serviceImpl.AddrServiceImpl;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
@@ -36,6 +38,9 @@ public class JoinController {
 	
 	@Resource(name="mbrServiceImpl")
 	MbrServiceImpl mbrService;
+	
+	@Autowired
+	EmailSender emailSender;
 	
 	@RequestMapping(value="joinForm", method=RequestMethod.GET)
 	public String JoinForm(){
@@ -167,7 +172,63 @@ public class JoinController {
 	
 	@RequestMapping("idSearch")
 	@ResponseBody
-	public String idSearch(){
-		return "";
+	public String idSearch(HttpServletRequest request) throws Exception{
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		MbrVO mbrVo = new MbrVO();
+		mbrVo.setMbr_nm(name);
+		mbrVo.setMbr_eml(email);
+		String id = mbrService.searchUserId(mbrVo);
+		
+		String data = "";
+		if(!(id==null)){
+			data = "yes";
+			// 해당 이메일에 아이디를 전송해야함
+			EmailVO sendMail = new EmailVO();
+			String reciver = email; // 받는 사람의 이메일
+			String title = "<성공하는 사람들> " + name +" 님의 아이디 입니다."; // 제목
+			String context = "회원님의 아이디는 " + id + " 입니다.";
+			
+			sendMail.setTo(reciver);
+			sendMail.setTitle(title);
+			sendMail.setContext(context);
+			emailSender.SendMail(sendMail);
+			
+		}else{
+			data = "no";
+		}
+		
+		return data;
+	}
+	
+	@RequestMapping("pwdSearch")
+	@ResponseBody
+	public String pwdSearch(HttpServletRequest request) throws Exception{
+		String data = "";
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		
+		MbrVO mbrVo = new MbrVO();
+		mbrVo.setMbr_id(id);
+		mbrVo.setMbr_nm(name);
+		
+		Map result = mbrService.searchUserPwd(mbrVo);
+		if(!(result.containsValue("not Information"))){
+			data = "yes";
+			// 해당 이메일에 비밀번호 보내기
+			EmailVO sendMail = new EmailVO();
+			String reciver = (String)result.get("email"); // 받는 사람의 이메일
+			String title = "<성공하는 사람들> " + name +" 님의 비밀번호 입니다."; // 제목
+			String context = "회원님의 비밀번호는 " + result.get("pwd") + " 입니다.";
+			
+			sendMail.setTo(reciver);
+			sendMail.setTitle(title);
+			sendMail.setContext(context);
+			emailSender.SendMail(sendMail);
+		}else{
+			data = "no";
+		}
+		return data;
 	}
 }

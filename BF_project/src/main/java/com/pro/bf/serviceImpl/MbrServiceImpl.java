@@ -1,6 +1,8 @@
 package com.pro.bf.serviceImpl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,5 +42,27 @@ public class MbrServiceImpl implements MbrService{
 	public String searchUserName(String login) throws SQLException { // 로그인한 유저 이름 찾기
 		String loginUserName = mbrDao.searchUserName(login);
 		return loginUserName;
+	}
+
+
+	@Override
+	public String searchUserId(MbrVO mbrVo) throws SQLException { // 아이디 찾기
+		String id = mbrDao.searchUserId(mbrVo);
+		return id;
+	}
+
+	@Override
+	public Map searchUserPwd(MbrVO mbrVo) throws SQLException { // 비밀번호 찾기 / 이메일도 같이 찾아야함
+		MbrVO result = mbrDao.searchUserPwd(mbrVo);
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		try{
+			String pwd = result.getMbr_pwd();		
+			String email = result.getMbr_eml();
+			searchMap.put("pwd", pwd);
+			searchMap.put("email", email);
+		}catch(NullPointerException e){
+			searchMap.put("pwd", "not Information");
+		}
+		return searchMap;
 	}
 }

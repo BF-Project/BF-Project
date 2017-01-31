@@ -257,7 +257,16 @@ body {
 					email:$("input[name=mailSearch]").val()
 				}),
 				success:function(data){
-					alert("!!!!!!!!!!!!!!!!!!!!!!!!")
+					if(data=='yes'){
+						$('#myModal2').modal('hide');
+						document.idSearchForm.nameSearch.value="";
+						document.idSearchForm.mailSearch.value="";
+						alert('회원님의 이메일로 아이디를 전송했습니다.' +"\n" + '확인해주세요.');
+					}else{
+						document.idSearchForm.nameSearch.value="";
+						document.idSearchForm.mailSearch.value="";
+						alert('이름과 이메일을 다시 확인해주세요.')
+					}
 				},
 				error:function(error){
 					alert('error')
@@ -265,6 +274,34 @@ body {
 			});
 		});
 		//
+		
+		// 비밀번호 찾기
+		$('#pwdSearch').click(function(){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/join/pwdSearch",
+				type : "post",
+				dataType : "text",
+				data : ({
+					id:$("input[name=pwdIdInput]").val(),
+					name:$("input[name=pwdNameInput]").val()
+				}),
+				success:function(data){
+					if(data=='yes'){
+						$('#myModal3').modal('hide');
+						document.pwdSearchForm.pwdIdInput.value="";
+						document.pwdSearchForm.pwdNameInput.value="";
+						alert('회원님의 이메일로 비밀번호를 전송했습니다.' +"\n" + '확인해주세요.')
+					}else{
+						document.pwdSearchForm.pwdIdInput.value="";
+						document.pwdSearchForm.pwdNameInput.value="";
+						alert('아이디와 이름을 다시 확인해주세요.')
+					}
+				},
+				error:function(error){
+					alert('error')
+				}
+			});
+		});
 	})
 </script>
 <!-- 모달 내 function : end -->
@@ -391,7 +428,7 @@ body {
 									<h4 style="margin-top: 20px">아이디 찾기</h4>
 								</div>
 							<div class="modal-body" style="padding:30px 20px;">
-								<form role="form">
+								<form role="form" name="idSearchForm">
 									<div class="form-group">
 										<label for="usrname"><b style="font-size:19px">UserName</b></label>
 										<input type="text" class="form-control" name="nameSearch" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
@@ -427,17 +464,17 @@ body {
 									<h4 style="margin-top: 20px">비밀번호 찾기</h4>
 								</div>
 							<div class="modal-body" style="padding:30px 20px;">
-								<form role="form">
+								<form role="form" name="pwdSearchForm">
 									<div class="form-group">
 										<label for="usrname"><b style="font-size:19px">UserID</b></label>
-										<input type="text" class="form-control" id="usrid" placeholder="아이디를 입력해주세요." style="font-size: 14px">
+										<input type="text" class="form-control" id="usrid" name="pwdIdInput" placeholder="아이디를 입력해주세요." style="font-size: 14px">
 									</div>
 									<div class="form-group">
 										<label for="usrname"><b style="font-size:19px">UserName</b></label>
-										<input type="text" class="form-control" id="searchusrname" placeholder="이름을 입력해주세요." style="font-size: 14px">
+										<input type="text" class="form-control" id="searchusrname" name="pwdNameInput" placeholder="이름을 입력해주세요." style="font-size: 14px">
 									</div>
 									<input type="button" value="아이디 찾기" id="idlook2" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:80px; margin-bottom:-18px; width:170px; text-align: center; color:white; font-size: 16px; position:absolute; font-weight: bold; background-color: gray;">
-									<input type="button" value="비밀번호 찾기" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
+									<input type="button" value="비밀번호 찾기" id="pwdSearch" class="btn btn-success btn-block" style="margin-top: 7px; margin-left:290px; margin-bottom:-18px; width:170px; text-align: center; background-color: skyblue; color:black; font-size: 16px; position:absolute;">
 									<br><br><br>						
 								</form>
 							</div>

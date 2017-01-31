@@ -117,7 +117,7 @@
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>mail</artifactId>
-		    <version>1.4</version>
+		    <version>1.4.7</version>
 		</dependency>
 		
 		<!-- activation : mail -->
@@ -125,6 +125,13 @@
 		    <groupId>javax.activation</groupId>
 		    <artifactId>activation</artifactId>
 		    <version>1.1.1</version>
+		</dependency>
+		
+		<!-- mail -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 		
 		<!-- ************************************************************* -->

@@ -37,4 +37,16 @@ public class MbrDaoImpl implements MbrDao{
 		String loginUserName = (String)client.queryForObject("SearchLoginUserName", login);
 		return loginUserName;
 	}
+
+	@Override
+	public String searchUserId(MbrVO mbrVo) throws SQLException { // 아이디 찾기
+		String id = (String)client.queryForObject("SearchUserId", mbrVo);
+		return id;
+	}
+
+	@Override
+	public MbrVO searchUserPwd(MbrVO mbrVo) throws SQLException { // 비밀번호 찾기 / 이메일도 같이 찾아야함
+		MbrVO result = (MbrVO)client.queryForObject("SearchUserPwd", mbrVo);
+		return result;
+	}
 }
