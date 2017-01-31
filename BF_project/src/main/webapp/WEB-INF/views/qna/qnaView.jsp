@@ -10,18 +10,37 @@
 <meta charset="UTF-8">
 <title></title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script>
 	function goUpdate(qna_num) {
 		document.formm.action = "update?qna_num=" + qna_num;
 		document.formm.submit();
 	}
-	
+
 	/*삭제  */
-	function goDelete(qna_num){
-		document.formm.action="delete?qna_num="+qna_num;
+	function goDelete(qna_num) {
+		document.formm.action = "delete?qna_num=" + qna_num;
 		document.formm.submit();
 	}
 </script>
+
+<style>
+#qnaView {
+	margin: auto;
+	width: 30%;
+}
+
+#list, del, mod {
+	margin-left : 380px;
+}
+</style>
 
 </head>
 <body>
@@ -38,40 +57,38 @@
 		</div>
 	</section>
 	<!-- //BREADCRUMBS -->
-	
+
 	<div>
-		<form name="formm" method="post"  action="qnaView">
-			<table id="notice" border="1">
-				<tr>
-					<th>제목</th>
-					<td>${qnaVO.qna_title}</td>
-				</tr>
+		<form name="formm" method="post" action="qnaView">
+			<div class="container">
+				<table id="notice" class="table table-hover" id="qnaView">
+					<tr>
+						<th>제목</th>
+						<td>${qnaVO.qna_title}</td>
+					</tr>
 
-				<tr>
-					<th>내용</th>
-					<td>${qnaVO.qna_content}</td>
-				</tr>
+					<tr>
+						<th>내용</th>
+						<td>${qnaVO.qna_content}</td>
+					</tr>
 
-				<tr>
-					<th>작성자</th>
-					<td>${qnaVO.mbr_id}</td>
-				</tr>
+					<tr>
+						<th>작성자</th>
+						<td>${qnaVO.mbr_id}</td>
+					</tr>
 
-				<tr>
-					<th>게시날짜</th>
-					<td>${qnaVO.qna_date} </td>
-				</tr>
-			</table>
+					<tr>
+						<th>게시날짜</th>
+						<td>${qnaVO.qna_date}</td>
+					</tr>
+				</table>
+			</div>
 			<%-- <input type="button" value="수정하기" onclick="goUpdate('${qnaVO.qna_num}')"> --%>
-			<input type="button" value="목록" onclick="location.href='qnaList'">
-
+			<button type="button" id="list" class="btn" onclick="location.href='qnaList'" style="color:white; background-color:black;">목록</button>
 			<!--삭제  -->
-			<input type="button" value="삭제"  onclick="goDelete('${qnaVO.qna_num}')" >
-			
+			<button type="button" id="del" class="btn" onclick="goDelete('${qnaVO.qna_num}')" style="color:white; background-color:black;">삭제</button>
 			<!--수정  -->
-			<input type="button" value="수정"  onclick="goUpdate('${qnaVO.qna_num}')" >
-			
-			
+			<button type="button" id="mod" class="btn" onclick="goUpdate('${qnaVO.qna_num}')" style="color:white; background-color:black;">수정</button>
 		</form>
 	</div>
 </body>
