@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pro.bf.dao.QnADao;
 import com.pro.bf.dto.QnAVO;
-import com.pro.bf.service.QnAService;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
 import com.pro.bf.serviceImpl.QnAServiceImpl;
 
@@ -25,8 +24,8 @@ import com.pro.bf.serviceImpl.QnAServiceImpl;
 @RequestMapping(value = "/qna")
 public class QnaController {
 
-	@Autowired(required = false)
-	QnAService qnaService;
+	/*@Autowired(required = false)
+	QnAService qnaService;*/
 
 	@Autowired(required = false)
 	QnAServiceImpl qnaServiceImpl;
@@ -37,9 +36,9 @@ public class QnaController {
 	@Autowired(required = false)
 	QnADao qnaDao;
 
-	public void setQnaService(QnAService qnaService) {
+	/*public void setQnaService(QnAService qnaService) {
 		this.qnaService = qnaService;
-	}
+	}*/
 
 	public void setQnaService(QnAServiceImpl qnaServiceImpl) {
 		this.qnaServiceImpl = qnaServiceImpl;
@@ -155,7 +154,7 @@ public class QnaController {
 
 		String url = "qna/qnaUpdate";
 
-		QnAVO qnaVO = qnaService.getQnaDetail(qna_num);
+		QnAVO qnaVO = qnaServiceImpl.getQnaDetail(qna_num);
 
 		model.addAttribute("qnaVO", qnaVO);
 		model.addAttribute(qna_num);

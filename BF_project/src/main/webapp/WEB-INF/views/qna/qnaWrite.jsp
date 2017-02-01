@@ -30,7 +30,7 @@
 }
 
 #writeBtn {
-	margin-left: 762px;
+	margin-left: 442px;
 }
 </style>
 
