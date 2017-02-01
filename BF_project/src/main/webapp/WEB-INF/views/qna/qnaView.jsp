@@ -32,64 +32,109 @@
 </script>
 
 <style>
-#qnaView {
+#qnaView1 {
 	margin: auto;
-	width: 30%;
+	width: 70%;
 }
 
-#list, del, mod {
-	margin-left : 380px;
+#mod, del, list {
+	margin-left : 235px;
 }
+
+#list2 {
+	margin-left : 235px;
+}
+
 </style>
 
 </head>
 <body>
 
-	<!-- BREADCRUMBS -->
-	<section class="breadcrumbs_block clearfix parallax">
-		<div class="container center">
-			<h2>
-				<b>Q & A</b> 고객 게시판
-			</h2>
-			<br> <br>
-			<p>'Q & A 게시판' 페이지 입니다.</p>
+	<!-- PRELOADER -->
+	<img id="preloader"
+		src="<%=request.getContextPath()%>/resources/images/preloader.gif"
+		alt="" />
+	<!-- 로딩 이미지 -->
+
+	<!-- //PRELOADER -->
+	<div class="preloader_hide">
+		<div class="qnaHeader">
+
+			<!-- BREADCRUMBS -->
+			<section class="breadcrumbs_block clearfix parallax">
+				<div class="container center">
+					<h2> 
+						<b>Q & A</b> 고객 게시판
+					</h2>
+					<br> <br>
+					<p>'Q & A 게시판' 페이지 입니다.</p>
+				</div>
+			</section>
+			<!-- //BREADCRUMBS -->
+			<br>
+
+			<form name="formm" method="post" action="qnaView">
+				<div class="container">
+					<table class="table table-hover" id="qnaView1">
+						<tr>
+							<th>제목</th>
+							<td>${qnaVO.qna_title}</td>
+						</tr>
+
+						<tr>
+							<th>내용</th>
+							<td>${qnaVO.qna_content}</td>
+						</tr>
+
+						<tr>
+							<th>작성자</th>
+							<td>${qnaVO.mbr_id}</td>
+						</tr>
+
+						<tr>
+							<th>게시날짜</th>
+							<td>${qnaVO.qna_date}</td>
+						</tr>
+						
+						<tr>
+						<th>사진첨부</th>
+						<td>
+						<img src="<%=request.getContextPath() %>/upload/${qnaVO.qna_pict_afat}" width="200pt"> 
+						</td>
+						
+						<tr>
+						<th>답변내용</th>
+						<td></td>
+					</tr>
+					
+					</table>
+				</div>
+				<br>
+				<%-- <input type="button" value="수정하기" onclick="goUpdate('${qnaVO.qna_num}')"> --%>
+				<c:choose>
+					<c:when test="${qnaVO.mbr_id==sessionScope.loginUser }">
+						<!-- 수정  -->
+						<button type="button" id="mod" class="btn"
+							onclick="goUpdate('${qnaVO.qna_num}')"
+							style="color: white; background-color: black;">수정</button>
+						<!-- 삭제  -->
+						<button type="button" id="del" class="btn"
+							onclick="goDelete('${qnaVO.qna_num}')"
+							style="color: white; background-color: black;">삭제</button>
+						<!-- 목록 -->
+						<button type="button" id="list" class="btn"
+							onclick="location.href='qnaList'"
+							style="color: white; background-color: black;">목록</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" id="list2" class="btn"
+							onclick="location.href='qnaList'"
+							style="color: white; background-color: black;">목록</button>
+					</c:otherwise>
+				</c:choose>
+			</form>
 
 		</div>
-	</section>
-	<!-- //BREADCRUMBS -->
-
-	<div>
-		<form name="formm" method="post" action="qnaView">
-			<div class="container">
-				<table id="notice" class="table table-hover" id="qnaView">
-					<tr>
-						<th>제목</th>
-						<td>${qnaVO.qna_title}</td>
-					</tr>
-
-					<tr>
-						<th>내용</th>
-						<td>${qnaVO.qna_content}</td>
-					</tr>
-
-					<tr>
-						<th>작성자</th>
-						<td>${qnaVO.mbr_id}</td>
-					</tr>
-
-					<tr>
-						<th>게시날짜</th>
-						<td>${qnaVO.qna_date}</td>
-					</tr>
-				</table>
-			</div>
-			<%-- <input type="button" value="수정하기" onclick="goUpdate('${qnaVO.qna_num}')"> --%>
-			<button type="button" id="list" class="btn" onclick="location.href='qnaList'" style="color:white; background-color:black;">목록</button>
-			<!--삭제  -->
-			<button type="button" id="del" class="btn" onclick="goDelete('${qnaVO.qna_num}')" style="color:white; background-color:black;">삭제</button>
-			<!--수정  -->
-			<button type="button" id="mod" class="btn" onclick="goUpdate('${qnaVO.qna_num}')" style="color:white; background-color:black;">수정</button>
-		</form>
 	</div>
 </body>
 </html>
