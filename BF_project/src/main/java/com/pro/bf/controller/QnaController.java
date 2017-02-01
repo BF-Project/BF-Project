@@ -113,11 +113,8 @@ public class QnaController {
 	}
 
 	@RequestMapping("/qnaWrite")
-	public String qnaWriteForm(HttpSession session) throws ServletException,
-			IOException {
-
+	public String qnaWriteForm(HttpSession session) throws ServletException, IOException {
 		String url = "qna/qnaWrite";
-		System.out.println("qnawrite");
 		String loginUser = (String) session.getAttribute("loginUser");
 		return url;
 	}
@@ -200,7 +197,6 @@ public class QnaController {
 		qnaVO.setQna_title(qna_title);
 		qnaVO.setQna_content(qna_content);
 		qnaVO.setQna_num(qna_num);
-		qnaServiceImpl.updateQna(qnaVO);
 
 		model.addAttribute(qna_num);
 
