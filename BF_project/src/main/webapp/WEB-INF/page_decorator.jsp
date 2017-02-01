@@ -525,7 +525,7 @@ body {
 										<li><a href="javascript:void(3);" style="font-size: 13px">자유게시판</a></li>
 										<li><a href="javascript:void(0);" style="font-size: 13px">커뮤니티
 												게시판</a></li>
-										<li><a href="javascript:void(0);" style="font-size: 13px">Q	& A 게시판</a></li>
+										<li><a href="<%=request.getContextPath()%>/qna/qnaList">Q & A 게시판</a></li>
 									</ul></li>
 
 								<li class="scroll_btn"><a href="#" style="font-size: 14px">공지사항</a></li>
