@@ -1,9 +1,11 @@
 package com.pro.bf.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pro.bf.dao.QnADao;
 import com.pro.bf.dto.QnAVO;
@@ -127,7 +130,12 @@ public class QnaController {
 	// @RequestMapping("/qnaWriteForm")
 	@RequestMapping(value = "/qnaWriteForm", method = RequestMethod.POST)
 	public String qnaWrite(@RequestParam("qna_title") String qna_title,
-			@RequestParam("qna_content") String qna_content, HttpSession session)
+			@RequestParam("qna_content") String qna_content, HttpSession session
+			,
+			@RequestParam(value="file",defaultValue="")
+			MultipartFile filefile, HttpServletRequest request
+			
+			)
 			throws ServletException, IOException, SQLException {
 
 		String url = "redirect:qnaList";
@@ -141,8 +149,24 @@ public class QnaController {
 		qnaVO.setMbr_id(loginUser);
 		/* qnaVO.setMbr_id("test"); */
 
+
+		//fileupload
+		 session=request.getSession();
+		String savaPath="resources/upload";
+		ServletContext context=session.getServletContext();
+		String uploadFilePath=context.getRealPath(savaPath);
+		
+		if(!filefile.isEmpty()){
+			File file1=new File(uploadFilePath,System.currentTimeMillis()+filefile.getOriginalFilename());
+			filefile.transferTo(file1);
+			qnaVO.setQna_pict_afat(file1.getName());
+		}
+		
+		
 		qnaServiceImpl.insertQna(qnaVO);
 
+		
+		
 		/* qnaServiceImpl.insertQna(qnaVO, qnaVO.getMbr_id()); */
 
 		return url;
@@ -165,7 +189,13 @@ public class QnaController {
 	@RequestMapping(value = "/qnaUpdateForm", method = RequestMethod.POST)
 	public String qnaUpdateForm(@RequestParam("qna_num") int qna_num,
 			@RequestParam("qna_title") String qna_title,
-			@RequestParam("qna_content") String qna_content, Model model)
+			@RequestParam("qna_content") String qna_content, Model model
+			,
+			HttpServletRequest request,
+			@RequestParam("file")MultipartFile file,
+			@RequestParam("nofile")String nofile,
+			@RequestParam(value="qna_pict_afat",defaultValue="")String qna_pict_afat
+			)
 			throws ServletException, IOException, SQLException {
 
 		String url = "redirect:qnaList";
@@ -179,6 +209,26 @@ public class QnaController {
 
 		model.addAttribute(qna_num);
 
+		
+
+		HttpSession session = request.getSession();
+
+		/////////////
+		String savePath = "resources/upload";
+		ServletContext context = session.getServletContext();
+		String uploadFilePath = context.getRealPath(savePath);
+
+		if (!file.isEmpty()) {
+			File file1 = new File(uploadFilePath, System.currentTimeMillis() + file.getOriginalFilename());
+			file.transferTo(file1);
+
+			qnaVO.setQna_pict_afat(file1.getName());
+		} else {
+			qnaVO.setQna_pict_afat(nofile);
+		}
+		qnaServiceImpl.updateQna(qnaVO);
+
+		
 		return url;
 	}
 
