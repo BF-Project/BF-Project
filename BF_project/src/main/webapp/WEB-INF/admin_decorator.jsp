@@ -42,6 +42,11 @@
     <script src="<%=request.getContextPath()%>/resources/admin/js/plugins/raphael.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/admin/js/plugins/morris.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/admin/js/plugins/morris-data.js"></script>
+    
+    <!-- alert창 꾸미기 -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/wow-alert.css">
+	<script src="<%=request.getContextPath()%>/resources/js/wow-alert.js"></script>
+    
     <decorator:head />
     
 <title>'성공하는 사람들' 관리자 화면</title>
@@ -187,7 +192,7 @@
 		<!-- 사이드 메뉴 -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav side-nav" style="margin-top: 60px;">
-				<li class="aaaa" style="font-size: 16px;"><a href="index.html">
+				<li class="aaaa" style="font-size: 16px;"><a href="<%=request.getContextPath()%>/admin/start">
 					<i class="fa fa-fw fa-dashboard"></i> Main X</a>
 				</li>
 				<li class="bbbb" style="font-size: 16px; margin-top: 10px"><a href="#">

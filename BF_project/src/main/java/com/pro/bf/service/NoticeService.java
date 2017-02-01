@@ -7,6 +7,7 @@ import com.pro.bf.dto.NoticeVO;
 
 public interface NoticeService {
 
-	ArrayList<NoticeVO> noticeList(String key) throws SQLException;
-	
+	ArrayList<NoticeVO> noticeList(int page, String search) throws SQLException;
+	String pageNumber(int page, String search) throws SQLException;
+	void insertNotice(NoticeVO noticeVo) throws SQLException;
 }

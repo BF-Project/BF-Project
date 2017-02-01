@@ -10,6 +10,15 @@
 	
 	<!-- Query 문 작성란 -->
 	<select id="noticeList" parameterClass="str" resultClass="notice">
-		select * from notice where notice_title like '%'||#notice_title#||'%' order by notice_date desc
+		select * from notice where notice_title like '%'||#search#||'%' order by notice_num desc
 	</select>
+	
+	<select id="totalRecord" parameterClass="str" resultClass="int">
+		select count(*) from notice where notice_title like '%'||#search#||'%'
+	</select>
+	
+	<insert id="insertNotice" parameterClass="notice">
+		insert into notice(notice_num,notice_title,notice_content,admin_id)
+		values(notice_seq.nextval,#notice_title#,#notice_content#,#admin_id#)
+	</insert>
 </sqlMap>
