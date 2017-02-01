@@ -106,7 +106,6 @@
 				</div>
 
 				<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->
-				
 
 			</form>
 		</div>

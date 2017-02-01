@@ -18,5 +18,10 @@ public class FreeDaoImpl implements FreeDao{
 		ArrayList<FreeVO> freeList = (ArrayList<FreeVO>) client.queryForList("freeList", mbr_id);
 		return freeList;
 	}
+	@Override
+	public void insertFree(FreeVO freeVO) throws SQLException {
+		client.insert("insertFree", freeVO);
+		
+	}
 	
 }

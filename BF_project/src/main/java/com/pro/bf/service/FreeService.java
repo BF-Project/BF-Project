@@ -7,5 +7,6 @@ import com.pro.bf.dto.FreeVO;
 
 public interface FreeService {
 
-	ArrayList<FreeVO> freeList(String mbr_id) throws SQLException;
+	public ArrayList<FreeVO> freeList(String mbr_id) throws SQLException;
+	public void insertFree(FreeVO freeVO) throws SQLException;
 }

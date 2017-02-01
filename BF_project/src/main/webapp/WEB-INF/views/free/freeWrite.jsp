@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,8 +15,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
-	function gowrite() {
-		document.free.action = "freeWrite";
+	function goList() {
+		document.free.action = "freeWriteForm";
+		document.free.method = "post";
 		document.free.submit();
 	}
 </script>
@@ -44,31 +45,25 @@
 				</div>
 			</section>
 			<!-- //BREADCRUMBS -->
-			<form name="free" method="post">
 			<div class="container">
-				<table class="table table-hover">
-					<tr>
-						<th>글번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>게시날짜</th>
-						<th>조회수</th>
-					</tr>
-					<c:forEach items="${freeList }" var="freeVO">
-						<tr>
-							<td>${freeVO.fre_num }</td>
-							<td>${freeVO.fre_title }</td>
-							<td>${freeVO.mbr_id }</td>
-							<td>${freeVO.fre_date }</td>
-							<td>${freeVO.fre_cnt }</td>
-						</tr>
-					</c:forEach>
-				</table>
-				<button type="button" class="btn" onclick="gowrite()" style="color:white; background-color:black;" >글 작성</button>
-			</div>				
-			</form>
+				<form name="free" method="post" action="freeWriteForm" id="write">
+					<div class="form-group">
+						<label for="usr">Title</label> 
+						<input type="text" name="fre_title" class="form-control" id="usr" style="width: 30%;">
+					</div>
+					<div class="form-group">
+						<label for="comment">Comment</label>
+						<textarea class="form-control" rows="5" name="fre_content" id="comment" style="width: 50%; height: 300px;"></textarea>
+					</div>
+				</form>
+			</div>
+			<button type="button" id="writeBtn" class="btn" onclick="goList()"
+				style="color: white; background-color: black;">등록</button>
+			
+			<!-- <button type="button" class="btn"
+				onclick="location.href='qnaList'"
+				style="color: white; background-color: black;">목록</button> -->
 		</div>
 	</div>
-
 </body>
 </html>

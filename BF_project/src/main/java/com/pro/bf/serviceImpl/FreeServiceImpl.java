@@ -24,4 +24,10 @@ public class FreeServiceImpl implements FreeService{
 		return freeList;
 	}
 
+	@Override
+	public void insertFree(FreeVO freeVO) throws SQLException {
+		freeDaoImpl.insertFree(freeVO);
+		
+	}
+
 }
