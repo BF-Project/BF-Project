@@ -38,6 +38,9 @@
 		<property name="mbrDAO" ref="mbrDAOImpl" />
 	</bean>
 	<bean id="adminServiceImpl" class="com.pro.bf.serviceImpl.AdminServiceImpl">
-		<property name="adminDAO" ref="adminDAOImpl"></property>
+		<property name="adminDAO" ref="adminDAOImpl" />
+	</bean>
+	<bean id="noticeServiceImpl" class="com.pro.bf.serviceImpl.NoticeServiceImpl">
+		<property name="noticeDAO" ref="noticeDAOImpl" />
 	</bean>
 </beans>

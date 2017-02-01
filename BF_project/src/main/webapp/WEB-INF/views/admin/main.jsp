@@ -12,9 +12,7 @@
 	</style>
 </head>
 <body>
-<!-- <div id="wrapper"> -->
-<!-- 	ㅎㅇ -->
-<!-- </div> -->
+
 <div id="wrapper">
 
 	<div id="page-wrapper">

@@ -50,8 +50,10 @@
 <div id="wrapper">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="navbar-header" style="height: 70px; vertical-align: middle;">
-			<a class="navbar-brand" href="index.html" style="font-size: 24px; padding: 7px;">
-			<br>&nbsp;&nbsp;&nbsp;Administrator screen</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/admin/start" style="font-size: 24px; padding: 7px;">
+			<img src="<%=request.getContextPath()%>/resources/images/logo/logo.jpg" style="width:120px; position:absolute; left:18px; top:21px;">
+			<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Administrator screen</a>
 		</div>
 		<!-- 상단메뉴 -->
 		<ul class="nav navbar-right top-nav" style="margin-top: 10px; margin-bottom: 15px;">
@@ -171,21 +173,11 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle"	data-toggle="dropdown">
 					<i class="fa fa-user"> </i>
-					John Smith <b class="caret"></b>
+					${sessionScope.adminName } '관리자'님 안녕하세요. <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="#"><i class="fa fa-fw fa-user"></i> Profile X</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox X</a>
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-fw fa-gear"></i> Settings X</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="#"><i class="fa fa-fw fa-power-off"></i> LogOut X</a>
+						<a href="<%=request.getContextPath()%>/admin/exit"><i class="fa fa-fw fa-power-off"></i> LogOut</a>
 					</li>
 				</ul>
 			</li>
@@ -198,19 +190,19 @@
 				<li class="aaaa" style="font-size: 16px;"><a href="index.html">
 					<i class="fa fa-fw fa-dashboard"></i> Main X</a>
 				</li>
-				<li class="bbbb" style="font-size: 16px; margin-top: 10px"><a href="charts.html">
+				<li class="bbbb" style="font-size: 16px; margin-top: 10px"><a href="#">
 					<i class="fa fa-fw fa-bar-chart-o"></i> 회원관리 X</a>
 				</li>
-				<li class="cccc" style="font-size: 16px; margin-top: 10px"><a href="tables.html">
+				<li class="cccc" style="font-size: 16px; margin-top: 10px"><a href="#">
 					<i class="fa fa-fw fa-table"></i> 시뮬레이터 X</a>
 				</li>
-				<li class="dddd" style="font-size: 16px; margin-top: 10px"><a href="forms.html">
-					<i class="fa fa-fw fa-edit"></i> Forms X</a>
+				<li class="dddd" style="font-size: 16px; margin-top: 10px"><a href="<%=request.getContextPath()%>/admin/notice">
+					<i class="fa fa-fw fa-edit"></i> 공지사항</a>
 				</li>
-				<li class="eeee" style="font-size: 16px; margin-top: 10px"><a href="bootstrap-elements.html">
+				<li class="eeee" style="font-size: 16px; margin-top: 10px"><a href="#">
 					<i class="fa fa-fw fa-desktop"></i> Bootstrap Elements X</a>
 				</li>
-				<li class="ffff" style="font-size: 16px; margin-top: 10px"><a href="bootstrap-grid.html">
+				<li class="ffff" style="font-size: 16px; margin-top: 10px"><a href="#">
 					<i class="fa fa-fw fa-wrench"></i> Bootstrap Grid X</a>
 				</li>
 				<li class="gggg" style="font-size: 16px; margin-top: 10px">
@@ -223,21 +215,21 @@
 					</ul>
 				</li>
 				<li class="hhhh" style="font-size: 16px; margin-top: 10px">
-					<a href="blank-page.html">
+					<a href="#">
 						<i class="fa fa-fw fa-file"></i> Blank Page X
 					</a>
 				</li>
-				<li class="iiii" style="font-size: 16px; margin-top: 10px"><a href="bootstrap-grid.html">
+				<li class="iiii" style="font-size: 16px; margin-top: 10px"><a href="#">
 					<i class="fa fa-fw fa-wrench"></i> Bootstrap Grid X</a>
 				</li>
-				<li class="jjjj" style="font-size: 16px; margin-top: 10px"><a href="bootstrap-grid.html">
-					<i class="fa fa-fw fa-wrench"></i> Bootstrap Grid X</a>
+				<li class="jjjj" style="font-size: 16px; margin-top: 10px"><a href="#">
+					<i class="fa fa-fw fa-money"></i> Bootstrap Grid X</a>
 				</li>
-				<li class="kkkk" style="font-size: 16px; margin-top: 10px"><a href="bootstrap-grid.html">
-					<i class="fa fa-fw fa-wrench"></i> Bootstrap Grid X</a>
+				<li class="kkkk" style="font-size: 16px; margin-top: 10px"><a href="#">
+					<i class="fa fa-fw fa-strikethrough"></i> Bootstrap Grid X</a>
 				</li>
 				<li class="llll" style="font-size: 16px; margin-top: 10px">
-					<a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> Home(관리자모드 종료) X</a>
+					<a href="<%=request.getContextPath()%>/admin/exit"><i class="fa fa-fw fa-power-off"></i> Home(관리자모드 종료) </a>
 				</li>
 			</ul>
 		</div>
