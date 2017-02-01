@@ -58,8 +58,8 @@ public class MbrServiceImpl implements MbrService {
 	}
 
 	@Override
-	public String searchUserName(String login) throws SQLException { // 로그인한 유저
-																		// 이름 찾기
+	public String searchUserName(String login) throws SQLException { // 로그인한 유저 / 이름 찾기
+																		
 		String loginUserName = mbrDao.searchUserName(login);
 		return loginUserName;
 	}

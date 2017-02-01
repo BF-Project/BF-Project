@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  
+     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+     
+<sqlMap namespace="Mbr">
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="mbr" type="com.pro.bf.dto.MbrVO" />
+	
+	<!-- Query 문 작성란 -->
+	<insert id="insertMember" parameterClass="mbr" >
+		insert into mbr(mbr_id, mbr_pwd, mbr_nm, mbr_eml, mbr_phone, mbr_addr, mbr_brt, mbr_gnd, mbr_eml_yn) 
+		values(#mbr_id#, #mbr_pwd#, #mbr_nm#, #mbr_eml#, #mbr_phone#, #mbr_addr#, #mbr_brt#, #mbr_gnd#, #mbr_eml_yn#)
+	</insert>
+	
+	<select id="idcheck" parameterClass="str" resultClass="str">
+		select mbr_id from mbr where mbr_id=#userid#
+	</select>
+	
+	<select id="login" parameterClass="mbr" resultClass="str">
+		select mbr_id from mbr where mbr_id=#mbr_id# and mbr_pwd=#mbr_pwd#
+	</select>
+	
+	<select id="SearchLoginUserName" parameterClass="str" resultClass="str">
+		select mbr_nm from mbr where mbr_id=#login#
+	</select>
+	
+	<select id="SearchUserId" parameterClass="mbr" resultClass="str">
+		select mbr_id from mbr where mbr_nm=#mbr_nm# and mbr_eml=#mbr_eml#
+	</select>
+	
+	<select id="SearchUserPwd" parameterClass="mbr" resultClass="mbr">
+		select * from mbr where mbr_id=#mbr_id# and mbr_nm=#mbr_nm#
+	</select>
+</sqlMap>

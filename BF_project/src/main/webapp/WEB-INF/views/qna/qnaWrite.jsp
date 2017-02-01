@@ -56,7 +56,7 @@
 			<!-- //BREADCRUMBS -->
 			<br>
 			<div class="container">
-				<form name="form2" method="post" action="qnaWriteForm" id="write">
+				<form name="form2" method="post" action="qnaWriteForm" id="write" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="usr">Title</label> 
 						<input type="text" name="qna_title" class="form-control" id="usr" style="width: 30%;">
@@ -65,6 +65,11 @@
 						<label for="comment">Comment</label>
 						<textarea class="form-control" rows="5" name="qna_content" id="comment" style="width: 50%; height: 300px;"></textarea>
 					</div>
+			
+			
+				<input type="file" name="file">
+	
+			
 				</form>
 			</div>
 			<button type="button" id="writeBtn" class="btn" onclick="goList()"

@@ -95,6 +95,18 @@
 							<th>게시날짜</th>
 							<td>${qnaVO.qna_date}</td>
 						</tr>
+						
+						<tr>
+						<th>사진첨부</th>
+						<td>
+						<img src="<%=request.getContextPath() %>/upload/${qnaVO.qna_pict_afat}" width="200pt"> 
+						</td>
+						
+						<tr>
+						<th>답변내용</th>
+						<td></td>
+					</tr>
+					
 					</table>
 				</div>
 				<br>

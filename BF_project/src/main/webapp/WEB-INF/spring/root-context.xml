@@ -38,12 +38,20 @@
 	<bean id="addrServiceImpl" class="com.pro.bf.serviceImpl.AddrServiceImpl">
 		<property name="addressDAO" ref="addressDAOImpl" />
 	</bean>
-	
 	<bean id="mbrServiceImpl" class="com.pro.bf.serviceImpl.MbrServiceImpl">
 		<property name="mbrDAO" ref="mbrDAOImpl" />
+	</bean>
+	<bean id="adminServiceImpl" class="com.pro.bf.serviceImpl.AdminServiceImpl">
+		<property name="adminDAO" ref="adminDAOImpl" />
+	</bean>
+	<bean id="noticeServiceImpl" class="com.pro.bf.serviceImpl.NoticeServiceImpl">
+		<property name="noticeDAO" ref="noticeDAOImpl" />
 	</bean>
 	
 	<bean id="freeServiceImpl" class="com.pro.bf.serviceImpl.FreeServiceImpl">
 		<property name="freeDAO" ref="freeDAOImpl"></property>
 	</bean>
 </beans>
+
+	
+

@@ -16,6 +16,15 @@ public class NoticeVO {
 	private String notice_pict_afat; // 첨부파일(사진이름)
 	private String admin_id; // 관리자 아이디(FK)
 	
+	@Override
+	public String toString() {
+		return "NoticeVO [notice_num=" + notice_num + ", notice_title="
+				+ notice_title + ", notice_content=" + notice_content
+				+ ", notice_cnt=" + notice_cnt + ", notice_date=" + notice_date
+				+ ", notice_pict_afat=" + notice_pict_afat + ", admin_id="
+				+ admin_id + "]";
+	}
+
 	public int getNotice_num() {
 		return notice_num;
 	}

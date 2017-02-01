@@ -235,7 +235,14 @@ body {
 						$("#myModal").modal('hide');
 // 						alert('로그인');
 						window.location.reload();
+					}else if(data=='admin'){
+						$("#myModal").modal('hide');
+						document.loginForm.loginid.value="";
+						document.loginForm.loginpwd.value="";
+						location='<%=request.getContextPath()%>/admin/start'
 					}else{
+						document.loginForm.loginid.value="";
+						document.loginForm.loginpwd.value="";
 						alert('아이디와 비밀번호를 다시 확인해주세요.');
 					}
 				},
