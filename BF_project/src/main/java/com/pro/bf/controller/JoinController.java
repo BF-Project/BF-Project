@@ -170,7 +170,7 @@ public class JoinController {
 			String adminLogin = adminService.adminLogin(mbrVo);
 			if(!(adminLogin==null)){
 				data = "admin";
-//				session.setAttribute("loginAdmin", adminLogin); // 로그인한 관리자 아아디 세션에 저장할 필요가 있을까 ? ㄴㄴ
+				session.setAttribute("loginAdmin", adminLogin); // 로그인한 관리자 아아디 세션에 저장 --> 관리자 화면에서 이름을 표시해주기 위함
 			}else{
 				data = "no";
 			}

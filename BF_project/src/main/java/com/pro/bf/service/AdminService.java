@@ -8,4 +8,5 @@ public interface AdminService {
 
 	String adminLogin(MbrVO MbrVo) throws SQLException;
 	String adminidcheck(String userid) throws SQLException;
+	String adminName(String adminId) throws SQLException;
 }

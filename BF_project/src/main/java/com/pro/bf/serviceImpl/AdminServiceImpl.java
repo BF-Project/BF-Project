@@ -27,4 +27,10 @@ public class AdminServiceImpl implements AdminService{
 		String adminId = adminDao.adminidcheck(userid);
 		return adminId;
 	}
+
+	@Override
+	public String adminName(String adminId) throws SQLException { // 관리자 이름 찾기
+		String adminName = adminDao.adminName(adminId);
+		return adminName;
+	}
 }

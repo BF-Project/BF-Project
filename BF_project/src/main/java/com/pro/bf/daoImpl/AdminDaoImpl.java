@@ -25,4 +25,10 @@ public class AdminDaoImpl implements AdminDao{
 		String adminId = (String)client.queryForObject("AdminIdCheck", userid);
 		return adminId;
 	}
+
+	@Override
+	public String adminName(String adminId) throws SQLException { // 관리자 이름 찾기
+		String adminName = (String) client.queryForObject("AdminNameCheck", adminId);
+		return adminName;
+	}
 }
