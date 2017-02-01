@@ -9,12 +9,9 @@
 <meta charset="UTF-8">
 <title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
 	function goList() {
@@ -61,18 +58,20 @@
 			<div class="container">
 				<form name="form2" method="post" action="qnaWriteForm" id="write">
 					<div class="form-group">
-						<label for="usr">Title</label> <input type="text" name="qna_title"
-							class="form-control" id="usr" style="width: 30%;">
+						<label for="usr">Title</label> 
+						<input type="text" name="qna_title" class="form-control" id="usr" style="width: 30%;">
 					</div>
 					<div class="form-group">
 						<label for="comment">Comment</label>
-						<textarea class="form-control" rows="5" name="qna_content"
-							id="comment" style="width: 50%; height: 300px;"></textarea>
+						<textarea class="form-control" rows="5" name="qna_content" id="comment" style="width: 50%; height: 300px;"></textarea>
 					</div>
 				</form>
 			</div>
 			<button type="button" id="writeBtn" class="btn" onclick="goList()"
-				style="color: white; background-color: black;" id="reg">등록</button>
+				style="color: white; background-color: black;">등록</button>
+			<button type="button" class="btn"
+				onclick="location.href='qnaList'"
+				style="color: white; background-color: black;">목록</button>
 		</div>
 	</div>
 

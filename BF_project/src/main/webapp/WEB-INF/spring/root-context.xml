@@ -43,5 +43,7 @@
 		<property name="mbrDAO" ref="mbrDAOImpl" />
 	</bean>
 	
-	
+	<bean id="freeServiceImpl" class="com.pro.bf.serviceImpl.FreeServiceImpl">
+		<property name="freeDAO" ref="freeDAOImpl"></property>
+	</bean>
 </beans>

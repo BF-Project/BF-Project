@@ -68,9 +68,6 @@ public class QnaController {
 			// qnaList = qnaDao.listAllQna(Integer.parseInt(tpage));
 			qnaList = qnaServiceImpl.getQnaList(Integer.parseInt(tpage));
 			paging = qnaServiceImpl.pageNumber(Integer.parseInt(tpage));
-			for (QnAVO VO : qnaList) {
-				System.out.println(VO.getQna_title() + "ssssssssssssssssss");
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
