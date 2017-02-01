@@ -6,8 +6,46 @@
 <sqlMap namespace="QnA">
 	<typeAlias alias="str" type="java.lang.String" />
 	<typeAlias alias="int" type="java.lang.Integer" />
-	<typeAlias alias="qna" type="com.pro.bf.dtd.QnAVO" />
+	<typeAlias alias="qna" type="com.pro.bf.dto.QnAVO" />
 	
 	<!-- Query 문 작성란 -->
-		
+	<!-- Q&A 리스트 -->
+	<select id="listQna" parameterClass="str" resultClass="qna">
+		select * from qna where mbr_id=#mbr_id# order by qna_num desc
+	</select>
+	
+	<!--  -->
+	<select id="getQna" parameterClass="int" resultClass="qna">
+		select * from qna where qna_num=#qna_num#
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertQna" parameterClass="qna">
+		insert into qna(qna_num, qna_title, qna_content, mbr_id) values(qna_seq.nextval, #qna_title#, #qna_content#, #mbr_id#)
+	</insert>
+	
+	<!-- listAllQna -->
+	<select id="listAllQna" resultClass="qna">
+		select * from qna order by qna_date desc
+	</select>
+	
+	<!-- countQna -->
+	<update id="countQna" parameterClass="qna">
+		update qna set qna_cnt = #qna_cnt#+1
+		where qna_num = #qna_num#
+	</update>
+	
+	<select id="totalQna" resultClass="int">
+		select count(*) from qna
+	</select>
+	
+	<update id="updateQna" parameterClass="qna">
+		update qna set qna_content = #qna_content# where qna_num=#qna_num#
+	</update>
+	
+	<delete id="deleteQna" parameterClass="int" >
+		delete from qna where qna_num=#qna_num#
+    </delete>
+	
+	
 </sqlMap>
