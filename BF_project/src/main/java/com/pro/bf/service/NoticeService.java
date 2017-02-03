@@ -14,4 +14,5 @@ public interface NoticeService {
 	void noticeDelete(int noticeNum) throws SQLException;
 	String noticeFileNameSearch(int noticeNum) throws SQLException;
 	NoticeVO noticeUpdate(int noticeNum) throws SQLException;
+	void noticeRealUpdate(NoticeVO noticeVo) throws SQLException;
 }

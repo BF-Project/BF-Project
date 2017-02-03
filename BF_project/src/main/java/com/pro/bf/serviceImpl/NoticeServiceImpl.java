@@ -126,4 +126,9 @@ public class NoticeServiceImpl implements NoticeService{
 		NoticeVO noticeVo = noticeDao.noticeDetail(noticeNum);
 		return noticeVo;
 	}
+
+	@Override
+	public void noticeRealUpdate(NoticeVO noticeVo) throws SQLException { // 공지사항 수정
+		noticeDao.noticeRealUpdate(noticeVo);
+	}
 }

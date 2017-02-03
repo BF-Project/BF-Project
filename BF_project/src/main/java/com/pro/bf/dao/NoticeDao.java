@@ -14,4 +14,5 @@ public interface NoticeDao {
 	void noticeCountPlus(int noticeNum) throws SQLException;
 	void noticeDelete(int noticeNum) throws SQLException;
 	String noticeFileNameSearch(int noticeNum) throws SQLException;
+	void noticeRealUpdate(NoticeVO noticeVo) throws SQLException;
 }

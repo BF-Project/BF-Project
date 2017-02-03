@@ -87,6 +87,12 @@
 	</script>
 </head>
 <body>
+	<c:if test="${!empty sessionScope.noticeUpdateOK}">
+		<script>
+			alert('공지사항이 수정되었습니다.')
+		</script>
+		<c:remove var="noticeUpdateOK" scope="session" />
+	</c:if>
 	<div id="wrapper">
 		<div id="page-wrapper" style="text-align: center; height: 924px;">
 			<br><br>
@@ -129,7 +135,7 @@
 	                    	<c:when test="${!empty noticeVo.notice_pict_afat}">
 	                    		<center>
 							        <textarea class="form-control" rows="16" id="noticeContent"	style="width:650px; font-size: 16px; 
-							        text-align:left; background-color: white;" readonly>&nbsp;${noticeVo.notice_content}
+							        text-align:left; background-color: white;" readonly>${noticeVo.notice_content}
 							    	</textarea>
 							    	<div style="position:relative; margin-top:13px; width:640px">
 							    		<label class="control-label" style="vertical-align:top; float:left">
@@ -153,7 +159,7 @@
 	                    	<c:otherwise>
 	                    		<center>
 							        <textarea class="form-control" rows="16" id="noticeContent"	style="width:650px; font-size: 16px; 
-							        text-align:left; background-color: white;" readonly>&nbsp;${noticeVo.notice_content}
+							        text-align:left; background-color: white;" readonly>${noticeVo.notice_content}
 							    	</textarea>
 							    	<div style="position:relative; margin-top:13px; width:640px">
 							    		<label class="control-label" style="vertical-align:top; float:left">

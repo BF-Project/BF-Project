@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -140,7 +141,7 @@ public class AdminMainController {
 		}else{
 			noticeVo.setNotice_pict_afat(null);
 		}
-		noticeService.insertNotice(noticeVo); // 잠시
+		noticeService.insertNotice(noticeVo);
 		session.setAttribute("noticeInsertOK", "ok"); // 공지사항 등록여부
 		return "redirect:/admin/notice?page="+page; 	
 	}
@@ -202,5 +203,71 @@ public class AdminMainController {
 		request.setAttribute("page", request.getParameter("page"));
 		// 페이지, request NoticeVo 넘겨줌
 		return "/admin/notice/UpdateView";
+	}
+	
+	@RequestMapping("updateNotice")
+	public String updateNotice(@RequestParam("fileUpload")MultipartFile multipartFile, HttpServletRequest request,
+			HttpSession session, HttpServletResponse response) throws SQLException, IOException{
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		int noticeNum = Integer.parseInt(request.getParameter("noticeNum")); // 공지사항 글 번호
+		String admin = (String) session.getAttribute("loginAdmin"); // 현제 관리자 모드로 로그인한 관리자 아이디
+		String noticeTitle = request.getParameter("noticeTitle"); // 제목
+		String noticeContent = request.getParameter("noticeContent"); // 내용
+		
+		NoticeVO noticeVo = new NoticeVO();
+		noticeVo.setNotice_num(noticeNum);
+		noticeVo.setAdmin_id(admin);
+		noticeVo.setNotice_title(noticeTitle);
+		noticeVo.setNotice_content(noticeContent);
+		
+		PrintWriter out = response.getWriter();
+		
+		if(!multipartFile.isEmpty()){
+			String upload = request.getSession().getServletContext().getRealPath("resources/upload"); // 배포폴더
+			File file = new File(upload, System.currentTimeMillis()+"$$"+multipartFile.getOriginalFilename());
+			// uploadPath 경로에 | multipartFile를 저장 (System.currentTimeMillis()+"$$" 를 이름을 줘서 중복되는 명을 없앤다.)
+				
+			long fileSizeLimit = 1024*1024*10; // 10MB
+			if(multipartFile.getSize() > fileSizeLimit){
+				// 파일 용량이 10MB 이상일때
+				response.setCharacterEncoding("UTF-8");
+				out.println("<script>alert('파일 용량은 10MB 이하로만 등록 가능합니다.'); history.go(-1); </script>");
+				return null;
+			}
+			multipartFile.transferTo(file); // 파일 저장
+			noticeVo.setNotice_pict_afat(file.getName());
+			//
+		}else{
+			String fileName=noticeService.noticeFileNameSearch(noticeNum);
+			noticeVo.setNotice_pict_afat(fileName);
+		}
+		noticeService.noticeRealUpdate(noticeVo);
+		session.setAttribute("noticeUpdateOK", "ok"); // 공지사항 등록여부
+		
+		request.setAttribute("page", request.getParameter("page"));
+		request.setAttribute("noticeNum",noticeNum);
+		return "forward:/admin/noticeUpdateAferView";
+	}
+	
+	@RequestMapping("noticeUpdateAferView")
+	public String noticeUpdateAfterView(HttpServletRequest request) throws UnsupportedEncodingException, SQLException{
+		request.setCharacterEncoding("UTF-8");
+		int noticeNum = Integer.parseInt(request.getParameter("noticeNum"));
+		NoticeVO noticeVo = noticeService.noticeUpdate(noticeNum);
+		request.setAttribute("noticeVo", noticeVo);
+		request.setAttribute("page", request.getParameter("page"));
+		return "/admin/notice/DetailView";
+	}
+	
+	@RequestMapping("noticeUpdateCancel")
+	public String noticeUpdateCandel(HttpServletRequest request) throws UnsupportedEncodingException, SQLException{
+		request.setCharacterEncoding("UTF-8");
+		int noticeNum = Integer.parseInt(request.getParameter("noticeNum"));
+		request.setAttribute("page", request.getParameter("page"));
+		NoticeVO noticeVo = noticeService.noticeUpdate(noticeNum);
+		request.setAttribute("noticeVo", noticeVo);
+		return "/admin/notice/DetailView";
 	}
 }

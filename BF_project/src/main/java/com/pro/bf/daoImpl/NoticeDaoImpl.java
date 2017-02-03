@@ -52,4 +52,9 @@ public class NoticeDaoImpl implements NoticeDao{
 		String fileName = (String) client.queryForObject("NoticeFileSearch", noticeNum);
 		return fileName;
 	}
+
+	@Override
+	public void noticeRealUpdate(NoticeVO noticeVo) throws SQLException {
+		client.update("NoticeUpdate", noticeVo);
+	}
 }

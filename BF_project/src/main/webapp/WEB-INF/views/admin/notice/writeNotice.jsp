@@ -27,7 +27,7 @@
 		.file_input input[type=text] {
 		    vertical-align:middle;
 		    display:inline-block;
-		    width:150px;
+		    width:200px;
 		    height:26px;
 		    line-height:28px;
 		    font-size:15px;
