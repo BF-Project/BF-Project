@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
 <title>자유게시판</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 <script>
 	function gowrite() {
@@ -20,6 +20,22 @@
 		document.free.submit();
 	}
 </script>
+
+<style>
+#freeList {
+	margin: auto;
+	width: 70%;
+}
+
+#writeBtn {
+	margin-left: 75%;
+}
+
+td, th {
+	text-align: center;
+}
+
+</style>
 
 </head>
 <body>
@@ -44,28 +60,46 @@
 				</div>
 			</section>
 			<!-- //BREADCRUMBS -->
+			<br>
 			<form name="free" method="post">
-			<div class="container">
-				<table class="table table-hover">
-					<tr>
-						<th>글번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>게시날짜</th>
-						<th>조회수</th>
-					</tr>
-					<c:forEach items="${freeList }" var="freeVO">
+				<div class="container">
+					<table class="table table-hover" id="freeList">
 						<tr>
-							<td>${freeVO.fre_num }</td>
-							<td>${freeVO.fre_title }</td>
-							<td>${freeVO.mbr_id }</td>
-							<td>${freeVO.fre_date }</td>
-							<td>${freeVO.fre_cnt }</td>
+							<th>글번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>게시날짜</th>
+							<th>조회수</th>
 						</tr>
-					</c:forEach>
-				</table>
-				<button type="button" class="btn" onclick="gowrite()" style="color:white; background-color:black;" >글 작성</button>
-			</div>				
+
+						<c:choose>
+							<c:when test="${freeListSize<=0 }">
+								<tr>
+									<td width="100%" colspan="5" align="center" height="23">
+										There are no registered Free.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${freeList }" var="freeVO">
+									<tr>
+										<td>${freeVO.fre_num }</td>
+										<td><a href="freeView?fre_num=${freeVO.fre_num }">
+												${freeVO.fre_title }</a></td>
+										<td>${freeVO.mbr_id }</td>
+										<td>${freeVO.fre_date }</td>
+										<td>${freeVO.fre_cnt }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</table>
+					
+					<div style="margin-left:45%;">
+						${paging }
+					</div>
+					<button type="button" id="writeBtn" class="btn" onclick="gowrite()"
+						style="background-color: black;">글 작성</button>
+				</div>
 			</form>
 		</div>
 	</div>

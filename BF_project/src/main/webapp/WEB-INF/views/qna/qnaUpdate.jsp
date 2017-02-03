@@ -9,13 +9,13 @@
 <meta charset="UTF-8">
 <title></title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 <script>
 	function goList() {
@@ -81,25 +81,26 @@
 				style="color: white; background-color: black;">목록</button>
 		</div>
 
-	<div>
-		<form name="form2" method="post" action="qnaUpdateForm"  enctype="multipart/form-data">
-			<input type="text" name="qna_num" hidden="hidden" value="${param.qna_num}">
-			<label>title</label><br> 
-			<input type="text" name="qna_title" size="30" value="${qnaVO.qna_title}" readonly><br> 
-			<label>content</label><br>
-			<textarea rows="8" cols="65" id="content1" name="qna_content" >${qnaVO.qna_content}</textarea>
-			<br>
-		
-		<!--사진수정  -->
-			<input type="hidden" name="nofile" value="${qnaVO.qna_pict_afat}">
-			<img src="<%=request.getContextPath() %>/upload/${qnaVO.qna_pict_afat}" width="200pt"> 
-							
-			<input type="file" name="file">
-			
-		
-		</form>
-		<input type="button" value="등록" onclick="goList()">
+		<div>
+			<form name="form2" method="post" action="qnaUpdateForm"
+				enctype="multipart/form-data">
+				<input type="text" name="qna_num" hidden="hidden"
+					value="${param.qna_num}"> <label>title</label><br> <input
+					type="text" name="qna_title" size="30" value="${qnaVO.qna_title}"
+					readonly><br> <label>content</label><br>
+				<textarea rows="8" cols="65" id="content1" name="qna_content">${qnaVO.qna_content}</textarea>
+				<br>
 
+				<!--사진수정  -->
+				<input type="hidden" name="nofile" value="${qnaVO.qna_pict_afat}">
+				<img
+					src="<%=request.getContextPath() %>/upload/${qnaVO.qna_pict_afat}"
+					width="200pt"> <input type="file" name="file">
+
+
+			</form>
+			<input type="button" value="등록" onclick="goList()">
+		</div>
 	</div>
 </body>
 </html>

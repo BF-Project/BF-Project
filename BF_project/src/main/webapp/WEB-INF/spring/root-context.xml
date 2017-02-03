@@ -51,6 +51,10 @@
 	<bean id="freeServiceImpl" class="com.pro.bf.serviceImpl.FreeServiceImpl">
 		<property name="freeDAO" ref="freeDAOImpl"></property>
 	</bean>
+	
+	<bean id="cmtServiceImpl" class="com.pro.bf.serviceImpl.CmtServiceImpl">
+		<property name="cmtDAO" ref="cmtDAOImpl"></property>
+	</bean>
 </beans>
 
 	

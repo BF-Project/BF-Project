@@ -7,28 +7,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>자유게시판</title>
 
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
 	function goList() {
-		document.free.action = "freeWriteForm";
-		document.free.method = "post";
-		document.free.submit();
+		document.update.action = "freeUpdateForm";
+		document.update.method = "post";
+		document.update.submit();
 	}
 </script>
 
 <style>
-	#write {
+	#update {
 		margin-left : 380px;
 	}
 	
-	#writeBtn {
-		margin-left: 40%;
+	#updateBtn {
+		margin-left : 40%;
 	}
 </style>
 
@@ -55,24 +55,29 @@
 				</div>
 			</section>
 			<!-- //BREADCRUMBS -->
-			<br>
 			<div class="container">
-				<form name="free" method="post" action="freeWriteForm" id="write">
+				<form name="update" method="post" action="freeUpdateForm" id="update">
+					<input type="text" name="fre_num" hidden="hidden"
+						value="${param.fre_num}">
+					
 					<div class="form-group">
-						<label for="usr">Title</label> 
-						<input type="text" name="fre_title" class="form-control" id="usr" style="width: 30%;">
+						<br> <label for="usr">제 목</label><br> 
+						<input type="text"
+							class="form-control" name="fre_title" id="usr"
+							value="${freeVO.fre_title}" readonly style="width: 30%;">
 					</div>
-					<div class="form-group">
-						<label for="comment">Comment</label>
-						<textarea class="form-control" rows="5" name="fre_content" id="comment" style="width: 50%; height: 300px;"></textarea>
+					
+					<div class="form-gourp">
+						<label for="comment">내 용</label><br>
+						<textarea rows="5" id="comment" class="form-control"
+							name="fre_content" style="width: 50%; height: 300px;">${freeVO.fre_content}</textarea>
 					</div>
+					<br>
 				</form>
 			</div>
-			<button type="button" id="writeBtn" class="btn" onclick="goList()"
-				style="background-color: black;">등록</button>
-			
-			<button type="button" class="btn"
-				onclick="location.href='freeList'"
+			<button type="button" id="updateBtn" class="btn" onclick="goList()"
+				style="background-color: black;">수정</button>
+			<button type="button" class="btn" onclick="location.href='freeList'"
 				style="background-color: black;">목록</button>
 		</div>
 	</div>

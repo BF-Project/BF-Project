@@ -24,9 +24,7 @@
 <link rel="shortcut icon" href="images/favicon.ico">
 
 <!-- CSS -->
-<link
-	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
+	
 <link href="<%=request.getContextPath()%>/resources/css/flexslider.css"
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/resources/css/prettyPhoto.css"
@@ -38,6 +36,10 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
+<link
+	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/examples-base.css" /> --%>
  
 
@@ -53,11 +55,13 @@
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <!--[if IE]><html class="ie" lang="en"> <![endif]-->
 
-<script src="<%=request.getContextPath()%>/resources/js/jquery.min.js"
-	type="text/javascript"></script>
-<script
-	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"
-	type="text/javascript"></script>
+<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery.min.js" --%>
+<!-- 	type="text/javascript"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- <script -->
+<%-- 	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js" --%>
+<!-- 	type="text/javascript"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/js/jquery.prettyPhoto.js"
 	type="text/javascript"></script>

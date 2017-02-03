@@ -10,10 +10,10 @@
 <meta charset="UTF-8">
 <title>Q&A 게시판</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 <script>
 	function gowrite() {
@@ -89,7 +89,7 @@
 
 										<!-- 수정1. -->
 										<td><a href="qnaView?qna_num=${qnaVO.qna_num}">
-												${qnaVO.qna_title }</td>
+												${qnaVO.qna_title }</a></td>
 										<td>${qnaVO.mbr_id }</td>
 										<td>${qnaVO.qna_date }</td>
 										<td>${qnaVO.qna_cnt }</td>
@@ -102,7 +102,7 @@
 					<div id="paging">
 						${paging }
 					</div>
-					<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="color:white; background-color:black;">글 작성</button>
+					<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="background-color:black;">글 작성</button>
 				</div>
 
 				<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->

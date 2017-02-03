@@ -13,7 +13,32 @@
 		select * from free where mbr_id=#mbr_id# order by fre_num desc
 	</select>
 	
+	<select id="listAllFree" resultClass="free">
+		select * from free order by fre_date desc
+	</select>
+	
 	<insert id="insertFree" parameterClass="free">
 		insert into free(fre_num, fre_title, fre_content, mbr_id) values(free_seq.nextval, #fre_title#, #fre_content#, #mbr_id#)
 	</insert>
+	
+	<select id="getFree" parameterClass="int" resultClass="free">
+		select * from free where fre_num=#fre_num#
+	</select>
+	
+	<delete id="deleteFree" parameterClass="int" >
+		delete from free where fre_num=#fre_num#
+    </delete>
+    
+    <update id="updateFree" parameterClass="free">
+		update free set fre_content = #fre_content# where fre_num=#fre_num#
+	</update>
+	
+	<update id="countFree" parameterClass="free">
+		update free set fre_cnt = #fre_cnt#+1
+		where fre_num = #fre_num#
+	</update>
+	
+	<select id="totalFree" resultClass="int">
+		select count(*) from free
+	</select>
 </sqlMap>
