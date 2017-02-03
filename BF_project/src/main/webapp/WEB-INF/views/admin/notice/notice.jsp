@@ -10,12 +10,45 @@
 	</style>
 	<!-- 검색버튼 css -->
 	<link href="<%=request.getContextPath()%>/resources/admin/css/search.css" rel="stylesheet">
+	<script>
+		function detail(noticeNum){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/admin/noticeDetail",
+				type : "post",
+				dataType : "text",
+				data : ({
+					noticeNum : noticeNum
+				}),
+				success:function(){
+					location='<%=request.getContextPath()%>/admin/noticeDetailView?page=${page}'
+				},
+				error:function(error){
+					alert('error');
+				}
+			});
+		}
+	</script>
 </head>
 <body>
-	<div id="wrapper">
+	
+	<c:if test="${!empty sessionScope.noticeInsertOK}">
+		<script>
+			alert('공지사항을 등록했습니다.');
+		</script>
+		<c:remove var="noticeInsertOK" scope="session" />
+	</c:if>
+	
+	<c:if test="${!empty sessionScope.delete }">
+		<script>
+			alert('공지사항을 삭제했습니다.');
+		</script>
+		<c:remove var="delete" scope="session"/>
+	</c:if>
+	
+	<div id="wrapper">                       
 		<div id="page-wrapper" style="text-align: center; height: 906.5px;">
 			<div class="row">
-				<br><br>
+				<br><br>        
 				<h1><b>공지사항</b></h1>
 				<br>
 				<div class="table-responsive">
@@ -40,14 +73,16 @@
 							</c:when>
 							<c:otherwise>
 								<tbody>
-									<c:forEach items="${noticeList}" var="NoticeVO" varStatus="count">
-										<tr id="hoverId">
-											<td>${NoticeVO.notice_num}</td>
+									<c:forEach items="${noticeList}" var="NoticeVO" varStatus="count" >
+<!-- 										<form name="noticeForm"> -->
+										<tr id="hoverId" onclick="detail(${NoticeVO.notice_num})">
+											<td id="noticeNum">${NoticeVO.notice_num}</td>
 											<td>${NoticeVO.notice_title}</td>
 											<td>${NoticeVO.admin_id}</td>
 											<td>${NoticeVO.notice_date}</td>
 											<td>${NoticeVO.notice_cnt}</td>
 										</tr>
+<!-- 										</form> -->
 									</c:forEach>
 								</tbody>
 							</c:otherwise>
@@ -72,9 +107,6 @@
 							<b style="font-size:14px">글쓰기</b>&nbsp;<i class="fa fa-edit spaceLeft"></i>
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="btn btn-warning" onclick="gohome()" style="padding:8px">
-							<b style="font-size:14px">가입취소</b>&nbsp;<i class="fa fa-times spaceLeft"></i>
-						</button>
 						<!-- 글쓰기 :end -->
 				</div>
 			</div>

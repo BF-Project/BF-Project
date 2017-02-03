@@ -30,4 +30,26 @@ public class NoticeDaoImpl implements NoticeDao{
 	public void insertNotice(NoticeVO noticeVo) throws SQLException {
 		client.insert("insertNotice", noticeVo);
 	}
+
+	@Override
+	public NoticeVO noticeDetail(int noticeNum) throws SQLException { // 공지사항 상세보기
+		NoticeVO noticeVo = (NoticeVO) client.queryForObject("NoticeDetail", noticeNum);
+		return noticeVo;
+	}
+
+	@Override
+	public void noticeCountPlus(int noticeNum) throws SQLException { // 공지사항 조회수 증가
+		client.update("NoticeCountPlus", noticeNum);
+	}
+
+	@Override
+	public void noticeDelete(int noticeNum) throws SQLException { // 공지사항 삭제하기
+		client.delete("NoticeDelete", noticeNum);		
+	}
+
+	@Override
+	public String noticeFileNameSearch(int noticeNum) throws SQLException { // 공지사항 첨부파일 명 찾기
+		String fileName = (String) client.queryForObject("NoticeFileSearch", noticeNum);
+		return fileName;
+	}
 }

@@ -6,6 +6,11 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
+	<!-- MultipartResolver bean등록!!! 업로드하기 위함-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8"/>
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
+		
+	
 	<!-- DaoImpl Bean 등록 / DaoImpl에 setter가 있어야 한다.-->
 	<!-- DAOImpl -->
 	<bean id="addressDAOImpl" class="com.pro.bf.daoImpl.AddrDaoImpl" p:client-ref="client" />

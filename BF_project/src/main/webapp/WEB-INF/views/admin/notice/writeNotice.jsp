@@ -4,34 +4,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-	<script>
-		function insertNotice(){
-			$.ajax({
-				url : "<%=request.getContextPath()%>/admin/InsertNotice",
-				type : "post",
-				dataType : "text",
-				data : ({
-					noticeTitle : $("input[name=noticeTitle]").val(),
-					noticeContent : $("textarea#noticeContent").val()
-				}),
-				success:function(data){
-					location='<%=request.getContextPath()%>/admin/notice?page=${page}'
-				},
-				error:function(error){
-					alert('error');
-				}
-			});
+	<style>
+ 		.file_input label {
+		    display: inline-block; 
+ 			padding: .5em .75em; 
+ 			color: #1E82FF; 
+ 			font-size: inherit; 
+ 			line-height: normal; 
+ 			vertical-align: middle; 
+ 			background-color: #fdfdfd; 
+ 			cursor: pointer; 
+ 			border: 1px solid #1E82FF; 
+ 			border-bottom-color: #1E82FF; 
+ 			border-radius: .25em; 
 		}
-	</script>
+		.file_input label input {
+		    position:absolute;
+		    width:0;
+		    height:0;
+		    overflow:hidden;
+		}
+		.file_input input[type=text] {
+		    vertical-align:middle;
+		    display:inline-block;
+		    width:150px;
+		    height:26px;
+		    line-height:28px;
+		    font-size:15px;
+/* 		    color:#fdfdfd; */
+/* 		    padding:0; */
+ 		    border:0px; 
+/* 		    border:1px solid #777; */
+		}
+	</style>
 </head>
 
 <body>
 	<div id="wrapper">
-		<div id="page-wrapper" style="text-align: center; height: 906.5px;">
+		<div id="page-wrapper" style="text-align: center; height: 924px;">
 			<br><br>
 			<h1><b>공지사항 작성</b></h1>
 			<!-- 공지사항 작성 -->
-			<form name="noticeForm">
+			<form enctype="multipart/form-data" method="post" action="<%=request.getContextPath()%>/admin/InsertNotice">
 				<div class="form-group">
 					<div class="form-group">
 						<br>					
@@ -44,28 +58,30 @@
 	                    <label class="control-label" for="inputWarning" style="font-size: 22px; margin-left: -570px">
 	                    <i class="fa fa-edit spaceLeft"></i>&nbsp;&nbsp;내용</label>
 	                    <center>
-	                    <textarea class="form-control" rows="16" id="noticeContent" style="width:650px; font-size: 16px"></textarea>
+	                    <textarea class="form-control" rows="16" name="noticeContent" style="width:650px; font-size: 16px"></textarea>
 	                    </center>
 	                </div>
 	            </div>
-            </form>
-            <!-- 공지사항 작성 : end -->
-            <button type="button" class="btn btn-link" onclick="" style="padding:8px; margin-left: -6px">
-				<i class="fa fa-photo"></i>&nbsp;<b style="font-size:14px">사진첨부</b>			
-			</button>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn btn-success" onclick="insertNotice()" style="padding:8px;">
-				<i class="fa fa-check-square-o"></i>&nbsp;<b style="font-size:14px">등록</b>
-			</button>
-			&nbsp;&nbsp;&nbsp;
-			<button type="button" class="btn btn-danger" onclick="location.href='notice?page=${page}'" style="padding:8px;">
-				<i class="fa fa-times spaceLeft"></i>&nbsp;<b style="font-size:14px">취소</b>
-			</button>
+            
+	            <!-- 공지사항 작성 : end -->
+	            <button type="submit" class="btn btn-success" style="padding:8px; margin-left: 480px; position:relative; z-index:100">
+					<i class="fa fa-check-square-o"></i>&nbsp;<b style="font-size:14px">등록</b>
+				</button>
+				&nbsp;&nbsp;&nbsp;
+				<button type="button" class="btn btn-danger" onclick="location.href='notice?page=${page}'"
+				style="padding:8px; position:relative; z-index:100">
+					<i class="fa fa-times spaceLeft"></i>&nbsp;<b style="font-size:14px">취소</b>
+				</button>
+				<!-- MultipartFile 사용하여 파일 업로드 -->
+				<div class="file_input" style="margin-left: -375px; margin-top: -36px">
+				    <label>
+				        <i class="fa fa-photo"></i>&nbsp;사진첨부
+				        <input type="file" name="fileUpload" onchange="javascript:document.getElementById('file_route').value=this.value">
+				    </label>
+				    <input type="text" readonly="readonly" title="File Route" id="file_route">
+				</div>
+				<input type="hidden" id="page" name="page" value="${page}">
+			</form>
 		</div>
 	</div>
 </body>
