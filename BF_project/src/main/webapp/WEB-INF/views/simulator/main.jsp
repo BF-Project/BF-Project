@@ -12,7 +12,7 @@
 		.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 		.layer .pop-layer {display:block;}
 
-	.pop-layer {display:none; position: absolute; top: 130px; left: 300px; width: 400px; height:600px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
+	.pop-layer {display:none; position: absolute; top: 100px; left: 300px; width: 500px; height:800px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
 	.pop-layer .pop-container {padding: 20px 25px;}
 	.pop-layer p.ctxt {color: #666; line-height: 25px;}
 	.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
@@ -245,10 +245,12 @@ function start(form){
 
 function changeOption1(){
 	$('#offOption').hide();
+	$('.onlineOption').show();
 }
 
 function changeOption2(){
 	$('#offOption').show();
+	$('.onlineOption').hide();
 }
 
 </script>
@@ -278,14 +280,14 @@ function changeOption2(){
 			<tr>
 				<td>창업종류 : </td>
 				<td colspan="2">
-						<input type="radio" name="radio" id="radio1" class="radio" value="온라인 창업" checked onclick="changeOption1();"><label for="radio1" style="color:black;"><span></span>온라인 창업</label>
+						<input type="radio" name="radio" id="radio1" class="radio" value="온라인 창업" checked onclick="changeOption1();"><label for="radio1" style="color:black;"><span></span>온라인 창업</label>&nbsp;&nbsp;
 						<input type="radio" name="radio" id="radio2" class="radio" value="오프라인 창업" onclick="changeOption2();"><label for="radio2" style="color:black;"><span></span>오프라인 창업</label>
 				
 				</td>
 			</tr>
 			<tr style="text-align:center;" id="offOption">
 				<td colspan="3"><select style="width: 200px;">
-						<option value="#">선택하세요</option>
+						<option value="#">업종을 선택하세요</option>
 						<option value="chicken">치킨/호프</option>
 						<option value="cafe">까페</option>
 						<option value="restaurant">요식업</option>
@@ -309,6 +311,47 @@ function changeOption2(){
 						<option value="${item}">${item}</option>
 					</c:forEach>
 				</select>시간
+			</tr>
+			<tr class="onlineOption">
+				<td>마케팅 계획여부 : </td>
+				<td><input type="radio" name="marketing" id="marketing1" value="yes" checked/><label for="marketing1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="marketing" id="marketing2" value="no"><label for="marketing2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>상품관리여부 : </td>
+				<td><input type="radio" name="prodManage" id="prodManage1" value="yes" checked/><label for="prodManage1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="prodManage" id="prodManage2" value="no"><label for="prodManage2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>수익성 분석여부 : </td>
+				<td><input type="radio" name="benefit" id="benefit1" value="yes" checked/><label for="benefit1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="benefit" id="benefit2" value="no"><label for="benefit2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>사이트맵 여부 : </td>
+				<td><input type="radio" name="sitemap" id="sitemap1" value="yes" checked/><label for="sitemap1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="sitemap" id="sitemap2" value="no"><label for="sitemap2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>상품직접생산여부 : </td>
+				<td><input type="radio" name="prodDirect" id="prodDirect1" value="yes" checked/><label for="prodDirect1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="prodDirect" id="prodDirect2" value="no"><label for="prodDirect2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>제조협력업체유무 : </td>
+				<td><input type="radio" name="cooperation" id="cooperation1" value="yes" checked/><label for="cooperation1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="cooperation" id="cooperation2" value="no"><label for="cooperation2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>아이템독창성 : </td>
+				<td><input type="radio" name="itemCreativity" id="itemCreativity1" value="상" checked/><label for="itemCreativity1" style="color:black;"><span></span>상</label>&nbsp;&nbsp;
+				<input type="radio" name="itemCreativity" id="itemCreativity2" value="중"><label for="itemCreativity2" style="color:black;"><span></span>중</label>
+				<input type="radio" name="itemCreativity" id="itemCreativity3" value="하"><label for="itemCreativity3" style="color:black;"><span></span>하</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td>고객관리계획여부 : </td>
+				<td><input type="radio" name="customerManage" id="customerManage1" value="yes" checked/><label for="customerManage1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="customerManage" id="customerManage2" value="no"><label for="customerManage2" style="color:black;"><span></span>No</label></td>
 			</tr>
 			<tr style="height:70px;"></tr>
 			<tr>
