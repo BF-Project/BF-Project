@@ -18,5 +18,9 @@ public class CmtDaoImpl implements CmtDao{
 		List<CmtVO> cmtAllList = client.queryForList("cmtList", cmt_num);
 		return cmtAllList;
 	}
+	@Override
+	public void intsertCmt(CmtVO cmtVO) throws SQLException {
+		client.insert("insertCmt", cmtVO);
+	}
 	
 }

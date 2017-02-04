@@ -24,5 +24,11 @@ public class CmtServiceImpl implements CmtService{
 		return cmtAllList;
 	}
 
+	@Override
+	public void insertCmt(CmtVO cmtVO) throws SQLException {
+		cmtDaoImpl.intsertCmt(cmtVO);
+		
+	}
+
 	
 }
