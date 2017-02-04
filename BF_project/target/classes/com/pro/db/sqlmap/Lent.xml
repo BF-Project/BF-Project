@@ -9,5 +9,17 @@
 	<typeAlias alias="lent" type="com.pro.bf.dtd.LentVO" />
 	
 	<!-- Query 문 작성란 -->
+	
+	<select id="lentList" resultClass="str">
+		select replace(lent_price,',','') from lent
+	</select>
+	
+	<select id="lentTotal" parameterClass="str" resultClass="str">
+		select replace(lent_price,',','') from lent where lent_Addr like '%'||#dong#||'%'
+	</select>
+	
+	<select id="lentCount" resultClass="str">
+		select count(*) from lent
+	</select>
 		
 </sqlMap>

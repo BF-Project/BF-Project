@@ -9,5 +9,17 @@
 	<typeAlias alias="shop" type="com.pro.bf.dtd.ShopVO" />
 	
 	<!-- Query 문 작성란 -->
-		
+	<select id="shopTotal" parameterClass="str" resultClass="str">
+		select count(shop_nm) from shop where shop_dong_addr like '%'||#dong#||'%'
+	</select>
+	
+	<select id="shopCount" resultClass="str">
+		select count(distinct shop_dong_addr) from shop
+	</select>
+	
+	<select id="shopCountAll" resultClass="str">
+		select count(*) from shop
+	</select>
+	
+	
 </sqlMap>

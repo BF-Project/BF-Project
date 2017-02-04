@@ -9,5 +9,16 @@
 	<typeAlias alias="population" type="com.pro.bf.dtd.PopulationVO" />
 	
 	<!-- Query 문 작성란 -->
-		
+	<select id="total" parameterClass="str" resultClass="str">
+		select pplt_man+pplt_woman+pplt_frn_man+pplt_frn_woman from population where pplt_dong like '%'||#dong#||'%'
+	</select>
+	
+	<select id="cnt" resultClass="str">
+		select count(*) from population
+	</select>
+	
+	<select id="populationList" resultClass="str">
+		select pplt_man+pplt_woman+pplt_frn_man+pplt_frn_woman from population
+	</select>
+	
 </sqlMap>

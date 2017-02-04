@@ -9,5 +9,17 @@
 	<typeAlias alias="tourist" type="com.pro.bf.dtd.TouristVO" />
 	
 	<!-- Query 문 작성란 -->
+	
+	<select id="count" parameterClass="str" resultClass="str">
+		select count(*) from tourist where trt_addr like '%'||#dong#||'%'
+	</select>
+	
+	<select id="grade" parameterClass="str" resultClass="str">
+		select trt_grade from tourist where trt_addr like '%'||#dong#||'%'
+	</select>
+	
+	<select id="average" resultClass="str">
+		select round(sum(trt_grade)/count(*),2) from tourist
+	</select>
 		
 </sqlMap>

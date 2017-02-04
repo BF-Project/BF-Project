@@ -9,5 +9,18 @@
 	<typeAlias alias="flowage" type="com.pro.bf.dtd.FlowageVO" />
 	
 	<!-- Query 문 작성란 -->
+	
+	<select id="flowageTotal" parameterClass="str" resultClass="str">
+		<!-- select flo_man10+flo_man20+flo_man30+flo_man40+flo_man50+flo_man60+flo_woman10+flo_woman20+flo_woman30+flo_woman40+flo_woman50+flo_woman60 from flowage where flo_addr=#dong# -->
+		select flo_man10+flo_man20+flo_man30+flo_man40+flo_man50+flo_man60+flo_woman10+flo_woman20+flo_woman30+flo_woman40+flo_woman50+flo_woman60 from flowage where flo_addr like '%'||#dong#||'%'
+	</select>
+	
+	<select id="flowageList" resultClass="str">
+		select flo_man10+flo_man20+flo_man30+flo_man40+flo_man50+flo_man60+flo_woman10+flo_woman20+flo_woman30+flo_woman40+flo_woman50+flo_woman60 from flowage
+	</select>
+	
+	<select id="flowageCount" resultClass="str">
+		select count(*) from flowage
+	</select>
 		
 </sqlMap>

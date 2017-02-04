@@ -9,5 +9,17 @@
 	<typeAlias alias="msg" type="com.pro.bf.dtd.MsgVO" />
 	
 	<!-- Query 문 작성란 -->
-		
+	
+	<select id="motelCountAll" resultClass="str">
+		select count(*) from motel
+	</select>
+	
+	<select id="motelTotal" parameterClass="str" resultClass="str">
+		select count(*) from motel where mt_addr like '%'||#dong#||'%'
+	</select>
+	
+	<select id="motelCount" resultClass="str">
+		select count(distinct substr(mt_addr,15,3)) from motel
+	</select>
+	
 </sqlMap>

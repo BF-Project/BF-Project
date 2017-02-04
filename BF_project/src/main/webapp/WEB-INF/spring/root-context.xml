@@ -55,6 +55,32 @@
 	<bean id="cmtServiceImpl" class="com.pro.bf.serviceImpl.CmtServiceImpl">
 		<property name="cmtDAO" ref="cmtDAOImpl"></property>
 	</bean>
+	
+	<bean id="lentServiceImpl" class="com.pro.bf.serviceImpl.LentServiceImpl">
+		<property name="lentDAO" ref="lentDAOImpl"/>
+	</bean>
+	
+	<bean id="flowageServiceImpl" class="com.pro.bf.serviceImpl.FlowageServiceImpl">
+		<property name="flowageDAO" ref="flowageDAOImpl"/>
+	</bean>
+	
+	<bean id="populationServiceImpl" class="com.pro.bf.serviceImpl.PopulationServiceImpl">
+		<property name="populationDAO" ref="populationDAOImpl"/>
+	</bean>
+	
+	<bean id="motelServiceImpl" class="com.pro.bf.serviceImpl.MotelServiceImpl">
+		<property name="motelDAO" ref="motelDAOImpl"/>
+	</bean>
+	
+	<bean id="touristServiceImpl" class="com.pro.bf.serviceImpl.TouristServiceImpl">
+		<property name="touristDAO" ref="touristDAOImpl"/>
+	</bean>
+	
+	<bean id="shopServiceImpl" class="com.pro.bf.serviceImpl.ShopServiceImpl">
+		<property name="shopDAO" ref="shopDAOImpl"/>
+	</bean>
+	
+	
 </beans>
 
 	

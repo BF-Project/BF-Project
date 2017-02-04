@@ -123,7 +123,7 @@ var map = new naver.maps.Map(document.getElementById('map'), {
 var HOME_PATH = window.HOME_PATH || '.';
 
 $.ajax({
-    url: HOME_PATH +'/data/jeju_test.geojson',
+    url: HOME_PATH +'/data/jeju.geojson',
     dataType: 'json',
     success: startDataLayer
 });
@@ -151,7 +151,8 @@ function startDataLayer(geojson) {
 
     map.data.addListener('click', function(e) {
         e.feature.setProperty('isColorful', true);
-        $('#address').value=e.feature.getProperty('EMD_KOR_NM');
+        //e.feature.getProperty('EMD_KOR_NM');
+        document.getElementById('address').value=e.feature.getProperty('EMD_KOR_NM');
         layer_open('layer2');return false;
     });
 
@@ -197,6 +198,8 @@ function layer_open(el){
 	}else{
 		temp.fadeIn();
 	}
+	
+	$('#offOption').hide();
 
 	/* // 화면의 중앙에 레이어를 띄운다.
 	if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
@@ -211,6 +214,7 @@ function layer_open(el){
 			temp.fadeOut();
 		}
 		e.preventDefault();
+		document.frm.reset();
 	});
 
 	/* $('.layer .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
@@ -221,19 +225,30 @@ function layer_open(el){
 }
 
 function start(form){
-
+	if($('#addrDetail').val()==''){
+		alert('상세주소를 입력해 주세요');
+		return;
+	}
 	$.ajax({
 		url:"start",
 		type:"post",
 		data:{"radio":$('input:radio[name="radio"]:checked').val(),
 			"addr":$('#address').val(),
-			"sel":$("select[name=sel]").val()
-			
+			"sel":$("select[name=sel]").val(),
+			"addrDetail":$('#addrDetail').val()
 		},
 		success:function(data){
 			
 		}
 	});
+}
+
+function changeOption1(){
+	$('#offOption').hide();
+}
+
+function changeOption2(){
+	$('#offOption').show();
 }
 
 </script>
@@ -244,13 +259,16 @@ function start(form){
 		<div class="pop-container">
 			<div class="pop-conts">
 				<!--content //-->
-					<form>
-		<table>
+					<form name="frm">
+		<table styleborder:1px>
 			<tr>
-				<td>상세주소 :</td>
-				<td><input type="text" id="address"></td>
-				<td><input type="button" value="주소검색" onclick="test();" class="btn-r">
-				</td>
+				<td>읍면동 :</td>
+				<td><input type="text" id="address" value=""></td>
+				<!-- <td><input type="button" value="주소검색" onclick="test();" class="btn-r"></td> -->
+			</tr>
+			<tr>
+				<td>상세주소 : </td>
+				<td><input type="text" id="addrDetail"></td>
 			</tr>
 			<tr>
 				<td>보유자산 :</td>
@@ -258,18 +276,14 @@ function start(form){
 			</tr>
 
 			<tr>
-				<td>창업종류</td>
+				<td>창업종류 : </td>
 				<td colspan="2">
-					
-						<input type="radio" name="radio" id="radio1" class="radio" value="온라인 창업" checked><label for="radio1" style="color:black;"><span></span>온라인 창업</label>
-					
-					
-						<input type="radio" name="radio" id="radio2" class="radio" value="오프라인 창업"><label for="radio2" style="color:black;"><span></span>오프라인 창업</label>
-					
-					</td>
+						<input type="radio" name="radio" id="radio1" class="radio" value="온라인 창업" checked onclick="changeOption1();"><label for="radio1" style="color:black;"><span></span>온라인 창업</label>
+						<input type="radio" name="radio" id="radio2" class="radio" value="오프라인 창업" onclick="changeOption2();"><label for="radio2" style="color:black;"><span></span>오프라인 창업</label>
+				
+				</td>
 			</tr>
-			<c:if test="document.getElementById('radio1').checked">
-			<tr style="text-align:center;">
+			<tr style="text-align:center;" id="offOption">
 				<td colspan="3"><select style="width: 200px;">
 						<option value="#">선택하세요</option>
 						<option value="chicken">치킨/호프</option>
@@ -278,9 +292,8 @@ function start(form){
 						<option value="pension">숙박/펜션</option>
 				</select></td>
 			</tr>
-			</c:if>
 			<tr>
-				<td>영업시간</td>
+				<td>영업시간 : </td>
 				<td>&nbsp;&nbsp;
 				<%
 					String open = "";
