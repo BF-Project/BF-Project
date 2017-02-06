@@ -88,7 +88,7 @@
 							</c:otherwise>
 						</c:choose>
 						<tr>
-						</tr>				
+						</tr>
 					</table>
 					</center>
 						<span style="text-aling:center;"> ${paging} </span>

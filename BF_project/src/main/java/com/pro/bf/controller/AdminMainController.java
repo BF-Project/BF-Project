@@ -78,9 +78,10 @@ public class AdminMainController {
 		
 		
 		// Service, dao, db
+		String currentPage = "notice";
 		ArrayList<NoticeVO> noticeList = null;
 		noticeList = noticeService.noticeList(Integer.parseInt(page), search); // 공지사항 리스트(검색/검색안할때)
-		paging = noticeService.pageNumber(Integer.parseInt(page), search);
+		paging = noticeService.pageNumber(Integer.parseInt(page), search, currentPage);
 		
 		int noticeListSize = 0;
 		if(!(noticeList.size()==0))

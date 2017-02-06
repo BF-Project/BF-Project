@@ -49,7 +49,7 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public String pageNumber(int page, String search) throws SQLException {
+	public String pageNumber(int page, String search, String currentPage) throws SQLException {
 		String str = "";
 		int total_pages = totalRecord(search); // 공지사항 전체 개수
 		int page_count = total_pages / counts + 1; // 페이지 개수
@@ -78,21 +78,21 @@ public class NoticeServiceImpl implements NoticeService{
 		}
 		
 		if(start_page > view_rows){
-			str += "<a href='notice?page=1&search="+search+"'>&lt;&lt;</a>&nbsp;&nbsp;";
-			str += "<a href='notice?page="+(start_page-1)+"&search=" + search + "'>&lt;</a>&nbsp;&nbsp;";			
+			str += "<a href='"+currentPage+"?page=1&search="+search+"'>&lt;&lt;</a>&nbsp;&nbsp;";
+			str += "<a href='"+currentPage+"?page="+(start_page-1)+"&search=" + search + "'>&lt;</a>&nbsp;&nbsp;";			
 		}
 		
 		for(int i = start_page; i<=end_page; i++){
 			if(i==page){
 				str += "<font color=red>[" + i + "]&nbsp;&nbsp;</font>";
 			}else{
-				str += "<a href='notice?page="+i+"&search="+search+"'>["+i+"]</a>&nbsp;&nbsp;";
+				str += "<a href='"+currentPage+"?page="+i+"&search="+search+"'>["+i+"]</a>&nbsp;&nbsp;";
 			}
 		}
 		
 		if(page_count > end_page){
-			str += "<a href='notice?page="+(end_page+1)+"&search=" + search + "'>&gt;</a>&nbsp;&nbsp;";
-			str += "<a href='notice?page="+page_count+"&search="+search+"'>&gt;&gt; </a>&nbsp;&nbsp;";
+			str += "<a href='"+currentPage+"?page="+(end_page+1)+"&search=" + search + "'>&gt;</a>&nbsp;&nbsp;";
+			str += "<a href='"+currentPage+"?page="+page_count+"&search="+search+"'>&gt;&gt; </a>&nbsp;&nbsp;";
 		}
 
 		return str;
