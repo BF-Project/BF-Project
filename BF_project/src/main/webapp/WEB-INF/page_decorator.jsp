@@ -39,7 +39,10 @@
 <link href="<%=request.getContextPath()%>/resources/css/style.css"
 	rel="stylesheet" type="text/css" />
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/examples-base.css" /> --%>
- 
+<!-- 검색버튼 css -->
+<link href="<%=request.getContextPath()%>/resources/css/search.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="<%=request.getContextPath()%>/resources/admin/css/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <!-- FONTS -->
 <link
@@ -325,7 +328,8 @@ body {
 			data : ({				
 			}),
 			success:function(data){
-				window.location.reload();
+				location = '<%=request.getContextPath()%>/start'
+// 				window.location.reload();
 			},
 			error:function(error){
 				alert('error');
@@ -522,13 +526,13 @@ body {
 								<li class="sub-menu"><a href="javascript:void(0);"
 									style="font-size: 14px">게시판</a>
 									<ul>
-										<li><a href="javascript:void(3);" style="font-size: 13px">자유게시판</a></li>
+										<li><a href="<%=request.getContextPath()%>/free/freeList">자유게시판</a></li>
 										<li><a href="javascript:void(0);" style="font-size: 13px">커뮤니티
 												게시판</a></li>
 										<li><a href="<%=request.getContextPath()%>/qna/qnaList">Q & A 게시판</a></li>
 									</ul></li>
 
-								<li class="scroll_btn"><a href="#" style="font-size: 14px">공지사항</a></li>
+								<li class="scroll_btn"><a href="<%=request.getContextPath()%>/notice/main" style="font-size: 14px">공지사항</a></li>
 
 								<!-- c 태그 사용해서 회원 로그인 일때 / 아닐때 -->
 								<c:choose>
