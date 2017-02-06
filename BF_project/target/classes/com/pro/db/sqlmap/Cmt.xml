@@ -12,4 +12,8 @@
 	<select id="cmtList" parameterClass="int" resultClass="cmt">
 		select * from cmt where fre_num=#fre_num# order by cmt_num desc
 	</select>
+	
+	<insert id="insertCmt" parameterClass="cmt">
+		insert into cmt(fre_num, cmt_content, mbr_id) values(cmt_seq.nextval, #cmt_content#, #mbr_id#)
+	</insert>
 </sqlMap>
