@@ -3,6 +3,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
+	<style>
+		.navbar-inverse .navbar-nav>.dddd>a, .navbar-inverse .navbar-nav>.active>a:focus,
+		.navbar-inverse .navbar-nav>.active>a:hover {
+		color: #fff;
+		background-color: #080808;
+	}	
+	</style>
 	<script>
 		function deleteNotice(){
 			var noticeNum = ${noticeVo.notice_num}

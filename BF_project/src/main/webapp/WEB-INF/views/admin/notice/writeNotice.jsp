@@ -5,6 +5,13 @@
 
 <head>
 	<style>
+		.navbar-inverse .navbar-nav>.dddd>a, .navbar-inverse .navbar-nav>.active>a:focus,
+		.navbar-inverse .navbar-nav>.active>a:hover {
+		color: #fff;
+		background-color: #080808;
+	}	
+	</style>
+	<style>
  		.file_input label {
 		    display: inline-block; 
  			padding: .5em .75em; 
