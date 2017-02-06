@@ -224,7 +224,11 @@ function layer_open(el){
 
 }
 
-function start(form){
+function interval(){
+	setInterval("start()",3000);
+}
+
+function start(){
 	if($('#addrDetail').val()==''){
 		alert('상세주소를 입력해 주세요');
 		return;
@@ -355,7 +359,7 @@ function changeOption2(){
 			</tr>
 			<tr style="height:70px;"></tr>
 			<tr>
-				<td colspan="3"><input type="button" value="start" onclick="start(this.form);"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="reset"/></td>
+				<td colspan="3"><input type="button" value="start" onclick="interval();"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="reset"/></td>
 			</tr>
 		</table>
 	</form>
