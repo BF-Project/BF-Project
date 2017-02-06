@@ -224,8 +224,10 @@ function layer_open(el){
 
 }
 
+var cnt = 0;
 function interval(){
-	setInterval("start()",3000);
+	setTest = setInterval("start()",2000);
+	
 }
 
 function start(){
@@ -245,6 +247,15 @@ function start(){
 			
 		}
 	});
+	
+	if(cnt==3){
+		clearInterval(setTest);
+		cnt=0;
+	}
+	
+	cnt++;
+	alert(cnt)
+	
 }
 
 function changeOption1(){
