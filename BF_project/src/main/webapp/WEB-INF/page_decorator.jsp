@@ -522,7 +522,7 @@ body {
 								<li class="sub-menu"><a href="javascript:void(0);"
 									style="font-size: 14px">게시판</a>
 									<ul>
-										<li><a href="javascript:void(3);" style="font-size: 13px">자유게시판</a></li>
+										<li><a href="<%=request.getContextPath()%>/free/freeList">자유게시판</a></li>
 										<li><a href="javascript:void(0);" style="font-size: 13px">커뮤니티
 												게시판</a></li>
 										<li><a href="<%=request.getContextPath()%>/qna/qnaList">Q & A 게시판</a></li>

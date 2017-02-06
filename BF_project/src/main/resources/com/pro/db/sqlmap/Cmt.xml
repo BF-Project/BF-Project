@@ -14,6 +14,6 @@
 	</select>
 	
 	<insert id="insertCmt" parameterClass="cmt">
-		insert into cmt(fre_num, cmt_content, mbr_id) values(cmt_seq.nextval, #cmt_content#, #mbr_id#)
+		insert into cmt(cmt_num, cmt_content, mbr_id, fre_num) values(cmt_seq.nextval, #cmt_content#, #mbr_id#, #fre_num#)
 	</insert>
 </sqlMap>
