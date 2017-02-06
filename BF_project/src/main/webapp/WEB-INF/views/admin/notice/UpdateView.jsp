@@ -135,7 +135,7 @@
 		$('#noticeContent').val("${noticeVo.notice_content}");		
 		var srcsrc = '<%=request.getContextPath()%>/upload/${noticeVo.notice_pict_afat}';
 		$('img.originPhoto').attr("src",srcsrc);
-		document.getElementById('file_route').value=this.value;
+		$("input[name=fileUpload]").val('');
 	}
 	</script>
 	

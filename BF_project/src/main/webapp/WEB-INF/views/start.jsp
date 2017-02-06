@@ -4,6 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 
+<script>
+	function advice(){
+// 		var val = ${sessionScope.loginUser}
+		var url = '<%=request.getContextPath()%>/chat'
+		window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=550, height=600, top=200, left=1200");
+	}
+</script>
 
 <c:if test="${!empty sessionScope.joinSuccess}">
 	<script>
@@ -35,7 +42,7 @@
 							<p class="title3 captionDelay6 FromTop">Specialist</p>
 							<p class="title4 captionDelay7 FromBottom"></p>
 						</div>
-						<a class="slide_btn FromRight" href="javascript:void(0);" >실시간 상담</a>
+						<a class="slide_btn FromRight" href="#" onclick="advice()" style="font-weight: bold;">실시간 1:1 문의</a>
 					<li class="slide2">
 						<div class="flex_caption1">
 							<p class="title1 captionDelay6 FromLeft">Communicate</p>
@@ -43,7 +50,7 @@
 							<p class="title3 captionDelay2 FromLeft">Others</p>
 							<p class="title4 captionDelay7 FromLeft"></p>
 						</div>
-						<a class="slide_btn FromRight" href="javascript:void(0);" >실시간 상담</a>
+						<a class="slide_btn FromRight" href="#" onclick="advice()" style="font-weight: bold;">실시간 1:1 문의</a>
 					</li>
 					<li class="slide3">
 						<div class="flex_caption1">
@@ -52,7 +59,7 @@
 							<p class="title3 captionDelay3 FromBottom">Success</p>
 							<p class="title4 captionDelay5 FromBottom"></p>
 						</div>
-						<a class="slide_btn FromRight" href="javascript:void(0);" >실시간 상담</a>
+						<a class="slide_btn FromRight" href="#" onclick="advice()" style="font-weight: bold;">실시간 1:1 문의</a>
 						
 						<!-- VIDEO BACKGROUND -->
 						<a id="P2" class="player" data-property="{videoURL:'tDvBwPzJ7dY',containment:'.top_slider .slide3',autoPlay:true, mute:true, startAt:0, opacity:1}" ></a>
