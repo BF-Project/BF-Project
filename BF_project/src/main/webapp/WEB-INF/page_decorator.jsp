@@ -328,7 +328,8 @@ body {
 			data : ({				
 			}),
 			success:function(data){
-				window.location.reload();
+				location = '<%=request.getContextPath()%>/start'
+// 				window.location.reload();
 			},
 			error:function(error){
 				alert('error');
