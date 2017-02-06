@@ -8,7 +8,7 @@
 <head>
 <style>
 /*시뮬레이터 CSS*/
- 	.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
+ 	 .layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
 		.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 		.layer .pop-layer {display:block;}
 
@@ -16,6 +16,11 @@
 	.pop-layer .pop-container {padding: 20px 25px;}
 	.pop-layer p.ctxt {color: #666; line-height: 25px;}
 	.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
+	
+	.pop-layer2 {display:none; position: absolute; top: 100px; left: 900px; width: 850px; height:800px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
+	.pop-layer2 .pop-container {padding: 20px 25px;}
+	.pop-layer2 p.ctxt {color: #666; line-height: 25px;}
+	.pop-layer2 .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
 
 	a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
 	a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
@@ -95,6 +100,9 @@ th, td {
 	<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.js"></script> --%>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/examples-base.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/highlight.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.charts.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.powercharts.js"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=B3S2a2PwxQRRyezwDNUx&amp;submodules=panorama"></script>
     
   <script>
@@ -224,9 +232,34 @@ function layer_open(el){
 
 }
 
+
+function layer_open2(el){
+
+	var temp = $('#' + el);
+	//var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
+	temp.fadeIn();
+
+	/* // 화면의 중앙에 레이어를 띄운다.
+	if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
+	else temp.css('top', '0px');
+	if (temp.outerWidth() < $(document).width() ) temp.css('margin-right', '-'+temp.outerWidth()/10+'px');
+	else temp.css('right', '0px'); */
+	temp.find('a.cbtn').click(function(e){
+		temp.fadeOut();
+		e.preventDefault();
+	});
+
+	/* $('.layer .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+		$('.layer').fadeOut();
+		e.preventDefault();
+	}); */
+
+}
+
 var cnt = 0;
 function interval(){
 	setTest = setInterval("start()",2000);
+	layer_open2('layer3');
 	
 }
 
@@ -248,13 +281,13 @@ function start(){
 		}
 	});
 	
-	if(cnt==3){
+	if(cnt==1){
 		clearInterval(setTest);
 		cnt=0;
 	}
 	
 	cnt++;
-	alert(cnt)
+	//alert(cnt);
 	
 }
 
@@ -270,8 +303,9 @@ function changeOption2(){
 
 </script>
 </div>
-<div class="layer">
-	<div class="bg"></div>
+<!-- dimmed 레이어팝업 -->
+<!-- <div class="layer"> -->  
+	<!-- <div class="bg"></div> -->
 	<div id="layer2" class="pop-layer">
 		<div class="pop-container">
 			<div class="pop-conts">
@@ -382,11 +416,449 @@ function changeOption2(){
 			</div>
 		</div>
 	</div>
+<!-- </div> -->
+
+<div id="layer3" class="pop-layer2">
+		<div class="pop-container">
+			<div class="pop-conts">
+			
+				<table>
+					<tr>
+						<td><div id="chart-container" style="text-align:center;">FusionCharts will render here</div></td>
+						<td><div id="chart-container2">FusionCharts will render here</div></td>
+					</tr>
+					<tr>
+						<td><div id="chart-container3">FusionCharts will render here</div></td>
+						<td><div id="chart-container4">FusionCharts will render here</div></td>
+					</tr>
+				
+				</table>
+			<div class="btn-r">
+					<a href="#" class="cbtn">Close</a>
+				</div>
+			</div>
+		</div>
 </div>
 
+
+
+
 <script>
-	
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'doughnut2d',
+        renderAt: 'chart-container',
+        width: '300',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Split of Revenue by Product Categories",
+                "subCaption": "Last year",
+                "numberPrefix": "$",
+                "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
+                "bgColor": "#ffffff",
+                "showBorder": "0",
+                "use3DLighting": "0",
+                "showShadow": "0",
+                "enableSmartLabels": "0",
+                "startingAngle": "310",
+                "showLabels": "0",
+                "showPercentValues": "1",
+                "showLegend": "1",
+                "legendShadow": "0",
+                "legendBorderAlpha": "0",
+                "defaultCenterLabel": "Total revenue: $64.08K",
+                "centerLabel": "Revenue from $label: $value",
+                "centerLabelBold": "1",
+                "showTooltip": "0",
+                "decimals": "0",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "subcaptionFontBold": "0"
+            },
+            "data": [
+                {
+                    "label": "Food",
+                    "value": "28504"
+                }, 
+                {
+                    "label": "Apparels",
+                    "value": "14633"
+                }, 
+                {
+                    "label": "Electronics",
+                    "value": "10507"
+                }, 
+                {
+                    "label": "Household",
+                    "value": "4910"
+                }
+            ]
+        }
+    }).render();
+});
+
+
+FusionCharts.ready(function() {
+    var revenueChart = new FusionCharts({
+        type: 'scrollcombidy2d',
+        renderAt: 'chart-container2',
+        width: '350',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Revenues and Profits",
+                "subCaption": "(FY 2012 to FY 2013)",
+                "captionFontSize" : "14",
+                "subcaptionFontSize" : "14",
+                "subcaptionFontBold" : "0",
+                "xAxisname": "Month",
+                "pYAxisName": "Amount (In USD)",
+                "sYAxisName": "Profit %",
+                "numberPrefix": "$",
+                "sNumberSuffix": "%",
+                "sYAxisMaxValue": "50",
+                "paletteColors" : "#0075c2,#1aaf5d,#f2c500",
+                "showAlternateHGridColor" : "0",
+                "showPlotBorder": "0",
+                "usePlotGradientColor" : "0",
+                "baseFontColor" : "#333333",
+                "baseFont" : "Helvetica Neue,Arial",
+                "showBorder" : "0",
+                "bgColor" : "#ffffff",
+                "showShadow" : "0",
+                "canvasBgColor" : "#ffffff",
+                "showCanvasBorder": "0",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0",
+                "showValues" : "1",
+                "divlineAlpha" : "100",
+                "divlineColor" : "#999999",
+                "divlineThickness" : "1",
+                "divLineIsDashed" : "1",
+                "divLineDashLen" : "1",
+                "divLineGapLen" : "1",
+                "numVisiblePlot" : "12",
+                "flatScrollBars": "1",
+                "scrollheight": "10"
+            },
+            "categories": [
+                {
+                    "category": [
+                        { "label": "Jan 2012" },
+                        { "label": "Feb 2012" },
+                        { "label": "Mar 2012" },
+                        { "label": "Apr 2012" },
+                        { "label": "May 2012" },
+                        { "label": "Jun 2012" },
+                        { "label": "Jul 2012" },
+                        { "label": "Aug 2012" },
+                        { "label": "Sep 2012" },
+                        { "label": "Oct 2012" },
+                        { "label": "Nov 2012" },
+                        { "label": "Dec 2012" },
+                        { "label": "Jan 2013" }, 
+                        { "label": "Feb 2013" }, 
+                        { "label": "Mar 2013" }, 
+                        { "label": "Apr 2013" }, 
+                        { "label": "May 2013" }, 
+                        { "label": "Jun 2013" }, 
+                        { "label": "Jul 2013" }, 
+                        { "label": "Aug 2013" }, 
+                        { "label": "Sep 2013" }, 
+                        { "label": "Oct 2013" }, 
+                        { "label": "Nov 2013" }, 
+                        { "label": "Dec 2013" }
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "seriesName": "Revenues",
+                    "data": [
+                        { "value": "16000" },
+                        { "value": "20000" },
+                        { "value": "18000" },
+                        { "value": "19000" },
+                        { "value": "15000" },
+                        { "value": "21000" },
+                        { "value": "16000" },
+                        { "value": "20000" },
+                        { "value": "17000" },
+                        { "value": "22000" },
+                        { "value": "19000" },
+                        { "value": "23000" },
+                        { "value": "24000" },
+                        { "value": "25000" },
+                        { "value": "26000" },
+                        { "value": "24000" },
+                        { "value": "19000" },
+                        { "value": "22000" },
+                        { "value": "18000" },
+                        { "value": "19000" },
+                        { "value": "22000" },
+                        { "value": "21000" },
+                        { "value": "23000" },
+                        { "value": "24000" }
+                    ]
+                }, 
+                {
+                    "seriesName": "Profits",
+                    "renderAs": "area",
+                    "showValues": "0",
+                    "data": [
+                        { "value": "4000" },
+                        { "value": "5000" },
+                        { "value": "3000" },
+                        { "value": "4000" },
+                        { "value": "1000" },
+                        { "value": "7000" },
+                        { "value": "1000" },
+                        { "value": "4000" },
+                        { "value": "1000" },
+                        { "value": "8000" },
+                        { "value": "2000" },
+                        { "value": "7000" },
+                        { "value": "6000" },
+                        { "value": "7000" },
+                        { "value": "4000" },
+                        { "value": "5000" },
+                        { "value": "3000" },
+                        { "value": "9000" },
+                        { "value": "2000" },
+                        { "value": "6000" },
+                        { "value": "2000" },
+                        { "value": "7000" },
+                        { "value": "4000" },
+                        { "value": "6000" }
+                    ]
+                }, 
+                {
+                    "seriesName": "Profit %",
+                    "parentYAxis": "S",
+                    "renderAs": "line",
+                    "showValues": "0",
+                    "data": [
+                        { "value": "25" },
+                        { "value": "25" },
+                        { "value": "16.66" },
+                        { "value": "21.05" },
+                        { "value": "6.66" },
+                        { "value": "33.33" },
+                        { "value": "6.25" },
+                        { "value": "25" },
+                        { "value": "5.88" },
+                        { "value": "36.36" },
+                        { "value": "10.52" },
+                        { "value": "30.43" },
+                        { "value": "25" },
+                        { "value": "28" },
+                        { "value": "15.38" },
+                        { "value": "20.83" },
+                        { "value": "15.79" },
+                        { "value": "40.91" },
+                        { "value": "11.11" },
+                        { "value": "31.58" },
+                        { "value": "9.09" },
+                        { "value": "33.33" },
+                        { "value": "17.39" },
+                        { "value": "25" }
+                    ]
+                }
+            ]
+        }
+    }).render();
+    
+});
+
+FusionCharts.ready(function () {
+    var budgetChart = new FusionCharts({
+        type: 'radar',
+        renderAt: 'chart-container3',
+        width: '350',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Budget analysis",
+                "subCaption": "Current month",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "numberPrefix":"$",
+                "baseFontColor" : "#333333",
+                "baseFont" : "Helvetica Neue,Arial",                        
+                "subcaptionFontBold": "0",
+                "paletteColors": "#008ee4,#6baa01",
+                "bgColor" : "#ffffff",
+                "radarfillcolor": "#ffffff",
+                "showBorder" : "0",
+                "showShadow" : "0",
+                "showCanvasBorder": "0",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0",
+                "divLineAlpha": "10",
+                "usePlotGradientColor": "0",
+                "numberPreffix": "$",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0"
+            },
+            "categories": [
+                {
+                    "category": [
+                        { "label": "Marketing" },
+                        { "label": "Product Management" },
+                        { "label": "Customer Service" },
+                        { "label": "Human Resource" },
+                        { "label": "Sales & Distribution" }
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "seriesname": "Allocated Budget",
+                    "data": [
+                        { "value": "19000" },
+                        { "value": "16500" },
+                        { "value": "14300" },
+                        { "value": "10000" },
+                        { "value": "9800" }
+                    ]
+                },
+                {
+                    "seriesname": "Actual Cost",
+                    "data": [
+                        { "value": "6000" },
+                        { "value": "9500" },
+                        { "value": "11900" },
+                        { "value": "8000" },
+                        { "value": "9700" }
+                    ]
+                }
+            ]
+        }
+    }).render();
+});
+
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        type: 'scrollColumn2d',
+        renderAt: 'chart-container4',
+        width: '300',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "Sales Trends",
+                "subcaption": "FY 2012 - FY 2013",
+                "xaxisname": "Month",
+                "yaxisname": "Revenue",
+                "showvalues": "1",
+                "placeValuesInside" : "1",
+                "rotateValues": "1",
+                "valueFontColor" : "#ffffff",
+                "numberprefix": "$",
+                
+                //Cosmetics
+                "baseFontColor" : "#333333",
+                "baseFont" : "Helvetica Neue,Arial",
+                "captionFontSize" : "14",
+                "subcaptionFontSize" : "14",
+                "subcaptionFontBold" : "0",
+                "showborder": "0",
+                "paletteColors" : "#0075c2",
+                "bgcolor": "#FFFFFF",
+                "showalternatehgridcolor": "0",
+                "showplotborder": "0",
+                "labeldisplay": "WRAP",
+                "divlinecolor": "#CCCCCC",
+                "showcanvasborder": "0",
+                "linethickness": "3",
+                "plotfillalpha": "100",
+                "plotgradientcolor": "",
+                "numVisiblePlot" : "12",
+                "divlineAlpha" : "100",
+                "divlineColor" : "#999999",
+                "divlineThickness" : "1",
+                "divLineIsDashed" : "1",
+                "divLineDashLen" : "1",
+                "divLineGapLen" : "1",
+                "scrollheight" : "10",
+                "flatScrollBars" : "1",
+                "scrollShowButtons" : "0",
+                "scrollColor" : "#cccccc",
+                "showHoverEffect" : "1",
+            },
+            "categories": [
+                {
+                    "category": [
+                        { "label": "Jan 2012" },
+                        { "label": "Feb 2012" },
+                        { "label": "Mar 2012" },
+                        { "label": "Apr 2012" },
+                        { "label": "May 2012" },
+                        { "label": "Jun 2012" },
+                        { "label": "Jul 2012" },
+                        { "label": "Aug 2012" },
+                        { "label": "Sep 2012" },
+                        { "label": "Oct 2012" },
+                        { "label": "Nov 2012" },
+                        { "label": "Dec 2012" },
+                        { "label": "Jan 2013" }, 
+                        { "label": "Feb 2013" }, 
+                        { "label": "Mar 2013" }, 
+                        { "label": "Apr 2013" }, 
+                        { "label": "May 2013" }, 
+                        { "label": "Jun 2013" }, 
+                        { "label": "Jul 2013" }, 
+                        { "label": "Aug 2013" }, 
+                        { "label": "Sep 2013" }, 
+                        { "label": "Oct 2013" }, 
+                        { "label": "Nov 2013" }, 
+                        { "label": "Dec 2013" }
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "data": [
+                        { "value": "27400" },
+                        { "value": "29800" },
+                        { "value": "25800" },
+                        { "value": "26800" },
+                        { "value": "29600" },
+                        { "value": "32600" },
+                        { "value": "31800" },
+                        { "value": "36700" },
+                        { "value": "29700" },
+                        { "value": "31900" },
+                        { "value": "34800" },
+                        { "value": "24800" },
+                        { "value": "26300" },
+                        { "value": "31800" },
+                        { "value": "30900" },
+                        { "value": "33000" },
+                        { "value": "36200" },
+                        { "value": "32100" },
+                        { "value": "37500" },
+                        { "value": "38500" },
+                        { "value": "35400" },
+                        { "value": "38200" },
+                        { "value": "33300" },
+                        { "value": "38300" }
+                    ]
+                }
+            ]
+        }
+    });
+    
+    revenueChart.render();
+});
+
 </script>
+
+<div style="height:70px;"></div>
 
 </body>
 
