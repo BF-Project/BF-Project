@@ -45,7 +45,7 @@ $(document).ready(function() {
        success : function(data){
           $.each(data, function(i) {
              var date = new Date(
-                   data[i].cmt_date)
+                   data[i].cmt_date);
              var year = date.getFullYear();
              var month = (1 + date.getMonth());
              month = month >= 10 ? month : '0'
@@ -57,7 +57,9 @@ $(document).ready(function() {
              var cmtList = '<div>아이디 : '
                    + data[i].mbr_id
                    + '  /  ' + '작성 날짜 : '
-                   + fullD + '<div>  ->'
+                   + fullD + '&nbsp;'
+                   +'수정 / 삭제'
+                   + '<div>  ->'
                    + data[i].cmt_content
                    +'</div></div><br><br>';
              $('div#comment').append(cmtList);
@@ -68,49 +70,44 @@ $(document).ready(function() {
        }
     });
 });
-    
-$('#cmtBtn').on('click',function() {
-		   alert('@@@@');
-           var fre_num = $('#fre_num').val();
-           var fre_content = $('#fre_content').val();
-           var dataWrite = {
-              'fre_num' : fre_num,
-              'fre_content' : fre_content
-           };
-           $.ajax({
-              url : '<%=request.getContextPath()%>/cmt/cmtWrite',
-              data : JSON.stringify(dataWrite),
-              type : 'post',
-              contentType : 'application/json',
-              success : function(data) {
-                 $('#fre_content').val('');
-                 $('div #reply').empty();
-                 $.each(data, function(i) {
-                    var date = new Date(
-                          data[i].fre_date)
-                    var year = date.getFullYear();
-                    var month = (1 + date.getMonth());
-                    month = month >= 10 ? month : '0'
-                          + month;
-                    var day = date.getDate();
-                    day = day >= 10 ? day : '0' + day;
-                    var fullD = year + '년' + month
-                          + '월' + day + '일';
-                    var cmtList = '<div >아이디 : '
-                          + data[i].mbr_id
-                          + '  /  ' + '작성 날짜 : '
-                          + fullD + '<div>  ->'
-                          + data[i].fre_content
-                          +'</div></div><br><br>';
-                    $('div #comment').append(cmtList);
-                 });
-              },
-              error : function() {
-                 alert('댓글 등록 실패');
-              }
-           });
-});
 
+function commm_go() {
+	var fre_num = $('#fre_num').val();
+    var cmt_content = $('#cmt_content').val();
+    var dataWrite = {
+       'fre_num' : fre_num,
+       'cmt_content' : cmt_content
+    };
+    $.ajax({
+       url : '<%=request.getContextPath()%>/cmt/cmtWrite',
+	   data : JSON.stringify(dataWrite),
+	   type : 'post',
+	   contentType : 'application/json',
+	   success : function(data) {
+	      $('#cmt_content').val('');
+	      $('div #comment').empty();
+	      $.each(data, function(i) {
+	         var date = new Date(data[i].cmt_date);
+	         var year = date.getFullYear();
+	         var month = (1 + date.getMonth());
+	         month = month >= 10 ? month : '0' + month;
+	         var day = date.getDate();
+	         day = day >= 10 ? day : '0' + day;
+	         var fullD = year + '년' + month + '월' + day + '일';
+	         var cmtList = '<div >아이디 : '
+	               + data[i].mbr_id
+	               + '  /  ' + '작성 날짜 : '
+	               + fullD + '<div>  ->'
+	               + data[i].cmt_content
+	               +'</div></div><br><br>';
+	         $('div #comment').append(cmtList);
+	      });
+	   },
+	   error : function() {
+	      alert('댓글 등록 실패');
+	   }
+	});
+}
 </script>
 
 
@@ -197,10 +194,9 @@ $('#cmtBtn').on('click',function() {
 				</c:choose>
 
 				<div id="comment"></div>
-				<input type="hidden" value="${freeVO.fre_num }" id="fre_num" name="fre_num">
-				댓글 : <input type="text" id="cmt_content" name="cmt_content">
-				<input type="button" id="cmtBtn" name="cmtBtn" value="등록">
-
+				<input type="hidden" value="${freeVO.fre_num }" id="fre_num" name="fre_num"> 
+				댓글 : <input type="text" id="cmt_content" name="cmt_content"> 
+				<input type="button" id="insertCmt" name="insertCmt" value="등록" onclick="commm_go();">
 			</form>
 		</div>
 	</div>

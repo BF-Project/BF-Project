@@ -52,13 +52,12 @@ public class CmtController {
 	@RequestMapping(value = "cmtWrite", method = RequestMethod.POST)
 	@ResponseBody
 	public List<CmtVO> cmtWrite(@RequestBody CmtVO cmtVO, HttpSession session) {
-		CmtVO CmtVO = (CmtVO) session.getAttribute("loginUser");
-		String mbr_id = cmtVO.getMbr_id();
+		String mbr_id = (String) session.getAttribute("loginUser");
 		cmtVO.setMbr_id(mbr_id);
 		List<CmtVO> cmtList = new ArrayList<CmtVO>();
 		try {
-			CmtServiceImpl.insertCmt(CmtVO);
-			cmtList = CmtServiceImpl.cmtAllList(cmtVO.getCmt_num());
+			CmtServiceImpl.insertCmt(cmtVO);
+			cmtList = CmtServiceImpl.cmtAllList(cmtVO.getFre_num());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
