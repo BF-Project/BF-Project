@@ -102,4 +102,33 @@ public class NoticeServiceImpl implements NoticeService{
 	public void insertNotice(NoticeVO noticeVo) throws SQLException { // 공지사항 등록
 		noticeDao.insertNotice(noticeVo);
 	}
+
+	@Override
+	public NoticeVO noticeDetail(int noticeNum) throws SQLException { // 공지사항 상세보기 || 조회수도 1 증가
+		NoticeVO noticeVo = noticeDao.noticeDetail(noticeNum); // 공지사항 상세보기
+		noticeDao.noticeCountPlus(noticeNum); // 공지사항 조회수 증가
+		return noticeVo;
+	}
+
+	@Override
+	public void noticeDelete(int noticeNum) throws SQLException { // 공지사항 삭제하기
+		noticeDao.noticeDelete(noticeNum);
+	}
+
+	@Override
+	public String noticeFileNameSearch(int noticeNum) throws SQLException { // 공지사항 첨부파일 명 찾기
+		String fileName = noticeDao.noticeFileNameSearch(noticeNum);
+		return fileName;
+	}
+
+	@Override
+	public NoticeVO noticeUpdate(int noticeNum) throws SQLException {
+		NoticeVO noticeVo = noticeDao.noticeDetail(noticeNum);
+		return noticeVo;
+	}
+
+	@Override
+	public void noticeRealUpdate(NoticeVO noticeVo) throws SQLException { // 공지사항 수정
+		noticeDao.noticeRealUpdate(noticeVo);
+	}
 }

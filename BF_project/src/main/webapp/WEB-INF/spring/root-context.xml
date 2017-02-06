@@ -6,6 +6,10 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
+	<!-- MultipartResolver bean등록!!! 업로드하기 위함-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8"/>
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1"/>
+	
 	<!-- DaoImpl Bean 등록 / DaoImpl에 setter가 있어야 한다.-->
 	<!-- DAOImpl -->
 	<bean id="addressDAOImpl" class="com.pro.bf.daoImpl.AddrDaoImpl" p:client-ref="client" />
@@ -47,41 +51,29 @@
 	<bean id="noticeServiceImpl" class="com.pro.bf.serviceImpl.NoticeServiceImpl">
 		<property name="noticeDAO" ref="noticeDAOImpl" />
 	</bean>
-	
 	<bean id="freeServiceImpl" class="com.pro.bf.serviceImpl.FreeServiceImpl">
 		<property name="freeDAO" ref="freeDAOImpl"></property>
 	</bean>
-	
 	<bean id="cmtServiceImpl" class="com.pro.bf.serviceImpl.CmtServiceImpl">
 		<property name="cmtDAO" ref="cmtDAOImpl"></property>
 	</bean>
-	
 	<bean id="lentServiceImpl" class="com.pro.bf.serviceImpl.LentServiceImpl">
 		<property name="lentDAO" ref="lentDAOImpl"/>
 	</bean>
-	
 	<bean id="flowageServiceImpl" class="com.pro.bf.serviceImpl.FlowageServiceImpl">
 		<property name="flowageDAO" ref="flowageDAOImpl"/>
 	</bean>
-	
 	<bean id="populationServiceImpl" class="com.pro.bf.serviceImpl.PopulationServiceImpl">
 		<property name="populationDAO" ref="populationDAOImpl"/>
 	</bean>
-	
 	<bean id="motelServiceImpl" class="com.pro.bf.serviceImpl.MotelServiceImpl">
 		<property name="motelDAO" ref="motelDAOImpl"/>
 	</bean>
-	
 	<bean id="touristServiceImpl" class="com.pro.bf.serviceImpl.TouristServiceImpl">
 		<property name="touristDAO" ref="touristDAOImpl"/>
 	</bean>
-	
 	<bean id="shopServiceImpl" class="com.pro.bf.serviceImpl.ShopServiceImpl">
 		<property name="shopDAO" ref="shopDAOImpl"/>
 	</bean>
 	
-	
 </beans>
-
-	
-
