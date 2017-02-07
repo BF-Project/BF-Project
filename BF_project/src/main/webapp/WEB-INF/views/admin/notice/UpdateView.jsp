@@ -4,6 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 	<style>
+		.navbar-inverse .navbar-nav>.dddd>a, .navbar-inverse .navbar-nav>.active>a:focus,
+		.navbar-inverse .navbar-nav>.active>a:hover {
+		color: #fff;
+		background-color: #080808;
+	}	
+	</style>
+	<style>
  		.file_input label {
 		    display: inline-block; 
 /*  			padding: .5em .75em;  */
@@ -128,6 +135,7 @@
 		$('#noticeContent').val("${noticeVo.notice_content}");		
 		var srcsrc = '<%=request.getContextPath()%>/upload/${noticeVo.notice_pict_afat}';
 		$('img.originPhoto').attr("src",srcsrc);
+		$("input[name=fileUpload]").val('');
 	}
 	</script>
 	

@@ -56,7 +56,7 @@
 				</h2>
 			</div>
 		</section>
-		<br><br>
+		<br>
 		<!-- 리스트 -->
 		<div class="container">
 			<table id="noticeList" class="table">
