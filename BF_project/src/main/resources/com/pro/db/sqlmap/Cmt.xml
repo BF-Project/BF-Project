@@ -23,5 +23,9 @@
 	<delete id="deleteCmt" parameterClass="int">
 		delete from cmt where cmt_num=#cmt_num#
 	</delete>
+	
+	<update id="updateCmt" parameterClass="cmt">
+		update cmt set cmt_content = #cmt_content# where cmt_num=#cmt_num#
+	</update>
 
 </sqlMap>

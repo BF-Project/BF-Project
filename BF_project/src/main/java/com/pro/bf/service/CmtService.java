@@ -12,4 +12,6 @@ public interface CmtService {
 	public void insertCmt(CmtVO cmtVO) throws SQLException;
 
 	public int deleteCmt(int cmt_num) throws SQLException;
+	
+	public void updateCmt(CmtVO cmtVO) throws SQLException;
 }

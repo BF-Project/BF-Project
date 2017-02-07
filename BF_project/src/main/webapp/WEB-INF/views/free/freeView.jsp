@@ -61,9 +61,16 @@ $(document).ready(function() {
 						+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
 						+'<a href="" id="'
 						+data[i].cmt_num
+						+'" '
+						+'class="writeForm" name="writeForm">수정</a>'
+						+'&nbsp;&nbsp;'
+						+'<a href="" id="'
+						+data[i].cmt_num
 						+'" ' 
 						+'class="delete" name="delete">삭제</a>'
-						+ '<div> └>'
+						+ '<div class="'
+						+ data[i].cmt_num
+						+ '">'
 						+ data[i].cmt_content
 						+'</div></div><br><br>';
              $('div#comment').append(cmtList);
@@ -83,7 +90,7 @@ function commm_go() {
        'cmt_content' : cmt_content
     };
     $.ajax({
-       url : '<%=request.getContextPath()%>/cmt/cmtWrite',
+      url : '<%=request.getContextPath()%>/cmt/cmtWrite',
       data : JSON.stringify(dataWrite),
       type : 'post',
       contentType : 'application/json',
@@ -107,9 +114,16 @@ function commm_go() {
 						+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
 						+'<a href="" id="'
 						+data[i].cmt_num
+						+'" '
+						+'class="writeForm" name="writeForm">수정</a>'
+						+'&nbsp;&nbsp;'
+						+'<a href="" id="'
+						+data[i].cmt_num
 						+'" ' 
 						+'class="delete" name="delete">삭제</a>'
-						+ '<div> └>'
+						+ '<div class="'
+						+ data[i].cmt_num
+						+ '">'
 						+ data[i].cmt_content
 						+'</div></div><br><br>';
             $('div #comment').append(cmtList);
@@ -125,7 +139,7 @@ $(document).on('click','.delete',function(e){
     e.preventDefault();
     var result = $(this).attr('id');
     $.ajax({
-       url:"<%=request.getContextPath()%>/cmt/cmtDelete",
+       		url:"<%=request.getContextPath()%>/cmt/cmtDelete",
 			data : {
 				"result" : result
 			},
@@ -137,10 +151,52 @@ $(document).on('click','.delete',function(e){
 				});
 				$('#' + cmtList).remove();
 			}
-		});
 	});
-</script>
+});
 
+$(document).on('click','.writeForm', function(e) {
+	e.preventDefault();
+    var result = $(this).attr('id');
+    var aa = document.getElementsByClassName(result);
+    $.ajax({
+    	url : "<%=request.getContextPath()%>/cmt/cmtWriteForm",
+    	data : {
+    		"result" : result
+    	},
+    	dataType : 'json',
+    	type : 'post',
+    	success : function(map) {
+			cmtList = jQuery.map(map, function(e){
+				return e;
+			});
+                $('.'+cmtList).html(
+                	'<textarea id="mm">'
+                	+ aa[0].innerHTML
+                	+'</textarea>'
+                	+'<button type="button" id="'+result+'" class="write">등록</button>'
+                );
+    	}
+    });
+});
+
+$(document).on('click','.write', function(e) {
+	e.preventDefault();
+	var result = $(this).attr('id');
+	var tt = $('#mm').val();
+	$.ajax({
+		url : "<%=request.getContextPath()%>/cmt/cmtUpdate",
+		data : {"result" : result, "tt" : tt},
+		dataType : 'json',
+		type : 'post',
+		success : function(tt) {
+			$('.' + cmtList).html(
+				tt.cmt_content	
+			);
+		}
+	});
+	
+});
+</script>
 
 <style>
 #freeView {
@@ -153,7 +209,7 @@ $(document).on('click','.delete',function(e){
 }
 
 #cmt_content {
-	width : 600px;
+	width: 600px;
 	height: 30px;
 }
 </style>
@@ -207,8 +263,8 @@ $(document).on('click','.delete',function(e){
 						<tr>
 							<th>댓글</th>
 							<td>
-								<div id="comment"></div> 
-								<input type="hidden" value="${freeVO.fre_num }" id="fre_num" name="fre_num">
+								<div id="comment"></div> <input type="hidden"
+								value="${freeVO.fre_num }" id="fre_num" name="fre_num">
 								<textarea id="cmt_content" name="cmt_content"></textarea>
 								<button type="button" id="insertCmt" class="btn"
 									name="insertCmt" onclick="commm_go();"

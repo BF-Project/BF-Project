@@ -33,4 +33,9 @@ public class CmtDaoImpl implements CmtDao {
 		return result;
 	}
 
+	@Override
+	public void updateCmt(CmtVO cmtVO) throws SQLException {
+		client.update("updateCmt", cmtVO);
+	}
+
 }
