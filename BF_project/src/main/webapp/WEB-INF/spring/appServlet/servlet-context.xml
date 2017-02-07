@@ -5,7 +5,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:task="http://www.springframework.org/schema/task"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -47,6 +49,7 @@
 	
 	<!-- interceptor : servlet-context.xml 에서 설정한다. -->
 	<interceptors>
+		<!-- 회원 로그인 후 로그 기록을 남기기 위한 interceptor -->
 		<interceptor>
 			<mapping path="/**"/>
 			<!-- 컨트롤러 화면전환 무조껀 true -->
@@ -56,4 +59,13 @@
 			<beans:bean id="handlerInterceptor" class="com.pro.bf.interceptor.HandlerInterceptor" />
 		</interceptor>
 	</interceptors>
+
+	<!-- chat을 할때 loginUser session값을 WebSocketHandler에 전달하기 위한 interceptor -->	
+	<websocket:handlers>
+		<websocket:mapping path="/chat**" handler="chatWebSocketHandler" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="com.pro.bf.interceptor.HandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
 </beans:beans>

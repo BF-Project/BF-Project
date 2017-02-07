@@ -1,7 +1,6 @@
 package com.pro.bf.interceptor;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
@@ -26,7 +25,6 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// /admin/** url 주소값은 무조껀 true | servlet-context.xml 확인
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("interceptor 통과");
 		String userId=getUserId(request); // 접속한 회원 Id
 		if(userId!=null){ // 회원이 로그인한 경우
 			String dateTime = new Date().toString(); // 접속시간
@@ -34,13 +32,19 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter{
 			String accessUrl = request.getRequestURI(); // 접속한 url
 			String action = getAction(handler); // 실행한 action
 			
-			String logMessage = String.format("%s,%s,%s,%s,%s", "아이디 → "+userId, " | 접속시간 → "+dateTime, " | 아이피주소 → "+userIp, " | 실행한Url → "+accessUrl, " | 실행한Action → "+action);
+			String logMessage = String.format("%s,%s,%s,%s,%s", "아이디→"+userId, " | 접속시간→"+dateTime, " | 아이피주소→"+userIp, " | Url→"+accessUrl, " | Action→"+action);
 			System.err.println(logMessage); // 로그인한 사용자가 이벤트(action)때마다 콘솔에 출력
-			writeFileLine(logMessage, request); // 로그인한 사용자의 이벤트(action)을 기록
-			System.out.println(request.getSession().getServletContext().getRealPath("/resources"));
+			writeFileLine(logMessage, request); // 로그인한 사용자의 이벤트(action)을 기록 
+			// request.getSession().getServletContext().getRealPath("/resources/actionLog.txt") 에 저장된다. | 톰켓 서버
+			
+			if(accessUrl.contains("chat")){
+				System.out.println("interCeptor -- Log기록 찍는 interCeptor임");
+			}
 		}
 		return true; // 기본적으로 모든 url 이 통과된다.
 	}
+	
+	
 	
 	// -----------------------------------------------------------------------------------------------------------
 	
@@ -69,8 +73,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter{
 			out.write(logMessage);
 			out.newLine();
 		}catch(IOException e){
-//			System.out.println("actionLog.txt 파일을 < " + request.getSession().getServletContext().getRealPath("/resources/actionLog.txt") + " > 에 새로 만들었습니다.");
-//			out=new BufferedWriter(new FileWriter(new File(request.getSession().getServletContext().getRealPath("/resources/actionLog.txt"))));
+			e.printStackTrace();
 		}finally{
 			if(out!=null){
 				try{
