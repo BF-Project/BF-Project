@@ -25,7 +25,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml
-<!-- 						 /WEB-INF/spring/webSocket-config.xml web-Socket  -->
+						 /WEB-INF/spring/websocket-config.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -55,7 +55,7 @@
 	    <filter-class>com.pro.bf.filter.LoginCheckFilter</filter-class>
     <init-param>
         <param-name>uri</param-name>
-        <param-value>qna,simulator,free</param-value> <!-- 수정할 것 로그인 uri 주소 -->
+        <param-value>qna,simulator,free,chat</param-value> <!-- 수정할 것 로그인 uri 주소 -->
     </init-param>
     </filter>
     <filter-mapping>

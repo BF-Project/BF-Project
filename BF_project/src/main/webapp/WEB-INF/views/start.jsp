@@ -7,8 +7,25 @@
 <script>
 	function advice(){
 // 		var val = ${sessionScope.loginUser}
-		var url = '<%=request.getContextPath()%>/chat'
-		window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=550, height=600, top=200, left=1200");
+		$.ajax({
+			url : "<%=request.getContextPath()%>/chatJoinBefore",
+			type : "post",
+			dataType : "text",
+			data : ({
+			}),
+			success:function(data){
+				if(data=='yes'){
+					// 접속이 가능함
+					var url = '<%=request.getContextPath()%>/chat'
+					window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=550, height=600, top=200, left=1200");
+				}else{
+					alert('로그인이 필요한 서비스입니다. 로그인 후 이용해 주세요.');
+				}
+			},
+			error:function(error){
+				alert('error');
+			}
+		})
 	}
 </script>
 
@@ -18,6 +35,14 @@
 	</script>
 	<c:remove var="joinSuccess" scope="session" />
 </c:if>
+
+<c:if test="${!empty sessionScope.needTologin}">
+	<script>
+		alert('로그인이 필요한 서비스입니다. 로그인 후 이용해 주세요.');
+	</script>
+	<c:remove var="needTologin" scope="session" />
+</c:if>
+
 <!-- <body> -->
 
 <!-- PRELOADER -->
