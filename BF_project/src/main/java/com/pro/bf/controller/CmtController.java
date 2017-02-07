@@ -2,9 +2,11 @@ package com.pro.bf.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -62,6 +64,32 @@ public class CmtController {
 			e.printStackTrace();
 		}
 		return cmtList;
+	}
+
+	@RequestMapping(value = "/cmtDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cmtDelete(Model model, HttpServletRequest request) {
+		// result가져온다
+		System.out.println("@@@@@@@@@@@@@@@@@");
+		int cmtNum = Integer.parseInt(request.getParameter("result"));
+		System.out.println(cmtNum);
+		Map<String, Object> map = new HashMap();
+
+		List<CmtVO> cmtList = null;
+
+		try {
+			cmtList = CmtServiceImpl.cmtAllList(cmtNum);
+			CmtServiceImpl.deleteCmt(cmtNum);
+			map.put("cmtList", cmtList);
+			map.put("cmtNum", cmtNum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println(map + "@@@@@@@");
+
+		return map;
 	}
 
 }

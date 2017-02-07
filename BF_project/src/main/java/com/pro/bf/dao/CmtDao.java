@@ -8,5 +8,10 @@ import com.pro.bf.dto.CmtVO;
 public interface CmtDao {
 
 	public List<CmtVO> cmtAllList(int cmt_num) throws SQLException;
+
 	public void intsertCmt(CmtVO cmtVO) throws SQLException;
+
+	// 댓글삭제
+	public int deleteCmt(int cmt_num) throws SQLException;
+
 }
