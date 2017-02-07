@@ -2,9 +2,11 @@ package com.pro.bf.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -62,6 +64,69 @@ public class CmtController {
 			e.printStackTrace();
 		}
 		return cmtList;
+	}
+
+	@RequestMapping(value = "/cmtDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cmtDelete(Model model, HttpServletRequest request) {
+		int cmtNum = Integer.parseInt(request.getParameter("result"));
+		System.out.println(cmtNum);
+		Map<String, Object> map = new HashMap();
+
+		List<CmtVO> cmtList = null;
+
+		try {
+			cmtList = CmtServiceImpl.cmtAllList(cmtNum);
+			CmtServiceImpl.deleteCmt(cmtNum);
+			map.put("cmtList", cmtList);
+			map.put("cmtNum", cmtNum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	@RequestMapping(value = "/cmtWriteForm", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cmtWriteForm(Model model, HttpServletRequest request) {
+		int writeForm = Integer.parseInt(request.getParameter("result"));
+		System.out.println(writeForm);
+		
+		Map<String, Object> map = new HashMap();
+		List<CmtVO> cmtList = null;
+		
+		try {
+			cmtList = CmtServiceImpl.cmtAllList(writeForm);
+			map.put("cmtList", cmtList);
+			map.put("writeForm", writeForm);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	@RequestMapping(value = "/cmtUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public CmtVO cmtUpdate(Model model, CmtVO cmtVO, HttpServletRequest request) {
+		
+		int result = Integer.parseInt(request.getParameter("result"));
+		String tt = request.getParameter("tt");
+		
+		List<CmtVO> cmtList = null;
+		cmtVO.setCmt_num(result);
+		cmtVO.setCmt_content(tt);
+		
+		try {
+			cmtList = CmtServiceImpl.cmtAllList(result);
+			CmtServiceImpl.updateCmt(cmtVO);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cmtVO;
 	}
 
 }

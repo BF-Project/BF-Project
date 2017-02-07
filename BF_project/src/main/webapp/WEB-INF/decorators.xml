@@ -16,6 +16,8 @@
 		<pattern>/join/joinForm</pattern>
 		<pattern>/join/joinjoinForm*</pattern>
 		<pattern>/join/findZipNum*</pattern>
+		
+		<pattern>/chat**</pattern>
 	</excludes>
 	
 </decorators>

@@ -1,13 +1,11 @@
 package com.pro.bf.filter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -25,7 +23,7 @@ public class LoginCheckFilter implements Filter{
       StringTokenizer st = new StringTokenizer(names, ",");
       uri = new String[st.countTokens()];
       for(int i=0; st.hasMoreTokens(); i++){
-         uri[i] = st.nextToken(); // qna,simulator,free
+         uri[i] = st.nextToken(); // qna,simulator,free,chat
       }
    }
    
@@ -45,17 +43,22 @@ public class LoginCheckFilter implements Filter{
          if(login){
             return;
          }else{ // login의 기본 값이 false임, 로그인이 되어 있지 않다면 여기로옴
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('회원만 이용가능한 서비스입니다. 회원가입 후 이용해주세요.');</script>");
-            request.setAttribute("needTologin", "needTologin");
             // 0
 //            request.getRequestDispatcher("/filter").forward(request, response);  
             // 1
 //            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/start.jsp"); // 둘중 한가지로 로그인 처리
 //            dispatcher.forward(request, response);
-            // 2            
+            // 2
+        	String requestUri = ((HttpServletRequest) request).getRequestURI().toString().trim().toLowerCase();
+        	if(requestUri.contains("chat")){
+                HttpServletResponse httpResponse = (HttpServletResponse) response;
+                httpResponse.sendRedirect("/bf/filter2");
+        		return;
+        	}
+        		
+        	session.setAttribute("needTologin", "needTologin");
             HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.sendRedirect("redirect:/filter");
+            httpResponse.sendRedirect("/bf/filter");
             return;
          }
       }else{ // admin이거나 or uri주소를 지정한 것이 아닐때
