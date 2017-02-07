@@ -75,5 +75,7 @@
 	<bean id="shopServiceImpl" class="com.pro.bf.serviceImpl.ShopServiceImpl">
 		<property name="shopDAO" ref="shopDAOImpl"/>
 	</bean>
+	<bean id="calculateScoreImpl" class="com.pro.bf.serviceImpl.CalculateScoreImpl"/>
+		
 	
 </beans>

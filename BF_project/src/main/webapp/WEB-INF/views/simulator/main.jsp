@@ -258,38 +258,190 @@ function layer_open2(el){
 
 var cnt = 0;
 function interval(){
-	setTest = setInterval("start()",2000);
-	layer_open2('layer3');
-	
-}
-
-function start(){
 	if($('#addrDetail').val()==''){
 		alert('상세주소를 입력해 주세요');
 		return;
+	}else if($("select[name=startPeriod]").val()>=$("select[name=endPeriod]").val()){
+		alert('영업기간을 정확히 입력해주세요')
+	}else{
+		layer_open2('layer3');	
+		setTest = setInterval("start()",2000);
 	}
+	
+}
+
+var population = 0;
+var tourist = 0;
+var shop = 0;
+var lent = 0;
+var flowage = 0;
+var salesAccount = 0;
+
+function start(){
+	
 	$.ajax({
 		url:"start",
 		type:"post",
+		async:false,
 		data:{"radio":$('input:radio[name="radio"]:checked').val(),
 			"addr":$('#address').val(),
-			"sel":$("select[name=sel]").val(),
-			"addrDetail":$('#addrDetail').val()
+			"startPeriod":$("select[name=startPeriod]").val(),
+			"endPeriod":$("select[name=endPeriod]").val(),
+			"addrDetail":$('#addrDetail').val(),
+			"kind":$("select[name=kind]").val()
 		},
 		success:function(data){
-			
+			population = data[0];
+			tourist = data[1];
+			shop = data[2];
+			lent = data[3];
+			flowage = data[4];
+			salesAccount = salesAccount*1 + data[5]*1;
+		},
+		error:function(){
+			alert("통신실패!!!!!!!!!!!");
 		}
+
 	});
 	
-	if(cnt==1){
+	FusionCharts1();
+	if(cnt==0){
+		FusionCharts3();
+	}
+	
+	if(cnt==9){
 		clearInterval(setTest);
 		cnt=0;
 	}
 	
+	//alert(salesAccount);
 	cnt++;
 	//alert(cnt);
 	
+	
+	
 }
+
+function FusionCharts1() {
+    var ageGroupChart = new FusionCharts({
+        type: 'pie2d',
+        renderAt: 'chart-container',
+        width: '400',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "예상 총매출",
+                "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
+                "bgColor": "#ffffff",
+                "showBorder": "0",
+                "use3DLighting": "0",
+                "showShadow": "0",
+                "enableSmartLabels": "0",
+                "startingAngle": "0",
+                "showPercentValues": "1",
+                "showPercentInTooltip": "0",
+                "decimals": "1",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "subcaptionFontBold": "0",
+                "toolTipColor": "#ffffff",
+                "toolTipBorderThickness": "0",
+                "toolTipBgColor": "#000000",
+                "toolTipBgAlpha": "80",
+                "toolTipBorderRadius": "2",
+                "toolTipPadding": "5",
+                "showHoverEffect":"1",
+                "showLegend": "1",
+                "legendBgColor": "#ffffff",
+                "legendBorderAlpha": '0',
+                "legendShadow": '0',
+                "legendItemFontSize": '10',
+                "legendItemFontColor": '#666666',
+                "formatNumberScale":"0",
+                "numberPrefix":"￦"
+            },
+            "data": [
+                {
+                    "label": "총지출",
+                    "value": salesAccount*0.8
+                }, 
+                {
+                    "label": "순이익",
+                    "value": salesAccount*0.2
+                }, 
+            ]
+        }
+    }).render();
+};
+
+
+function FusionCharts3() {
+    var budgetChart = new FusionCharts({
+        type: 'radar',
+        renderAt: 'chart-container3',
+        width: '350',
+        height: '300',
+        dataFormat: 'json',
+        dataSource: {
+            "chart": {
+                "caption": "요소별 점수",
+                "captionFontSize": "14",
+                "subcaptionFontSize": "14",
+                "numberPrefix":"Score:",
+                "baseFontColor" : "#333333",
+                "baseFont" : "Helvetica Neue,Arial",                        
+                "subcaptionFontBold": "0",
+                "paletteColors": "#008ee4,#6baa01",
+                "bgColor" : "#ffffff",
+                "radarfillcolor": "#ffffff",
+                "showBorder" : "0",
+                "showShadow" : "0",
+                "showCanvasBorder": "0",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0",
+                "divLineAlpha": "10",
+                "usePlotGradientColor": "0",
+                "numberPreffix": "$",
+                "legendBorderAlpha": "0",
+                "legendShadow": "0"
+            },
+            "categories": [
+                {
+                    "category": [
+                        { "label": "인구" },
+                        { "label": "주변상권" },
+                        { "label": "주변상가수" },
+                        { "label": "임대료" },
+                        { "label": "유동인구" }
+                    ]
+                }
+            ],
+            "dataset": [
+                {
+                    "data": [
+                        { "value": population },
+                        { "value": tourist },
+                        { "value": shop },
+                        { "value": lent },
+                        { "value": flowage }
+                    ]
+                }
+               /*  {
+                    "seriesname": "Actual Cost",
+                    "data": [
+                        { "value": "6000" },
+                        { "value": "9500" },
+                        { "value": "11900" },
+                        { "value": "8000" },
+                        { "value": "9700" }
+                    ]
+                } */
+            ]
+        }
+    }).render();    
+};
+
 
 function changeOption1(){
 	$('#offOption').hide();
@@ -335,7 +487,7 @@ function changeOption2(){
 				</td>
 			</tr>
 			<tr style="text-align:center;" id="offOption">
-				<td colspan="3"><select style="width: 200px;">
+				<td colspan="3"><select style="width: 200px;" name="kind">
 						<option value="#">업종을 선택하세요</option>
 						<option value="chicken">치킨/호프</option>
 						<option value="cafe">까페</option>
@@ -344,22 +496,27 @@ function changeOption2(){
 				</select></td>
 			</tr>
 			<tr>
-				<td>영업시간 : </td>
+				<td>영업기간 : </td>
 				<td>&nbsp;&nbsp;
 				<%
 					String open = "";
 					List<String> openResult = new ArrayList<String>();
-					for(int i=0;i<24;i++){
+					for(int i=0;i<12;i++){
 						int j=i+1;
 						open = j+"";
 						openResult.add(i, open);
 					}
 				%>
-				<select name="sel">
-					<c:forEach items="<%=openResult%>" var="item" begin="0" end="23">
-						<option value="${item}">${item}</option>
+				<select name="startPeriod">
+					<c:forEach items="<%=openResult%>" var="item" begin="0" end="11">
+						<option value="${item}">${item}월</option>
 					</c:forEach>
-				</select>시간
+				</select>&nbsp;~&nbsp; 
+				<select name="endPeriod">
+					<c:forEach items="<%=openResult%>" var="item" begin="0" end="11">
+						<option value="${item}">${item}월</option>
+					</c:forEach>
+				</select>
 			</tr>
 			<tr class="onlineOption">
 				<td>마케팅 계획여부 : </td>
@@ -424,12 +581,12 @@ function changeOption2(){
 			
 				<table>
 					<tr>
-						<td><div id="chart-container" style="text-align:center;">FusionCharts will render here</div></td>
-						<td><div id="chart-container2">FusionCharts will render here</div></td>
+						<td><div id="chart-container" style="text-align:center;width:300px;height:300px;">잠시만 기다려 주세요</div></td>
+						<td><div id="chart-container3" style="text-align:center;width:300px;height:300px;">잠시만 기다려 주세요</div></td>
 					</tr>
 					<tr>
-						<td><div id="chart-container3">FusionCharts will render here</div></td>
-						<td><div id="chart-container4">FusionCharts will render here</div></td>
+						<td><div id="chart-container2" style="text-align:center;">잠시만 기다려 주세요</div></td>
+						<td><div id="chart-container4" style="text-align:center;">잠시만 기다려 주세요</div></td>
 					</tr>
 				
 				</table>
@@ -440,65 +597,7 @@ function changeOption2(){
 		</div>
 </div>
 
-
-
-
 <script>
-FusionCharts.ready(function () {
-    var revenueChart = new FusionCharts({
-        type: 'doughnut2d',
-        renderAt: 'chart-container',
-        width: '300',
-        height: '300',
-        dataFormat: 'json',
-        dataSource: {
-            "chart": {
-                "caption": "Split of Revenue by Product Categories",
-                "subCaption": "Last year",
-                "numberPrefix": "$",
-                "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
-                "bgColor": "#ffffff",
-                "showBorder": "0",
-                "use3DLighting": "0",
-                "showShadow": "0",
-                "enableSmartLabels": "0",
-                "startingAngle": "310",
-                "showLabels": "0",
-                "showPercentValues": "1",
-                "showLegend": "1",
-                "legendShadow": "0",
-                "legendBorderAlpha": "0",
-                "defaultCenterLabel": "Total revenue: $64.08K",
-                "centerLabel": "Revenue from $label: $value",
-                "centerLabelBold": "1",
-                "showTooltip": "0",
-                "decimals": "0",
-                "captionFontSize": "14",
-                "subcaptionFontSize": "14",
-                "subcaptionFontBold": "0"
-            },
-            "data": [
-                {
-                    "label": "Food",
-                    "value": "28504"
-                }, 
-                {
-                    "label": "Apparels",
-                    "value": "14633"
-                }, 
-                {
-                    "label": "Electronics",
-                    "value": "10507"
-                }, 
-                {
-                    "label": "Household",
-                    "value": "4910"
-                }
-            ]
-        }
-    }).render();
-});
-
 
 FusionCharts.ready(function() {
     var revenueChart = new FusionCharts({
@@ -673,73 +772,6 @@ FusionCharts.ready(function() {
     
 });
 
-FusionCharts.ready(function () {
-    var budgetChart = new FusionCharts({
-        type: 'radar',
-        renderAt: 'chart-container3',
-        width: '350',
-        height: '300',
-        dataFormat: 'json',
-        dataSource: {
-            "chart": {
-                "caption": "Budget analysis",
-                "subCaption": "Current month",
-                "captionFontSize": "14",
-                "subcaptionFontSize": "14",
-                "numberPrefix":"$",
-                "baseFontColor" : "#333333",
-                "baseFont" : "Helvetica Neue,Arial",                        
-                "subcaptionFontBold": "0",
-                "paletteColors": "#008ee4,#6baa01",
-                "bgColor" : "#ffffff",
-                "radarfillcolor": "#ffffff",
-                "showBorder" : "0",
-                "showShadow" : "0",
-                "showCanvasBorder": "0",
-                "legendBorderAlpha": "0",
-                "legendShadow": "0",
-                "divLineAlpha": "10",
-                "usePlotGradientColor": "0",
-                "numberPreffix": "$",
-                "legendBorderAlpha": "0",
-                "legendShadow": "0"
-            },
-            "categories": [
-                {
-                    "category": [
-                        { "label": "Marketing" },
-                        { "label": "Product Management" },
-                        { "label": "Customer Service" },
-                        { "label": "Human Resource" },
-                        { "label": "Sales & Distribution" }
-                    ]
-                }
-            ],
-            "dataset": [
-                {
-                    "seriesname": "Allocated Budget",
-                    "data": [
-                        { "value": "19000" },
-                        { "value": "16500" },
-                        { "value": "14300" },
-                        { "value": "10000" },
-                        { "value": "9800" }
-                    ]
-                },
-                {
-                    "seriesname": "Actual Cost",
-                    "data": [
-                        { "value": "6000" },
-                        { "value": "9500" },
-                        { "value": "11900" },
-                        { "value": "8000" },
-                        { "value": "9700" }
-                    ]
-                }
-            ]
-        }
-    }).render();
-});
 
 FusionCharts.ready(function () {
     var revenueChart = new FusionCharts({

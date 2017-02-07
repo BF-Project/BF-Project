@@ -1,13 +1,16 @@
 package com.pro.bf.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pro.bf.service.ShopService;
+import com.pro.bf.serviceImpl.CalculateScoreImpl;
 import com.pro.bf.serviceImpl.FlowageServiceImpl;
 import com.pro.bf.serviceImpl.LentServiceImpl;
 import com.pro.bf.serviceImpl.MotelServiceImpl;
@@ -31,6 +34,8 @@ public class SimulatorController {
 	TouristServiceImpl touristService;
 	@Autowired
 	ShopServiceImpl shopService;
+	@Autowired
+	CalculateScoreImpl calcService;
 	
 	
 	@RequestMapping(value="main",method=RequestMethod.GET)
@@ -46,8 +51,9 @@ public class SimulatorController {
 		return url;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="start",method=RequestMethod.POST)
-	public void start(String radio, String sel, String addr, String addrDetail){
+	public List<String> start(String radio, String kind, String addr, String addrDetail, String startPeriod, String endPeriod){
 		
 		float [][] matrix = {{1,(float)0.666,(float)1.666,(float)0.333,(float)1.333},{(float)1.5,1,(float)2.5,(float)0.5,2},{(float)0.6,(float)0.4,1,(float)0.2,(float)0.8},
 				{3,2,5,1,4},{(float)0.75,(float)0.5,(float)1.25,(float)0.25,1}};
@@ -135,6 +141,7 @@ public class SimulatorController {
 		}*/
 		
 		float totalScore = 0;
+		List<String> data = new ArrayList<String>();
 		
 		for(int i=0;i<5;i++){
 			try{
@@ -142,18 +149,23 @@ public class SimulatorController {
 				if(i==0){
 					float populationScore = populationService.score(addr);
 					totalScore += populationScore*resultMatrix[i][5];
+					data.add(populationScore+"");
 				}else if(i==1){
 					float touristScore = touristService.score(addr);
 					totalScore += touristScore*resultMatrix[i][5];
+					data.add(touristScore+"");
 				}else if(i==2){
 					float shopScore = shopService.score(addr);
 					totalScore += shopScore*resultMatrix[i][5];
+					data.add(shopScore+"");
 				}else if(i==3){
 					float lentScore = lentService.score(address);
 					totalScore += lentScore*resultMatrix[i][5];
+					data.add(lentScore+"");
 				}else if(i==4){
 					float flowageScore = flowageService.score(address);
 					totalScore += flowageScore*resultMatrix[i][5];
+					data.add(flowageScore+"");
 				}
 				System.out.println("Total Score "+(i+1)+": " + totalScore);
 			}catch(SQLException e){
@@ -161,7 +173,15 @@ public class SimulatorController {
 			}
 		}
 		
+		int period = Integer.parseInt(endPeriod)-Integer.parseInt(startPeriod);
+		int salesAccount = 0;
+		if(Math.random()*100<=totalScore){
+			salesAccount = (int)calcService.calcScore(kind, totalScore);
+		}
+		System.out.println("3일 매출 : "+salesAccount);
+		data.add(salesAccount+"");
 		
+		return data;
 	}
 	
 
