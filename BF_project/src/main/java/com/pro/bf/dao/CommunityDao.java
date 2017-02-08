@@ -10,7 +10,8 @@ public interface CommunityDao {
 
 	public ArrayList<CommunityVO> listCmmt(String mbr_id , String admin_id) throws SQLException; // Q&A 리스트
 
-	public ArrayList<CommunityVO> listAllCmmt(int tpage) throws SQLException; // Q&A ALL 리스트
+	//추가
+	public ArrayList<CommunityVO> listAllCmmt(int tpage,String search) throws SQLException; // Q&A ALL 리스트
 
 	public CommunityVO getCmmt(int cmmt_num) throws SQLException;
 
@@ -19,9 +20,10 @@ public interface CommunityDao {
 	public int updateCmmt(CommunityVO cmmtVO) throws SQLException; // 수정
 	
 	public int countCmmt(CommunityVO cmmtVO) throws SQLException; // 조회수
+	
+	//추가
+	public int totalCmmt(String search) throws SQLException;
 
-	public int totalCmmt() throws SQLException;
-
-	public void deleteCmmt(int Cmmt_num)throws SQLException;//delete
+	public void deleteCmmt(int cmmt_num)throws SQLException;//delete
 	
 }
