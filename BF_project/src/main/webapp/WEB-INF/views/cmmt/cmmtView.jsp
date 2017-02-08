@@ -19,25 +19,25 @@
 
 
 <script>
-	function goUpdate(fre_num) {
-		document.free.action = "update?fre_num=" + fre_num;
-		document.free.submit();
+	function goUpdate(cmmt_num) {
+		document.formm.action = "update?cmmt_num=" + cmmt_num;
+		document.formm.submit();
 	}
 
 	/*삭제  */
-	function goDelete(fre_num) {
-		document.free.action = "delete?fre_num=" + fre_num;
-		document.free.submit();
+	function goDelete(cmmt_num) {
+		document.formm.action = "delete?cmmt_num=" + cmmt_num;
+		document.formm.submit();
 	}
 </script>
 
 <script>
 $(document).ready(function() {
-    var fre_num = $('#fre_num').val();
-    var data ={'fre_num' : fre_num};
+    var cmmt_num = $('#cmmt_num').val();
+    var data ={'cmmt_num' : cmmt_num};
     
     $.ajax({
-       url:'<%=request.getContextPath()%>/cmt/cmtList',
+       url:'<%=request.getContextPath()%>/cmmtcmt/cmmtcmtList',
        contentType:'application/json',
        dataType:'json',
        data:JSON.stringify(data),
@@ -45,7 +45,7 @@ $(document).ready(function() {
        success : function(data){
           $.each(data, function(i) {
              var date = new Date(
-                   data[i].cmt_date);
+                   data[i].cmmtcmt_date);
              var year = date.getFullYear();
              var month = (1 + date.getMonth());
              month = month >= 10 ? month : '0'
@@ -54,20 +54,20 @@ $(document).ready(function() {
              day = day >= 10 ? day : '0' + day;
              var fullD = year + '년' + month
                    + '월' + day + '일';
-             var cmtList = '<div id="'
-	         	   + data[i].cmt_num	
+             var cmmtcmtList1 = '<div id="'
+	         	   + data[i].cmmtcmt_num	
 	         	   + '">아이디 : '
 	               + data[i].mbr_id
 	               + '  /  ' + '작성 날짜 : '
 				   + fullD
 				   +'<a href="" id="'
-	               +data[i].cmt_num
+	               +data[i].cmmtcmt_num
 	               +'" ' 
-	               +'class="asd" name="asd">삭제</a>'
+	               +'class="cmmtcmt" name="cmmtcmt">삭제</a>'
 				   + '<div>  ->'
-	               + data[i].cmt_content
+	               + data[i].cmmtcmt_content
 	               +'</div></div><br><br>';
-             $('div#comment').append(cmtList);
+             $('div#comment').append(cmmtcmtList1);
           });          
        },
        error:function(error){
@@ -77,42 +77,42 @@ $(document).ready(function() {
 });
 
 function commm_go() {
-	var fre_num = $('#fre_num').val();
-    var cmt_content = $('#cmt_content').val();
+	var cmmt_num = $('#cmmt_num').val();
+    var cmmtcmt_content = $('#cmmtcmt_content').val();
     var dataWrite = {
-       'fre_num' : fre_num,
-       'cmt_content' : cmt_content
+       'cmmt_num' : cmmt_num,
+       'cmmtcmt_content' : cmmtcmt_content
     };
     $.ajax({
-       url : '<%=request.getContextPath()%>/cmt/cmtWrite',
+       url : '<%=request.getContextPath()%>/cmmtcmt/cmmtcmtWrite',
 	   data : JSON.stringify(dataWrite),
 	   type : 'post',
 	   contentType : 'application/json',
 	   success : function(data) {
-	      $('#cmt_content').val('');
+	      $('#cmmtcmt_content').val('');
 	      $('div #comment').empty();
 	      $.each(data, function(i) {
-	         var date = new Date(data[i].cmt_date);
+	         var date = new Date(data[i].cmmtcmt_date);
 	         var year = date.getFullYear();
 	         var month = (1 + date.getMonth());
 	         month = month >= 10 ? month : '0' + month;
 	         var day = date.getDate();
 	         day = day >= 10 ? day : '0' + day;
 	         var fullD = year + '년' + month + '월' + day + '일';
-	         var cmtList = '<div id="'
-	         	   + data[i].cmt_num	
+	         var cmmtcmtList1 = '<div id="'
+	         	   + data[i].cmmtcmt_num	
 	         	   + '">아이디 : '
 	               + data[i].mbr_id
 	               + '  /  ' + '작성 날짜 : '
 				   + fullD
 				   +'<a href="" id="'
-	               +data[i].cmt_num
+	               +data[i].cmmtcmt_num
 	               +'" ' 
 	               +'class="asd" name="asd">삭제</a>'
 				   + '<div>  ->'
-	               + data[i].cmt_content
+	               + data[i].cmmtcmt_content
 	               +'</div></div><br><br>';
-	         $('div #comment').append(cmtList);
+	         $('div #comment').append(cmmtcmtList1);
 	      });
 	   },
 	   error : function() {
@@ -121,20 +121,20 @@ function commm_go() {
 	});
 }
 
-$(document).on('click','.asd',function(e){
+$(document).on('click','.cmmtcmt',function(e){
     e.preventDefault();
     var result = $(this).attr('id');
     $.ajax({
-       url:"<%=request.getContextPath()%>/cmt/cmtDelete",
+       url:"<%=request.getContextPath()%>/cmmtcmt/cmmtcmtDelete",
        data: {"result" : result},
        dataType:'json',
        type:'post',
        
        success:function(map1){
-          freeMap = jQuery.map(map1 , function(a){
+          cmmtcmtMap = jQuery.map(map1 , function(a){
              return a;
           })
-          $('#'+freeMap).remove();
+          $('#'+cmmtcmtMap).remove();
        }
     });
  });
@@ -175,57 +175,69 @@ $(document).on('click','.asd',function(e){
 			</section>
 			<!-- //BREADCRUMBS -->
 			<br>
-			<form name="free" method="post" action="freeView">
+			
+		<form name="formm" method="post" action="cmmtView">
 				<div class="container">
-					<table class="table table-hover" id="freeView">
+					<table class="table table-hover" id="cmmtView1">
 						<tr>
 							<th>제목</th>
-							<td>${freeVO.fre_title }</td>
+							<td>${cmmtVO.cmmt_title}</td>
 						</tr>
 
 						<tr>
 							<th>내용</th>
-							<td>${freeVO.fre_content }</td>
+							<td>${cmmtVO.cmmt_content}</td>
 						</tr>
 
 						<tr>
 							<th>작성자</th>
-							<td>${freeVO.mbr_id }</td>
+							<td>${cmmtVO.mbr_id}</td>
 						</tr>
 
 						<tr>
 							<th>게시날짜</th>
-							<td>${freeVO.fre_date }</td>
+							<td>${cmmtVO.cmmt_date}</td>
 						</tr>
+						
+						<tr>
+						<th>사진첨부</th>
+						<td>
+						<img src="<%=request.getContextPath() %>/resources/upload/${cmmtVO.cmmt_pict_afat}" width="200pt"> 
+						</td>
+						
+					</tr>
+					
 					</table>
 				</div>
 				<br>
+				<%-- <input type="button" value="수정하기" onclick="goUpdate('${qnaVO.qna_num}')"> --%>
 				<c:choose>
-					<c:when test="${freeVO.mbr_id==sessionScope.loginUser }">
+					<c:when test="${cmmtVO.mbr_id==sessionScope.loginUser }">
 						<!-- 수정  -->
 						<button type="button" id="mod" class="btn"
-							onclick="goUpdate('${freeVO.fre_num}')"
-							style="background-color: black;">수정</button>
+							onclick="goUpdate('${cmmtVO.cmmt_num}')"
+							style="color: white; background-color: black;">수정</button>
 						<!-- 삭제  -->
 						<button type="button" id="del" class="btn"
-							onclick="goDelete('${freeVO.fre_num}')"
-							style="background-color: black;">삭제</button>
+							onclick="goDelete('${cmmtVO.cmmt_num}')"
+							style="color: white; background-color: black;">삭제</button>
 						<!-- 목록 -->
 						<button type="button" id="list" class="btn"
-							onclick="location.href='freeList'"
-							style="background-color: black;">목록</button>
+							onclick="location.href='cmmtList'"
+							style="color: white; background-color: black;">목록</button>
 					</c:when>
-
 					<c:otherwise>
 						<button type="button" id="list2" class="btn"
-							onclick="location.href='freeList'"
-							style="background-color: black;">목록</button>
+							onclick="location.href='cmmtList'"
+							style="color: white; background-color: black;">목록</button>
 					</c:otherwise>
 				</c:choose>
+				
+				
 
 				<div id="comment"></div>
-				<input type="hidden" value="${freeVO.fre_num }" id="fre_num" name="fre_num"> 
-				댓글 : <input type="text" id="cmt_content" name="cmt_content"> 
+				<input type="hidden" value="${cmmtVO.cmmt_num }" id="cmmt_num" name="cmmt_num"> 
+				댓글 : <input type="text" id="cmmtcmt_content" name="cmmtcmt_content"> 
 				<input type="button" id="insertCmt" name="insertCmt" value="등록" onclick="commm_go();">
 			
 			</form>

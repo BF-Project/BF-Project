@@ -21,6 +21,7 @@
  			background-color: #e8e8e8; 
  		} 
 	</style>
+	
 	<script>
 		function detail(noticeNum){
 			$.ajax({
@@ -97,6 +98,7 @@
 				${paging }
 			</div>
 		</div>
+			
 			<!-- 검색 -->
 			<center>
 			<div id="searchsearch" style="margin-left: 40px">
@@ -106,6 +108,7 @@
 				</form>
 			</div>
 			</center>
+			
 			<!-- 검색 : end -->
 		<!-- 리스트 : end -->
 		</div>

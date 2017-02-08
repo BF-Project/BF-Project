@@ -18,24 +18,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pro.bf.dto.CmmtCmtVO;
 import com.pro.bf.dto.CmtVO;
+import com.pro.bf.serviceImpl.CmmtCmtServiceImpl;
 import com.pro.bf.serviceImpl.CmtServiceImpl;
 
 @Controller
-@RequestMapping("/cmt")
-public class CmtController {
-
+@RequestMapping("/cmmtcmt")
+public class CmmtCmtController {
+	
 	@Autowired
-	CmtServiceImpl CmtServiceImpl;
-
-	@RequestMapping(value = "/cmtList", method = RequestMethod.POST)
+	CmmtCmtServiceImpl cmmtcmtServiceImpl;
+		
+	@RequestMapping(value = "/cmmtcmtList", method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public List<CmtVO> cmtList(@RequestBody Map<String, Object> jsonMap,
+	public List<CmmtCmtVO> cmmtcmtList(@RequestBody Map<String, Object> jsonMap,
 			Model model, HttpServletResponse response) {
-		List<CmtVO> cmtList = new ArrayList<CmtVO>();
-		String cmt_num = (String) jsonMap.get("fre_num");
+		
+		
+		List<CmmtCmtVO> cmmtcmtList1 =  new ArrayList<CmmtCmtVO>();
+		
+		String cmmtcmtnum = (String) jsonMap.get("cmmt_num");
+		
+		
 		try {
-			cmtList = CmtServiceImpl.cmtAllList(Integer.parseInt(cmt_num));
+			cmmtcmtList1 = cmmtcmtServiceImpl.cmmtcmtAllList(Integer.parseInt(cmmtcmtnum));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,39 +55,39 @@ public class CmtController {
 		 * cmt.setMbr_id("test"); cmt.setCmt_date(new Date(2017,2,3));
 		 * cmt.setCmt_content("어쩌구 저쩌구"); tempList.add(cmt);
 		 */
-		return cmtList;
+		return cmmtcmtList1;
 	}
 
-	@RequestMapping(value = "cmtWrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/cmmtcmtWrite", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public List<CmtVO> cmtWrite(@RequestBody CmtVO cmtVO, HttpSession session) {
+	public List<CmmtCmtVO> cmmtcmtWrite(@RequestBody CmmtCmtVO cmmtcmtVO, HttpSession session) {
 		String mbr_id = (String) session.getAttribute("loginUser");
-		cmtVO.setMbr_id(mbr_id);
-		List<CmtVO> cmtList = new ArrayList<CmtVO>();
+		cmmtcmtVO.setMbr_id(mbr_id);
+		List<CmmtCmtVO> cmmtcmtList = new ArrayList<CmmtCmtVO>();
 		try {
-			CmtServiceImpl.insertCmt(cmtVO);
-			cmtList = CmtServiceImpl.cmtAllList(cmtVO.getFre_num());
+			cmmtcmtServiceImpl.intsertCmmtcmt(cmmtcmtVO);
+			cmmtcmtList = cmmtcmtServiceImpl.cmmtcmtAllList(cmmtcmtVO.getCmmt_num());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return cmtList;
+		return cmmtcmtList;
 	}
 	
-	@RequestMapping(value="/cmtDelete",method=RequestMethod.POST)
+	@RequestMapping(value="/cmmtcmtDelete",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> cmtDelete(Model model ,HttpServletRequest request){
+	public Map<String,Object> cmmtcmtDelete(Model model ,HttpServletRequest request){
 		//result가져온다
-		int cmtnum=Integer.parseInt(request.getParameter("result"));
-		System.out.println(cmtnum);
+		int cmmtcmtnum=Integer.parseInt(request.getParameter("result"));
+		
 		Map <String,Object> map1=new HashMap();
 		
-		List<CmtVO>listlist=null;
+		List<CmmtCmtVO>listlist=null;
 		
 		try {
-			listlist=CmtServiceImpl.cmtListAn(cmtnum);
-			CmtServiceImpl.deleteCmt(cmtnum);
+			listlist=cmmtcmtServiceImpl.cmmtcmtListAn(cmmtcmtnum);
+			cmmtcmtServiceImpl.deleteCmmtcmt(cmmtcmtnum);
 			map1.put("listlist", listlist);
-			map1.put("cmtnum", cmtnum);
+			map1.put("cmmtcmtnum", cmmtcmtnum);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,3 +98,5 @@ public class CmtController {
 	}
 
 }
+
+

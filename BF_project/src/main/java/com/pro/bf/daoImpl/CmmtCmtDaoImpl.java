@@ -1,0 +1,42 @@
+package com.pro.bf.daoImpl;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.pro.bf.dao.CmmtCmtDao;
+import com.pro.bf.dto.CmmtCmtVO;
+
+public class CmmtCmtDaoImpl implements CmmtCmtDao  {
+
+	private SqlMapClient client;
+	public void setClient(SqlMapClient client){
+		this.client = client;
+	}
+	
+	@Override
+	public List<CmmtCmtVO> cmmtcmtAllList(int cmmtcmt_num) throws SQLException {
+		List<CmmtCmtVO> cmmtcmtAllList=client.queryForList("cmmtcmtAllList", cmmtcmt_num);
+		return cmmtcmtAllList;
+	}
+
+	@Override
+	public void intsertCmmtcmt(CmmtCmtVO cmmtcmtVO) throws SQLException {
+		client.insert("intsertCmmtcmt", cmmtcmtVO);
+	}
+
+	@Override
+	public int deleteCmmtcmt(int cmmtcmt_num) throws SQLException {
+		int result=client.delete("deleteCmmtcmt", cmmtcmt_num);
+		return result;
+	}
+
+	//댓글리스트
+	@Override
+	public List<CmmtCmtVO> cmmtcmtListAn(int cmmtcmt_num) throws SQLException {
+			List<CmmtCmtVO> cmmtcmtList1=client.queryForList("cmmtcmtListAn", cmmtcmt_num);
+		return cmmtcmtList1;
+	}
+
+}
