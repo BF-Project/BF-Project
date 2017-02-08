@@ -1,6 +1,7 @@
 package com.pro.bf.daoImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -37,5 +38,6 @@ public class CmtDaoImpl implements CmtDao {
 	public void updateCmt(CmtVO cmtVO) throws SQLException {
 		client.update("updateCmt", cmtVO);
 	}
+
 
 }

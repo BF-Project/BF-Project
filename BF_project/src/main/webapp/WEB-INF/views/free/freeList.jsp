@@ -19,6 +19,17 @@
 		document.free.action = "freeWrite";
 		document.free.submit();
 	}
+
+	/* function gosearch() {
+		if (document.free.keyWord.value == "") {
+			alert("검색어를 입력하세요.");
+			document.free.keyWord.focus();
+			return;
+		}
+
+		document.free.action = "freeSearch";
+		document.free.submit();
+	} */
 </script>
 
 <style>
@@ -35,6 +46,9 @@ td, th {
 	text-align: center;
 }
 
+#combo {
+	margin-left: 38%;
+}
 </style>
 
 </head>
@@ -79,6 +93,17 @@ td, th {
 										There are no registered Free.</td>
 								</tr>
 							</c:when>
+							<%-- <c:when test="${!empty freeSearch }">
+								<c:forEach items="${freeSearch}" var="freeVO">
+									<tr>
+										<th>${freeVO.fre_num}</th>
+										<th><a href="freeView?fre_num=${freeVO.fre_num}">${freeVO.fre_title}</a></th>
+										<th>${freeVO.mbr_id}</th>
+										<th>${freeVO.fre_date}</th>
+										<th>${FreeVO.fre_cnt }</th>
+									</tr>
+								</c:forEach>
+							</c:when> --%>
 							<c:otherwise>
 								<c:forEach items="${freeList }" var="freeVO">
 									<tr>
@@ -93,14 +118,31 @@ td, th {
 							</c:otherwise>
 						</c:choose>
 					</table>
-					
-					<div style="margin-left:45%;">
-						${paging }
-					</div>
-					<button type="button" id="writeBtn" class="btn" onclick="gowrite()"
-						style="background-color: black;">글 작성</button>
+
+					<div style="margin-left: 48%;">${paging }</div>
+					<br>
+
+					<!-- <select name="keyField" id="combo">
+					<option value="fre_title">제목</option>
+					<option value="mbr_id">작성자</option>
+				</select>  -->
+					<!-- <input type="text" id="keyWord" name="keyWord">
+				<input type="button" id="searchBtn" onclick="gosearch()" value="검색"> -->
+
 				</div>
 			</form>
+			<div id="searchsearch" style="margin-left: 40px">
+				<form action="freeSearch" method="post">
+					<input type="text" id="keyWord" name="keyWord" value="Search"
+						style="font-size: 16px;"
+						onFocus="if (this.value == 'Search') this.value = '';"
+						onBlur="if (this.value == '') this.value = 'Search';" />
+				</form>
+			</div>
+
+					<button type="button" id="writeBtn" class="btn" onclick="gowrite()"
+						style="background-color: black;">글 작성</button>
+					<br>
 		</div>
 	</div>
 

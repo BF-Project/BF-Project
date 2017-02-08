@@ -34,7 +34,7 @@ public class FreeController {
 
 	@Autowired
 	FreeDaoImpl freeDaoImpl;
-	
+
 	@Autowired
 	CmtServiceImpl cmtServiceImpl;
 
@@ -56,26 +56,26 @@ public class FreeController {
 
 		String url = "free/freeList";
 		String tpage = request.getParameter("tpage");
-		
+
 		if (tpage == null) {
 			tpage = "1";
 		} else if (tpage.equals("")) {
 			tpage = "1";
 		}
-		
+
 		model.addAttribute("tpage", tpage);
-		
+
 		ArrayList<FreeVO> freeList = null;
 		String paging = null;
-		
+
 		freeList = freeServiceImpl.getFreeList(Integer.parseInt(tpage));
 		paging = freeServiceImpl.pageNumber(Integer.parseInt(tpage));
-		
+
 		model.addAttribute("freeList", freeList);
 		int n = freeList.size();
 		model.addAttribute("freeListSize", n);
 		model.addAttribute("paging", paging);
-		
+
 		return url;
 	}
 
@@ -111,10 +111,10 @@ public class FreeController {
 		String url = "free/freeView";
 
 		FreeVO freeVO = freeServiceImpl.getFreeVO(fre_num);
-		
+
 		freeDaoImpl.countFree(freeVO);
 		freeVO.setFre_cnt(freeVO.getFre_cnt() + 1);
-		
+
 		model.addAttribute("freeVO", freeVO);
 		return url;
 	}
@@ -143,15 +143,53 @@ public class FreeController {
 	}
 
 	@RequestMapping(value = "/freeUpdateForm", method = RequestMethod.POST)
-	public String freeUpdateForm(@RequestParam("fre_num") int fre_num, FreeVO freeVO, Model model)
-			throws ServletException, IOException, SQLException {
+	public String freeUpdateForm(@RequestParam("fre_num") int fre_num,
+			FreeVO freeVO, Model model) throws ServletException, IOException,
+			SQLException {
 		String url = "redirect:freeList";
-		
+
 		freeDaoImpl.updateFree(freeVO);
-		
+
 		model.addAttribute(fre_num);
-		
+
 		return url;
 	}
-	
+
+	@RequestMapping(value = "/freeSearch", method = RequestMethod.POST)
+	public String cmtSearch(@RequestParam String keyWord, Model model,
+			HttpServletRequest request) {
+
+		String url = "free/freeList";
+		String tpage = request.getParameter("tpage");
+		String paging = null;
+		ArrayList<FreeVO> freeList = null;
+
+		if (tpage == null) {
+			tpage = "1";
+		} else if (tpage.equals("")) {
+			tpage = "1";
+		}
+
+		try {
+			freeList = freeServiceImpl.freTitle(keyWord);
+			paging = freeServiceImpl.pageNumber(Integer.parseInt(tpage));
+			model.addAttribute("freeList", freeList);
+			model.addAttribute("paging", paging);
+			model.addAttribute("tpage", tpage);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		/*
+		 * else if { try { articleList =
+		 * articleService.articleSearch_content(keyWord);
+		 * model.addAttribute("articleList", articleList);
+		 * model.addAttribute(keyField); } catch (SQLException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } }
+		 */
+
+		return url;
+	}
+
 }

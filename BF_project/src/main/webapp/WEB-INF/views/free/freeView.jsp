@@ -43,9 +43,10 @@ $(document).ready(function() {
        data:JSON.stringify(data),
        type:'post',
        success : function(data){
+    	  var loginUser = $('#loginUser').val();
           $.each(data, function(i) {
-             var date = new Date(
-                   data[i].cmt_date);
+        	 if(loginUser == data[i].mbr_id){
+             var date = new Date(data[i].cmt_date);
              var year = date.getFullYear();
              var month = (1 + date.getMonth());
              month = month >= 10 ? month : '0' + month;
@@ -73,6 +74,28 @@ $(document).ready(function() {
 						+ '">'
 						+ data[i].cmt_content
 						+'</div></div><br><br>';
+        	 } else {
+        		 var date = new Date(data[i].cmt_date);
+                 var year = date.getFullYear();
+                 var month = (1 + date.getMonth());
+                 month = month >= 10 ? month : '0' + month;
+                 var day = date.getDate();
+                 day = day >= 10 ? day : '0' + day;
+                 var fullD = year + '년' + month + '월' + day + '일';
+                 var cmtList = '<div id="'
+    						+ data[i].cmt_num   
+    						+ '">작성자 : '
+    						+ data[i].mbr_id
+    						+ '  /  ' + '작성 날짜 : '
+    						+ fullD
+    						+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    						+'&nbsp;&nbsp;'
+    						+ '<div class="'
+    						+ data[i].cmt_num
+    						+ '">'
+    						+ data[i].cmt_content
+    						+'</div></div><br><br>';
+        	 }
              $('div#comment').append(cmtList);
           });          
        },
@@ -95,9 +118,11 @@ function commm_go() {
       type : 'post',
       contentType : 'application/json',
       success : function(data) {
+    	 var loginUser = $('#loginUser').val();
          $('#cmt_content').val('');
          $('div #comment').empty();
          $.each(data, function(i) {
+        	if(loginUser == data[i].mbr_id) {
             var date = new Date(data[i].cmt_date);
             var year = date.getFullYear();
             var month = (1 + date.getMonth());
@@ -126,6 +151,28 @@ function commm_go() {
 						+ '">'
 						+ data[i].cmt_content
 						+'</div></div><br><br>';
+        	} else {
+        		 var date = new Date(data[i].cmt_date);
+                 var year = date.getFullYear();
+                 var month = (1 + date.getMonth());
+                 month = month >= 10 ? month : '0' + month;
+                 var day = date.getDate();
+                 day = day >= 10 ? day : '0' + day;
+                 var fullD = year + '년' + month + '월' + day + '일';
+                 var cmtList = '<div id="'
+     						+ data[i].cmt_num   
+     						+ '">작성자 : '
+     						+ data[i].mbr_id
+     						+ '  /  ' + '작성 날짜 : '
+     						+ fullD
+     						+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+     						+'&nbsp;&nbsp;'
+     						+ '<div class="'
+     						+ data[i].cmt_num
+     						+ '">'
+     						+ data[i].cmt_content
+     						+'</div></div><br><br>';
+        	}
             $('div #comment').append(cmtList);
          });
       },
@@ -185,17 +232,18 @@ $(document).on('click','.write', function(e) {
 	var tt = $('#mm').val();
 	$.ajax({
 		url : "<%=request.getContextPath()%>/cmt/cmtUpdate",
-		data : {"result" : result, "tt" : tt},
-		dataType : 'json',
-		type : 'post',
-		success : function(tt) {
-			$('.' + cmtList).html(
-				tt.cmt_content	
-			);
-		}
+			data : {
+				"result" : result,
+				"tt" : tt
+			},
+			dataType : 'json',
+			type : 'post',
+			success : function(tt) {
+				$('.' + cmtList).html(tt.cmt_content);
+			}
+		});
+
 	});
-	
-});
 </script>
 
 <style>
@@ -297,6 +345,7 @@ $(document).on('click','.write', function(e) {
 					</c:otherwise>
 				</c:choose>
 
+				<input type="hidden" value="${loginUser }" id="loginUser">
 
 
 

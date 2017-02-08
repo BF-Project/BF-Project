@@ -102,5 +102,11 @@ public class FreeServiceImpl implements FreeService {
 		return str;
 	}
 
+	@Override
+	public ArrayList<FreeVO> freTitle(String fre_title) throws SQLException {
+		ArrayList<FreeVO> freTitle = freeDaoImpl.freTitle(fre_title);
+		return freTitle;
+	}
+
 
 }

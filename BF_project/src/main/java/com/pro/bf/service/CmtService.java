@@ -1,6 +1,7 @@
 package com.pro.bf.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pro.bf.dto.CmtVO;
@@ -14,4 +15,5 @@ public interface CmtService {
 	public int deleteCmt(int cmt_num) throws SQLException;
 	
 	public void updateCmt(CmtVO cmtVO) throws SQLException;
+	
 }

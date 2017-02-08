@@ -69,5 +69,10 @@ public class FreeDaoImpl implements FreeDao{
 		total_pages = (Integer) client.queryForObject("totalFree", null);
 		return total_pages;
 	}
+	@Override
+	public ArrayList<FreeVO> freTitle(String fre_title) throws SQLException {
+		ArrayList<FreeVO> freTitle = (ArrayList<FreeVO>)client.queryForList("fre_title", fre_title);
+		return freTitle;
+	}
 	
 }
