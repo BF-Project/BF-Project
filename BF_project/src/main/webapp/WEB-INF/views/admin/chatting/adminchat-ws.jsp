@@ -21,7 +21,7 @@
 		// 접속
 		function connect(){
 			wsocket = new WebSocket(
-					"ws:/192.168.202.147:8181${pageContext.request.contextPath}/chat-ws");  // 모든 사용자가 사용할때
+					"ws:/192.168.202.147:8181${pageContext.request.contextPath}/adminchat-ws");  // 모든 사용자가 사용할때
 // 					"ws:/localhost:8181${pageContext.request.contextPath}/chat-ws"); // 나만 사용할때
 			wsocket.onopen = onOpen;
 			wsocket.onmessage = onMessage;
@@ -86,11 +86,11 @@
 	</style>
 </head>
 <body>
-	<input type="hidden" id="nickname" name="loginName" value="${sessionScope.loginUserName}">
+	<input type="hidden" id="nickname" name="loginName" value="${sessionScope.loginAdmin}">
 	
 	<input type="button" id="exitBtn" value="닫기">
     
-    <h1>대화 영역(Member)</h1>
+    <h1>대화 영역(Admin)</h1>
     <!-- 채팅 글 보이는 영역 -->
     <div id="chatArea">
     	<div id="chatMessageArea"></div>

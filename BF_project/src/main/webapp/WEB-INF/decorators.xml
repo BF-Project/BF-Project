@@ -18,6 +18,7 @@
 		<pattern>/join/findZipNum*</pattern>
 		
 		<pattern>/chat**</pattern>
+		<pattern>/admin/chat**</pattern>
 	</excludes>
 	
 </decorators>

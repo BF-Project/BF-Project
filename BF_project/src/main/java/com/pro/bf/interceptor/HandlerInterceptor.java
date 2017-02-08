@@ -36,10 +36,6 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter{
 			System.err.println(logMessage); // 로그인한 사용자가 이벤트(action)때마다 콘솔에 출력
 			writeFileLine(logMessage, request); // 로그인한 사용자의 이벤트(action)을 기록 
 			// request.getSession().getServletContext().getRealPath("/resources/actionLog.txt") 에 저장된다. | 톰켓 서버
-			
-			if(accessUrl.contains("chat")){
-				System.out.println("interCeptor -- Log기록 찍는 interCeptor임");
-			}
 		}
 		return true; // 기본적으로 모든 url 이 통과된다.
 	}

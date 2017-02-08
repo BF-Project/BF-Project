@@ -10,4 +10,9 @@ public class WebSocketController {
 	public String chattingPage(){
 		return "/chatting/chat-ws";
 	}
+	
+	@RequestMapping("admin/chat")
+	public String adminChattingPage(){
+		return "/admin/chatting/adminchat-ws";
+	}
 }
