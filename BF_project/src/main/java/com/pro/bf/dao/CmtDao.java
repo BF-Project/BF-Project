@@ -11,9 +11,12 @@ public interface CmtDao {
 
 	public void intsertCmt(CmtVO cmtVO) throws SQLException;
 
-	// 댓글삭제
-	public int deleteCmt(int cmt_num) throws SQLException;
 	
 	public void updateCmt(CmtVO cmtVO) throws SQLException;
 	
+	
+	//댓글삭제
+	public int deleteCmt(int cmt_num)throws SQLException;
+	//댓글 리스트 (게시글번호)
+	public List<CmtVO> cmtListAn(int cmt_num)throws SQLException;
 }

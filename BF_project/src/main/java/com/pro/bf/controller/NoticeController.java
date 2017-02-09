@@ -47,8 +47,9 @@ public class NoticeController {
 		String currentPage = "main";
 		ArrayList<NoticeVO> noticeList=null;
 		noticeList = noticeService.noticeList(Integer.parseInt(page), search); // 공지사항 리스트(검색/검색안할때)
+		System.out.println(noticeList);
 		paging = noticeService.pageNumber(Integer.parseInt(page), search, currentPage); // 
-		
+		System.out.println("paging:"+paging);
 		int noticeListSize = 0;
 		if(!(noticeList.size()==0))
 			noticeListSize = noticeList.size();
