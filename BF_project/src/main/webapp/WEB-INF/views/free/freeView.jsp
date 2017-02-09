@@ -17,7 +17,6 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
-
 <script>
    function goUpdate(fre_num) {
       document.free.action = "update?fre_num=" + fre_num;
@@ -260,6 +259,7 @@ $(document).on('click','.write', function(e) {
 	width: 600px;
 	height: 30px;
 }
+
 </style>
 </head>
 <body>
@@ -336,12 +336,14 @@ $(document).on('click','.write', function(e) {
 						<button type="button" id="list" class="btn"
 							onclick="location.href='freeList'"
 							style="background-color: black;">목록</button>
+							<br><br>
 					</c:when>
 
 					<c:otherwise>
 						<button type="button" id="list2" class="btn"
 							onclick="location.href='freeList'"
-							style="background-color: black;">목록</button>
+							style="background-color: black; margin-left:67%;">목록</button>
+							<br><br>
 					</c:otherwise>
 				</c:choose>
 

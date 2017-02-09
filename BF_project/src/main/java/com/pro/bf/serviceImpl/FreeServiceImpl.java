@@ -57,10 +57,14 @@ public class FreeServiceImpl implements FreeService {
 	}
 
 	@Override
-	public String pageNumber(int tpage) throws SQLException {
+	public String pageNumber(int tpage,String classify) throws SQLException {
 		String str = "";
-
-		int total_pages = freeDaoImpl.totalFree();
+		int total_pages = 1;
+		if(classify==null || classify.equals("")){
+			total_pages = freeDaoImpl.totalFree();
+		}else{
+			total_pages = freeDaoImpl.freSearch(classify).size();
+		}
 		int page_count = total_pages / counts + 1;
 
 		if (total_pages % counts == 0) {
@@ -103,8 +107,8 @@ public class FreeServiceImpl implements FreeService {
 	}
 
 	@Override
-	public ArrayList<FreeVO> freTitle(String fre_title) throws SQLException {
-		ArrayList<FreeVO> freTitle = freeDaoImpl.freTitle(fre_title);
+	public ArrayList<FreeVO> freSearch(String fre_title) throws SQLException {
+		ArrayList<FreeVO> freTitle = freeDaoImpl.freSearch(fre_title);
 		return freTitle;
 	}
 

@@ -18,7 +18,7 @@
 	</select>
 	
 	<insert id="insertFree" parameterClass="free">
-		insert into free(fre_num, fre_title, fre_content, mbr_id) values(free_seq.nextval, #fre_title#, #fre_content#, #mbr_id#) order by fre_date
+		insert into free(fre_num, fre_title, fre_content, mbr_id) values(free_seq.nextval, #fre_title#, #fre_content#, #mbr_id#)
 	</insert>
 	
 	<select id="getFree" parameterClass="int" resultClass="free">

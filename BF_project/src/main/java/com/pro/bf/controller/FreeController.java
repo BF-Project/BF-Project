@@ -56,6 +56,7 @@ public class FreeController {
 
 		String url = "free/freeList";
 		String tpage = request.getParameter("tpage");
+		String classify = null;
 
 		if (tpage == null) {
 			tpage = "1";
@@ -69,7 +70,7 @@ public class FreeController {
 		String paging = null;
 
 		freeList = freeServiceImpl.getFreeList(Integer.parseInt(tpage));
-		paging = freeServiceImpl.pageNumber(Integer.parseInt(tpage));
+		paging = freeServiceImpl.pageNumber(Integer.parseInt(tpage), classify);
 
 		model.addAttribute("freeList", freeList);
 		int n = freeList.size();
@@ -157,39 +158,38 @@ public class FreeController {
 
 	@RequestMapping(value = "/freeSearch", method = RequestMethod.POST)
 	public String cmtSearch(@RequestParam String keyWord, Model model,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws ServletException, IOException,
+			SQLException {
 
 		String url = "free/freeList";
-		String tpage = request.getParameter("tpage");
-		String paging = null;
-		ArrayList<FreeVO> freeList = null;
-
-		if (tpage == null) {
-			tpage = "1";
-		} else if (tpage.equals("")) {
-			tpage = "1";
-		}
-
-		try {
-			freeList = freeServiceImpl.freTitle(keyWord);
-			paging = freeServiceImpl.pageNumber(Integer.parseInt(tpage));
-			model.addAttribute("freeList", freeList);
-			model.addAttribute("paging", paging);
+		if (keyWord.equals("")) {
+			freeList(request, model);
+			return url;
+		} else {
+			String tpage = request.getParameter("tpage");
+			String classify = keyWord;
+			if (tpage == null) {
+				tpage = "1";
+			} else if (tpage.equals("")) {
+				tpage = "1";
+			}
 			model.addAttribute("tpage", tpage);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			ArrayList<FreeVO> freeList = null;
+			String paging = null;
+			try {
+				freeList = freeServiceImpl.freSearch(keyWord);
+				paging = freeServiceImpl.pageNumber(Integer.parseInt(tpage),
+						classify);
+				model.addAttribute("freeList", freeList);
+				model.addAttribute("paging", paging);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return url;
 		}
-
-		/*
-		 * else if { try { articleList =
-		 * articleService.articleSearch_content(keyWord);
-		 * model.addAttribute("articleList", articleList);
-		 * model.addAttribute(keyField); } catch (SQLException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } }
-		 */
-
-		return url;
 	}
 
 }

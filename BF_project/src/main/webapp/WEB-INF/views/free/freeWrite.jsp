@@ -28,7 +28,7 @@
 	}
 	
 	#writeBtn {
-		margin-left: 40%;
+		margin-left: 39.3%;
 	}
 </style>
 

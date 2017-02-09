@@ -10,7 +10,7 @@ public interface FreeDao {
 
 	public ArrayList<FreeVO> listAllFree(int tpage) throws SQLException;
 	public ArrayList<FreeVO> freeList(String mbr_id) throws SQLException;
-	public ArrayList<FreeVO> freTitle(String fre_title) throws SQLException;
+	public ArrayList<FreeVO> freSearch(String fre_title) throws SQLException;
 	public FreeVO getFree(int fre_num) throws SQLException;
 	public void insertFree(FreeVO freeVO) throws SQLException;
 	public void deleteFree(int fre_num) throws SQLException;

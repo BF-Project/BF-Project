@@ -70,7 +70,7 @@ public class FreeDaoImpl implements FreeDao{
 		return total_pages;
 	}
 	@Override
-	public ArrayList<FreeVO> freTitle(String fre_title) throws SQLException {
+	public ArrayList<FreeVO> freSearch(String fre_title) throws SQLException {
 		ArrayList<FreeVO> freTitle = (ArrayList<FreeVO>)client.queryForList("fre_title", fre_title);
 		return freTitle;
 	}

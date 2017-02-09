@@ -9,11 +9,6 @@
 <meta charset="UTF-8">
 <title>자유게시판</title>
 
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-
 <script>
 	function gowrite() {
 		document.free.action = "freeWrite";
@@ -27,26 +22,28 @@
 			return;
 		}
 
-		document.free.action = "freeSearch";
+		document.free.action = "freeList";
 		document.free.submit();
 	} */
+	
+	
 </script>
 
 <style>
 #freeList {
 	margin: auto;
-	width: 70%;
+	width: 85%;
 }
 
 #writeBtn {
-	margin-left: 75%;
+	margin-left: 71%;
 }
 
 td, th {
 	text-align: center;
 }
 
-#combo {
+#keyWord {
 	margin-left: 38%;
 }
 </style>
@@ -78,7 +75,7 @@ td, th {
 			<form name="free" method="post">
 				<div class="container">
 					<table class="table table-hover" id="freeList">
-						<tr>
+						<tr style="font-size: 20px;">
 							<th>글번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -94,7 +91,7 @@ td, th {
 								</tr>
 							</c:when>
 							<%-- <c:when test="${!empty freeSearch }">
-								<c:forEach items="${freeSearch}" var="freeVO">
+								<c:forEach items="${freeSearch }" var="freeVO">
 									<tr>
 										<th>${freeVO.fre_num}</th>
 										<th><a href="freeView?fre_num=${freeVO.fre_num}">${freeVO.fre_title}</a></th>
@@ -118,31 +115,31 @@ td, th {
 							</c:otherwise>
 						</c:choose>
 					</table>
-
-					<div style="margin-left: 48%;">${paging }</div>
 					<br>
+					<div style="margin-left: 48%;">${paging }</div>
 
 					<!-- <select name="keyField" id="combo">
 					<option value="fre_title">제목</option>
 					<option value="mbr_id">작성자</option>
 				</select>  -->
 					<!-- <input type="text" id="keyWord" name="keyWord">
-				<input type="button" id="searchBtn" onclick="gosearch()" value="검색"> -->
+				 -->
 
 				</div>
 			</form>
-			<div id="searchsearch" style="margin-left: 40px">
+			<div id="searchsearch" style="margin-left: 45%">
 				<form action="freeSearch" method="post">
 					<input type="text" id="keyWord" name="keyWord" value="Search"
 						style="font-size: 16px;"
 						onFocus="if (this.value == 'Search') this.value = '';"
-						onBlur="if (this.value == '') this.value = 'Search';" />
+						onBlur="if (this.value == '') this.value = 'Search';"/>
 				</form>
 			</div>
 
-					<button type="button" id="writeBtn" class="btn" onclick="gowrite()"
-						style="background-color: black;">글 작성</button>
-					<br>
+			<button type="button" id="writeBtn" class="btn" onclick="gowrite()"
+				style="background-color: black;">글 작성</button>
+			<!-- <input type="button" id="searchBtn" onclick="location.href='freeList'" value="목록"> -->
+			<br><br>
 		</div>
 	</div>
 
