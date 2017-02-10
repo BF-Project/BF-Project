@@ -133,7 +133,7 @@ public class FreeController {
 	@RequestMapping("/update")
 	public String freeUpdate(HttpSession session, String fre_num, Model model)
 			throws ServletException, IOException, SQLException {
-		String url = "free/freeupdate";
+		String url = "free/freeUpdate";
 
 		FreeVO freeVO = freeServiceImpl.getFreeDetail(fre_num);
 

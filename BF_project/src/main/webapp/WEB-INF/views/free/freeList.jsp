@@ -127,15 +127,16 @@ td, th {
 
 				</div>
 			</form>
-			<div id="searchsearch" style="margin-left: 45%">
-				<form action="freeSearch" method="post">
-					<input type="text" id="keyWord" name="keyWord" value="Search"
-						style="font-size: 16px;"
-						onFocus="if (this.value == 'Search') this.value = '';"
-						onBlur="if (this.value == '') this.value = 'Search';"/>
-				</form>
-			</div>
-
+			<center>
+				<div id="searchsearch">
+					<form action="freeSearch" method="post">
+						<input type="text" id="keyWord" name="keyWord" value="Search"
+							style="font-size: 16px;"
+							onFocus="if (this.value == 'Search') this.value = '';"
+							onBlur="if (this.value == '') this.value = 'Search';"/>
+					</form>
+				</div>
+			</center>
 			<button type="button" id="writeBtn" class="btn" onclick="gowrite()"
 				style="background-color: black;">글 작성</button>
 			<!-- <input type="button" id="searchBtn" onclick="location.href='freeList'" value="목록"> -->
