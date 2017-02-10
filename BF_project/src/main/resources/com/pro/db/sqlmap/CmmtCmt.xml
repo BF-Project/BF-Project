@@ -12,18 +12,25 @@
 		select * from cmmtcmt where cmmt_num=#cmmt_num# order by cmmtcmt_num desc
 	</select>
 	
+	<!--댓글추가-->
 	<insert id="intsertCmmtcmt" parameterClass="cmmtcmt">
 		insert into cmmtcmt(cmmtcmt_num, cmmtcmt_content, mbr_id, cmmt_num) 
 		values(cmmtcmt_seq.nextval, #cmmtcmt_content#, #mbr_id#, #cmmt_num#)
 	</insert>
-		
+	
+	<!--댓글삭제-->	
 	<delete id="deleteCmmtcmt" parameterClass="int">
 		delete from cmmtcmt where cmmtcmt_num=#cmmtcmt_num#
 	</delete>
 	
+	<!--댓글리스트-->
 	<select id="cmmtcmtListAn" parameterClass="int">
 		select * from cmmtcmt where cmmtcmt_num=#cmmtcmt_num#
 	</select>
 	
+	<!--댓글수정-->
+	<update id="updateCmmtcmt" parameterClass="cmmtcmt">
+		update cmmtcmt set cmmtcmt_content=#cmmtcmt_content# where cmmtcmt_num=#cmmtcmt_num#		
+	</update>
 </sqlMap>
      

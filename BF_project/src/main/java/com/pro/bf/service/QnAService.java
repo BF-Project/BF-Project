@@ -7,7 +7,7 @@ import com.pro.bf.dto.QnAVO;
 
 public interface QnAService {
 
-	public ArrayList<QnAVO> getQnaList(int tpage) throws SQLException; // Q&A
+	public ArrayList<QnAVO> getQnaList(int tpage,String search) throws SQLException; // Q&A
 
 	public QnAVO getQnaDetail(String qna_num) throws SQLException; // 상세보기
 
@@ -17,7 +17,7 @@ public interface QnAService {
 
 	public int countQna(QnAVO qnaVO) throws SQLException; // 조회수
 
-	public String pageNumber(int tpage) throws SQLException;
+	public String pageNumber(int tpage,String search) throws SQLException;
 	
 
  	

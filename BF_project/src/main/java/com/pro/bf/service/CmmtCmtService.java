@@ -9,10 +9,12 @@ public interface CmmtCmtService {
 
 	
 	public List<CmmtCmtVO> cmmtcmtAllList(int cmmtcmt_num) throws SQLException;
+	//댓글추가
 	public void intsertCmmtcmt(CmmtCmtVO cmmtcmtVO) throws SQLException;
-
 	//댓글삭제
 	public int deleteCmmtcmt(int cmmtcmt_num) throws SQLException;
+	//댓글리스트
 	public List<CmmtCmtVO> cmmtcmtListAn(int cmmtcmt_num) throws SQLException;
-
+	//댓글수정
+	public void updateCmmtcmt(CmmtCmtVO cmmtcmtVO) throws SQLException;
 }

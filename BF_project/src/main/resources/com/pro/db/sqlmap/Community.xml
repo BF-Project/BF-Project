@@ -41,7 +41,7 @@
 	</select>
 	
 	<update id="updateCmmt" parameterClass="cmmt">
-		update community set cmmt_content = #cmmt_content#, cmmt_pict_afat=#cmmt_pict_afat# where cmmt_num=#cmmt_num#
+		update community set cmmt_title=#cmmt_title# , cmmt_content = #cmmt_content#, cmmt_pict_afat=#cmmt_pict_afat# where cmmt_num=#cmmt_num#
 	</update>
 
 	<delete id="deleteCmmt" parameterClass="int" >

@@ -77,8 +77,7 @@ public class CommunityController {
 		String search=request.getParameter("search");
 		if(search==null || search.equals(""))
 			search="";
-		System.out.println("tpage:"+tpage);
-		System.out.println("search:"+search);
+		
 		if(tpage==null){
 			tpage="1";
 		}else if(tpage.equals("")){
@@ -94,8 +93,7 @@ public class CommunityController {
 			//getCmmtList(Integer.parseInt(tpage));
 			paging=cmmtServiceImpl.pageNumber(Integer.parseInt(tpage), search);
 					//pageNumber(Integer.parseInt(tpage),search);
-			System.out.println("cnntList:"+cmmtList);
-			System.out.println("paging:"+paging);
+			
 			for(CommunityVO VO : cmmtList){
 				System.out.println(VO.getCmmt_content());
 			}
@@ -259,12 +257,10 @@ public class CommunityController {
 				HttpServletRequest request, 
 				Model model,
 				HttpSession session) throws NumberFormatException, SQLException{
+				
 			
-			
-			
-			
-			// 공지사항 리스트 or 검색
-			String search = request.getParameter("search"); // 공지사항 검색, null 일 경우 전체 리스트 가져옴, 초기값 null
+			//리스트 or 검색
+			String search = request.getParameter("search"); //  검색, null 일 경우 전체 리스트 가져옴, 초기값 null
 			if(search==null || search.equals(""))
 				search="";
 			request.setAttribute("search", search);
@@ -293,8 +289,10 @@ public class CommunityController {
 			request.setAttribute("paging", paging);
 			return "/cmmt/cmmtList";
 		}
-		
-		}
+
+	
+
+}
 		
 		
 		

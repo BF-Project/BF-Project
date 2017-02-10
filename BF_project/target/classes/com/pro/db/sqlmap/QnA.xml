@@ -25,8 +25,8 @@
 	</insert>
 	
 	<!-- listAllQna -->
-	<select id="listAllQna" resultClass="qna">
-		select * from qna order by qna_date desc
+	<select id="listAllQna" parameterClass="str" resultClass="qna">
+		select * from qna where qna_title like '%'||#search#||'%' order by qna_date desc
 	</select>
 	
 	<!-- countQna -->
@@ -36,7 +36,7 @@
 	</update>
 	
 	<select id="totalQna" resultClass="int">
-		select count(*) from qna
+		select count(*) from qna where qna_title like '%'||#search#||'%'
 	</select>
 	
 	<update id="updateQna" parameterClass="qna">

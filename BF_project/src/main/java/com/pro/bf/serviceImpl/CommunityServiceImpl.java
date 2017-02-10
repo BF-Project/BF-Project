@@ -91,7 +91,7 @@ public class CommunityServiceImpl implements CommunityService{
 		}
 		
 		int start_page = tpage - (tpage % view_rows) + 1;
-		System.out.println("start_page before:"+start_page);
+		
 		for(int i=page_count; i>=1; i--){
 			if(tpage % 5 == 0){
 				int a = tpage / 5;
@@ -102,7 +102,7 @@ public class CommunityServiceImpl implements CommunityService{
 				}
 			}
 		}
-		System.out.println("start_page after:"+start_page);
+		
 		int end_page = start_page + (view_rows - 1);
 		
 		/*int start_page = tpage - (tpage % view_rows) + 1;

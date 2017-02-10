@@ -78,6 +78,7 @@
 						</tbody>
 					</c:when>
 					<c:otherwise>
+					
 						<tbody>
 							<c:forEach items="${noticeList}" var="NoticeVO" varStatus="count" >
 								<tr id="hoverId" style="font-size: 14px" onclick="detail(${NoticeVO.notice_num})">

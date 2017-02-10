@@ -32,6 +32,9 @@
 #writeBtn {
 	margin-left: 442px;
 }
+#asd{
+	margin-left: 100px;
+	}
 </style>
 
 </head>
@@ -50,10 +53,10 @@
 			<section class="breadcrumbs_block clearfix parallax">
 				<div class="container center">
 					<h2>
-						<b>Q & A</b> 고객 게시판
+						 커뮤니티 게시판
 					</h2>
 					<br> <br>
-					<p>'Q & A 게시판' 페이지 입니다.</p>
+					<p>'커뮤니티 게시판' 페이지 입니다.</p>
 				</div>
 			</section>
 			<!-- //BREADCRUMBS -->
@@ -64,20 +67,22 @@
 						<label for="usr">Title</label> <input type="text" name="cmmt_title"
 							class="form-control" id="usr" style="width: 30%;">
 					</div>
+					
 					<div class="form-group">
 						<label for="comment">Comment</label>
 						<textarea class="form-control" rows="5" name="cmmt_content"
 							id="comment" style="width: 50%; height: 300px;"></textarea>
 					</div>
-			
-			
+					
 				<input type="file" name="file">
-	
-			
+					
 				</form>
-			</div>
-			<button type="button" id="writeBtn" class="btn" onclick="goList()"
+				<div id="asd">
+				<button type="button" id="writeBtn" class="btn" onclick="goList()"
 				style="color: white; background-color: black;" id="reg">등록</button>
+				</div>
+			</div>
+		
 		</div>
 	</div>
 
