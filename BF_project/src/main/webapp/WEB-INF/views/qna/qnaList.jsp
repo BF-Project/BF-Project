@@ -24,7 +24,7 @@
 
 <style>
  	#writeBtn {
-		margin-left : 76%;
+		margin-left : 65%;
 	}
 	
 	#paging {
@@ -102,12 +102,24 @@
 					<div id="paging">
 						${paging }
 					</div>
-					<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="background-color:black;">글 작성</button>
+					
 				</div>
-
-				<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->
-
+		</form>
+	
+	<!-- 검색 -->
+			<center>
+			<div id="searchsearch" style="margin-left: 40px">
+			<form method="post" action="search">
+			<input type="text" id="search" name="search" value="Search" style="font-size: 16px;" 
+				onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
+				
 			</form>
+			</div>
+		</center>
+					<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="background-color:black;">글 작성</button>
+
+			<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->
+			
 		</div>
 	</div>
 </body>

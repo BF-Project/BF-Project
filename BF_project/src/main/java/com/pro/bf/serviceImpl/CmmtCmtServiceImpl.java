@@ -31,7 +31,8 @@ public class CmmtCmtServiceImpl implements CmmtCmtService {
 			
 		return cmmtcmtAllList;
 	}
-
+	
+	//댓글추가
 	@Override
 	public void intsertCmmtcmt(CmmtCmtVO cmmtcmtVO) throws SQLException {
 		cmmtcmtDAOImpl.intsertCmmtcmt(cmmtcmtVO);
@@ -50,6 +51,12 @@ public class CmmtCmtServiceImpl implements CmmtCmtService {
 		
 		List<CmmtCmtVO> cmmtcmtList1=cmmtcmtDAOImpl.cmmtcmtListAn(cmmtcmt_num);
 		return cmmtcmtList1;
+	}
+	
+	//댓글수정
+	@Override
+	public void updateCmmtcmt(CmmtCmtVO cmmtcmtVO) throws SQLException {
+		cmmtcmtDAOImpl.updateCmmtcmt(cmmtcmtVO);
 	}
 
 

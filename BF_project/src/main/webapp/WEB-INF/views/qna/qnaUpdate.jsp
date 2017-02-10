@@ -19,9 +19,9 @@
 
 <script>
 	function goList() {
-		document.form2.action = "qnaUpdateForm";
-		document.form2.method = "post";
-		document.form2.submit();
+		document.form2.action = "qnaUpdateForm"; // qnaUpdateForm
+		document.form2.method = "post"; 
+		document.form2.submit(); 
 	}
 </script>
 
@@ -59,48 +59,36 @@
 				</div>
 			</section>
 			<!-- //BREADCRUMBS -->
+			
 			<div class="container">
 				<form name="form2" method="post" action="qnaUpdateForm" id="update">
 					<input type="text" name="qna_num" hidden="hidden" value="${param.qna_num}">
 					<div class="form-group">
 						<br>
 						<label for="usr">제 목</label><br> 
-						<input type="text" class="form-control" name="qna_title" id="usr" value="${qnaVO.qna_title}" readonly style="width:30%;">
+						<input type="text" class="form-control" name="qna_title" id="usr" value="${qnaVO.qna_title}" style="width:30%;">
 					</div> 
+					
 					<div class="form-gourp">
 						<label for="comment">내 용</label><br>
 						<textarea rows="5" id="comment" class="form-control" name="qna_content" style="width:50%; height:300px;">${qnaVO.qna_content}</textarea>
 					</div>
+					
 					<br>
-				</form>
-			</div>
+		
 			<button type="button" id="updateBtn" class="btn" onclick="goList()"
 				style="color: white; background-color: black;">수정</button>
 			<button type="button" class="btn"
 				onclick="location.href='qnaList'"
 				style="color: white; background-color: black;">목록</button>
+		
+				
+				</form>
+			</div>
+			
 		</div>
 
-		<div>
-			<form name="form2" method="post" action="qnaUpdateForm"
-				enctype="multipart/form-data">
-				<input type="text" name="qna_num" hidden="hidden"
-					value="${param.qna_num}"> <label>title</label><br> <input
-					type="text" name="qna_title" size="30" value="${qnaVO.qna_title}"
-					readonly><br> <label>content</label><br>
-				<textarea rows="8" cols="65" id="content1" name="qna_content">${qnaVO.qna_content}</textarea>
-				<br>
 
-				<!--사진수정  -->
-				<input type="hidden" name="nofile" value="${qnaVO.qna_pict_afat}">
-				<img
-					src="<%=request.getContextPath() %>/upload/${qnaVO.qna_pict_afat}"
-					width="200pt"> <input type="file" name="file">
-
-
-			</form>
-			<input type="button" value="등록" onclick="goList()">
-		</div>
 	</div>
 </body>
 </html>

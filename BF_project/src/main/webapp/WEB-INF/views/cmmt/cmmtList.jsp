@@ -42,9 +42,9 @@
 	}
 	
 	/*추가 */
-		#noticeDetailView {
+		#cmmtcmtDetailView {
 			margin: auto;
-			width: 85%;
+			width: 70%;
 			
 		}
 		th{
@@ -54,6 +54,15 @@
 		td{
 			font-size: 14px;
 		}
+		
+		a{
+		color:#999;
+		}
+		
+		.table>tbody>#hoverId:hover{ 
+ 			background-color: #e8e8e8; 
+ 		} 
+				
 </style>
 </head>
 <body>
@@ -82,7 +91,7 @@
 			<br>
 			<form name="form1" method="post" >
 				<div class="container">
-					<table class="table table-hover" id="noticeDetailView">
+					<table class="table table-hover" id="cmmtcmtDetailView">
 						<tr>
 							<th>글번호</th>
 							<th>제목</th>
@@ -105,9 +114,9 @@
 										<td>${cmmtVO.cmmt_num}</td>
 
 										<!-- 수정1. -->
-										<td>
+										<td id="a">
 										<a href="cmmtView?cmmt_num=${cmmtVO.cmmt_num}">
-										${cmmtVO.cmmt_title }</td>
+										${cmmtVO.cmmt_title }</a></td>
 										<td>${cmmtVO.mbr_id }</td>
 										<td>${cmmtVO.cmmt_date }</td>
 										<td>${cmmtVO.cmmt_cnt }</td>
@@ -122,7 +131,8 @@
 					<div id="paging">
 						${paging }
 					</div>
-
+	<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="background-color:black;">글 작성</button>
+		
 				</div>
 			</form>
 					
@@ -132,16 +142,12 @@
 			<form method="post" action="search">
 			<input type="text" id="search" name="search" value="Search" style="font-size: 16px;" 
 				onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
-				</form>
-
+				
+			</form>
 			</div>
-			</center>
-					
-					
-					
-					<button type="button" id="writeBtn" class="btn" onclick="gowrite(this.form)" style="color:white; background-color:black;">글 작성</button>
+		</center>
 			
-				<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->
+			<!-- <input type="button" value="글 작성" onclick="gowrite(this.form)"> -->
 				
 			
 		</div>

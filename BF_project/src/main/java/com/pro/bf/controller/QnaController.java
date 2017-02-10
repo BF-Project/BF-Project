@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pro.bf.dao.QnADao;
+import com.pro.bf.daoImpl.QnADaoImpl;
+import com.pro.bf.dto.CommunityVO;
 import com.pro.bf.dto.QnAVO;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
 import com.pro.bf.serviceImpl.QnAServiceImpl;
@@ -39,9 +41,22 @@ public class QnaController {
 	@Autowired(required = false)
 	QnADao qnaDao;
 
+	@Autowired(required=false)
+	QnADaoImpl qnaDaoImpl;
+	
+	
 	/*public void setQnaService(QnAService qnaService) {
 		this.qnaService = qnaService;
 	}*/
+
+	
+	public void setQnaDaoImpl(QnADaoImpl qnaDaoImpl) {
+		this.qnaDaoImpl = qnaDaoImpl;
+	}
+
+	public void setQnaServiceImpl(QnAServiceImpl qnaServiceImpl) {
+		this.qnaServiceImpl = qnaServiceImpl;
+	}
 
 	public void setQnaService(QnAServiceImpl qnaServiceImpl) {
 		this.qnaServiceImpl = qnaServiceImpl;
@@ -56,8 +71,12 @@ public class QnaController {
 			Model model) throws ServletException, IOException {
 
 		String url = "qna/qnaList";
+		
 		String tpage = request.getParameter("tpage");
-
+		String search=request.getParameter("search");
+		
+		if(search==null || search.equals(""))
+			search="";
 		if (tpage == null) {
 			tpage = "1";
 		} else if (tpage.equals("")) {
@@ -68,11 +87,17 @@ public class QnaController {
 		ArrayList<QnAVO> qnaList = null;
 		String paging = null;
 		try {
-			qnaList = qnaServiceImpl.getQnaList(Integer.parseInt(tpage));
-			paging = qnaServiceImpl.pageNumber(Integer.parseInt(tpage));
-		} catch (SQLException e) {
+			qnaList = qnaServiceImpl.getQnaList(Integer.parseInt(tpage),search);
+			paging = qnaServiceImpl.pageNumber(Integer.parseInt(tpage),search);
+		for(QnAVO VO : qnaList){
+				System.out.println(VO.getQna_content());
+			}
+		
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		// ///////////////////////////////////////////////////////////////////
 		model.addAttribute("qnaList", qnaList);
 		int n = qnaList.size();
@@ -124,8 +149,8 @@ public class QnaController {
 	public String qnaWrite(@RequestParam("qna_title") String qna_title,
 			@RequestParam("qna_content") String qna_content, HttpSession session
 			,
-			@RequestParam(value="file",defaultValue="")
-			MultipartFile filefile, HttpServletRequest request
+			/*@RequestParam(value="file",defaultValue="")
+			MultipartFile filefile, */HttpServletRequest request
 			
 			)
 			throws ServletException, IOException, SQLException {
@@ -143,7 +168,7 @@ public class QnaController {
 
 
 		//fileupload
-		 session=request.getSession();
+	/*	 session=request.getSession();
 		String savaPath="resources/upload";
 		ServletContext context=session.getServletContext();
 		String uploadFilePath=context.getRealPath(savaPath);
@@ -153,7 +178,7 @@ public class QnaController {
 			filefile.transferTo(file1);
 			qnaVO.setQna_pict_afat(file1.getName());
 		}
-		
+		*/
 		
 		qnaServiceImpl.insertQna(qnaVO);
 
@@ -183,13 +208,15 @@ public class QnaController {
 			@RequestParam("qna_title") String qna_title,
 			@RequestParam("qna_content") String qna_content, Model model
 			,
-			HttpServletRequest request,
-			@RequestParam("file")MultipartFile file,
-			@RequestParam("nofile")String nofile,
-			@RequestParam(value="qna_pict_afat",defaultValue="")String qna_pict_afat
+			HttpServletRequest request
+//			@RequestParam(value="file", defaultValue="")MultipartFile file,
+//			@RequestParam("nofile")String nofile,
+//			@RequestParam(value="qna_pict_afat",defaultValue="")String qna_pict_afat
 			)
 			throws ServletException, IOException, SQLException {
-
+		
+		System.out.println(qna_num);
+		
 		String url = "redirect:qnaList";
 
 		QnAVO qnaVO = new QnAVO();
@@ -205,22 +232,64 @@ public class QnaController {
 		HttpSession session = request.getSession();
 
 		/////////////
-		String savePath = "resources/upload";
-		ServletContext context = session.getServletContext();
-		String uploadFilePath = context.getRealPath(savePath);
-
-		if (!file.isEmpty()) {
-			File file1 = new File(uploadFilePath, System.currentTimeMillis() + file.getOriginalFilename());
-			file.transferTo(file1);
-
-			qnaVO.setQna_pict_afat(file1.getName());
-		} else {
-			qnaVO.setQna_pict_afat(nofile);
-		}
+//		String savePath = "resources/upload";
+//		ServletContext context = session.getServletContext();
+//		String uploadFilePath = context.getRealPath(savePath);
+//
+//		if (!file.isEmpty()) {
+//			File file1 = new File(uploadFilePath, System.currentTimeMillis() + file.getOriginalFilename());
+//			file.transferTo(file1);
+//
+//			qnaVO.setQna_pict_afat(file1.getName());
+//		} else {
+//			qnaVO.setQna_pict_afat(nofile);
+//		}
 		qnaServiceImpl.updateQna(qnaVO);
 
 		
 		return url;
 	}
 
+	
+	//추가
+			@RequestMapping(value="/search",method=RequestMethod.POST) // method=RequestMethod.GET | POST
+			public String qnaSearch(
+					HttpServletRequest request, 
+					Model model,
+					HttpSession session) throws NumberFormatException, SQLException{
+								
+				// 공지사항 리스트 or 검색
+				String search = request.getParameter("search"); // 공지사항 검색, null 일 경우 전체 리스트 가져옴, 초기값 null
+				if(search==null || search.equals(""))
+					search="";
+				request.setAttribute("search", search);
+				
+				// 현재 페이지
+				String tpage = request.getParameter("tpage"); // 처음에는 page 값 null
+				if(tpage==null || tpage.equals(""))
+					tpage="1";
+				model.addAttribute("tpage",tpage);
+				
+				// 페이지 이동
+				String paging = null; // 처음 접속할땐 null
+				
+				// Service, dao, db
+				//String currentPage = "main";
+				
+				ArrayList<QnAVO> qnaList=null;
+				qnaList = qnaDaoImpl.listAllQna(Integer.parseInt(tpage), search); // 공지사항 리스트(검색/검색안할때)
+				paging = qnaServiceImpl.pageNumber(Integer.parseInt(tpage), search); 
+				
+				int qnaListSize = 0;
+				if(!(qnaList.size()==0))
+					qnaListSize = qnaList.size();
+				request.setAttribute("qnaListSize", qnaListSize); 
+				request.setAttribute("qnaList", qnaList);
+				request.setAttribute("paging", paging);
+				return "/qna/qnaList";
+			}
+	
+	
+	
+	
 }

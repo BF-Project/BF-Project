@@ -27,7 +27,7 @@
 }
 
 #writeBtn {
-	margin-left: 442px;
+	margin-left: 1100px;
 }
 </style>
 
@@ -65,10 +65,7 @@
 						<label for="comment">Comment</label>
 						<textarea class="form-control" rows="5" name="qna_content" id="comment" style="width: 50%; height: 300px;"></textarea>
 					</div>
-			
-			
-				<input type="file" name="file">
-	
+				
 			
 				</form>
 			</div>

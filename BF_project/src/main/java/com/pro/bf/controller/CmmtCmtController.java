@@ -58,6 +58,7 @@ public class CmmtCmtController {
 		return cmmtcmtList1;
 	}
 
+	//커뮤니티 게시판 댓글 작성
 	@RequestMapping(value = "/cmmtcmtWrite", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public List<CmmtCmtVO> cmmtcmtWrite(@RequestBody CmmtCmtVO cmmtcmtVO, HttpSession session) {
@@ -72,6 +73,28 @@ public class CmmtCmtController {
 		}
 		return cmmtcmtList;
 	}
+	
+	
+	@RequestMapping(value ="/cmmtcmtWriteForm", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> cmmtcmtWriteForm(Model model, HttpServletRequest request) {
+		int writeForm = Integer.parseInt(request.getParameter("result"));
+		System.out.println(writeForm);
+		
+		Map<String, Object> map = new HashMap();
+		List<CmmtCmtVO> cmmtcmtList = null;
+		
+		try {
+			cmmtcmtList = cmmtcmtServiceImpl.cmmtcmtAllList(writeForm);
+			map.put("cmmtcmtList", cmmtcmtList);
+			map.put("writeForm", writeForm);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
 	
 	@RequestMapping(value="/cmmtcmtDelete",method=RequestMethod.POST)
 	@ResponseBody
@@ -96,6 +119,30 @@ public class CmmtCmtController {
 		
 		return map1;
 	}
+	
+	//댓글수정
+	@RequestMapping(value = "/cmmtcmtUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public CmmtCmtVO cmmtcmtUpdate(Model model, CmmtCmtVO cmmtcmtVO, HttpServletRequest request) {
+		
+		int result = Integer.parseInt(request.getParameter("result"));
+		String tt = request.getParameter("tt");
+		
+		List<CmmtCmtVO> cmmtcmtList = null;
+		cmmtcmtVO.setCmmtcmt_num(result);
+		cmmtcmtVO.setCmmtcmt_content(tt);
+		
+		try {
+			cmmtcmtList = cmmtcmtServiceImpl.cmmtcmtAllList(result);
+			cmmtcmtServiceImpl.updateCmmtcmt(cmmtcmtVO);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cmmtcmtVO;
+	}
+
 
 }
 

@@ -38,8 +38,8 @@ public class QnAServiceImpl implements QnAService{
 	}
 
 	@Override
-	public ArrayList<QnAVO> getQnaList(int tpage) throws SQLException {
-		ArrayList<QnAVO> qnaList = qnaDao.listAllQna(tpage);
+	public ArrayList<QnAVO> getQnaList(int tpage,String search) throws SQLException {
+		ArrayList<QnAVO> qnaList = qnaDao.listAllQna(tpage,search);
 		return qnaList;
 	}
 
@@ -69,10 +69,9 @@ public class QnAServiceImpl implements QnAService{
 	}
 
 	@Override
-	public String pageNumber(int tpage) throws SQLException {
+	public String pageNumber(int tpage,String search) throws SQLException {
 		String str = "";
-		
-		int total_pages = qnaDaoImpl.totalQna();
+		int total_pages = qnaDaoImpl.totalQna(search);
 		int page_count = total_pages / counts + 1;
 		
 		if(total_pages % counts == 0) {
@@ -84,6 +83,18 @@ public class QnAServiceImpl implements QnAService{
 		}
 		
 		int start_page = tpage - (tpage % view_rows) + 1;
+		
+		for(int i=page_count; i>=1; i--){
+			if(tpage % 5 == 0){
+				int a = tpage / 5;
+				if(a==1){
+					start_page = 1;
+				}else{
+					start_page = a + (4*(a-1));
+				}
+			}
+		}
+		
 		int end_page = start_page + (counts - 1);
 		
 		if(end_page > page_count) {
@@ -91,23 +102,23 @@ public class QnAServiceImpl implements QnAService{
 		}
 		
 		if(start_page > view_rows) {
-			str += "<a href='qnaList?tpage=1'>&lt;&lt;</a>&nbsp;&nbsp;";
-			str += "<a href='qnaList?tpage=" + (start_page - 1);
+			str += "<a href='qnaList?tpage=1&search="+search+"'>&lt;&lt;</a>&nbsp;&nbsp;";
+			str += "<a href='qnaList?tpage=" + (start_page - 1)+"&search=" +search+ "'>&lt;</a>&nbsp;&nbsp;";
 		}
 		
 		for(int i = start_page; i <= end_page; i++) {
 			if(i == tpage) {
 				str += "<font color=red>[" + i + "]&nbsp;&nbsp;</font>"; 
 			} else {
-				str += "<a href='qnaList?tpage=" + i +"'>[" + i + "]</a>&nbsp;&nbsp;";
+				str += "<a href='qnaList?tpage=" + i +"&search="+search+"'>[" + i + "]</a>&nbsp;&nbsp;";
 			}
 		}
 		
 		if(page_count > end_page) {
 			str += "<a href='qnaList?tpage=" + (end_page + 1)
-					+"'> &gt; </a>&nbsp;&nbsp;";
+					+"&search="+search+"'> &gt; </a>&nbsp;&nbsp;";
 			str += "<a href='qnaList?tpage=" + page_count
-					+"'> &gt; &gt; </a>&nbsp;&nbsp;";
+					+"&search="+search+"'> &gt; &gt; </a>&nbsp;&nbsp;";
 		}
 		
 		return str;
