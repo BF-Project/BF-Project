@@ -32,10 +32,15 @@ public class ShopServiceImpl implements ShopService{
 		float score = 0;
 		if(deviation<=0){
 			score=100+((deviation/avg)*100);
-			return score;
 		}else{
 			score=100;
+			System.out.println("shop score : "+score);
+			return score;
 		}
+		if(score==0){
+			score=20;
+		}
+		System.out.println("shop score : "+score);
 		return score;
 	}
 

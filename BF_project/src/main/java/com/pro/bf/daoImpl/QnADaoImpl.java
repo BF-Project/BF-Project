@@ -28,20 +28,23 @@ public class QnADaoImpl implements QnADao {
 	}
 
 	@Override
-	public ArrayList<QnAVO> listAllQna(int tpage) throws SQLException {
+	public ArrayList<QnAVO> listAllQna(int tpage,String search) throws SQLException {
 		ArrayList<QnAVO> qnaList = new ArrayList<QnAVO>();
 		
+		if(search.equals("")){ // 검색어가 없을경우
+			search = "%";
+		}
 		int startRow = -1;
 		int endRow = -1;
 		
-		int totalRecord = totalQna();
+		int totalRecord = totalQna(search);
 		
 		startRow = (tpage - 1) * counts ;
 		endRow = startRow + counts - 1;
 		if (endRow > totalRecord)
 			endRow = totalRecord;
 		
-		qnaList = (ArrayList<QnAVO>) client.queryForList("listAllQna", null, startRow, counts);
+		qnaList = (ArrayList<QnAVO>) client.queryForList("listAllQna", search, startRow, counts);
 		return qnaList;
 	}
 
@@ -72,9 +75,9 @@ public class QnADaoImpl implements QnADao {
 	}
 
 	@Override
-	public int totalQna() throws SQLException {
+	public int totalQna(String search) throws SQLException {
 		int total_pages = 0;
-		total_pages = (Integer) client.queryForObject("totalQna", null);
+		total_pages = (Integer) client.queryForObject("totalQna", search);
 		return total_pages;
 	}
 

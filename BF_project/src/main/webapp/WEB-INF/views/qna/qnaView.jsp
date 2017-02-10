@@ -38,12 +38,14 @@
 }
 
 #mod, del, list {
-	margin-left : 235px;
+	
+	margin-left : 58%;
 }
 
 #list2 {
 	margin-left : 235px;
 }
+
 
 </style>
 
@@ -96,11 +98,6 @@
 							<td>${qnaVO.qna_date}</td>
 						</tr>
 						
-						<tr>
-						<th>사진첨부</th>
-						<td>
-						<img src="<%=request.getContextPath() %>/upload/${qnaVO.qna_pict_afat}" width="200pt"> 
-						</td>
 						
 						<tr>
 						<th>답변내용</th>
@@ -111,6 +108,8 @@
 				</div>
 				<br>
 				<%-- <input type="button" value="수정하기" onclick="goUpdate('${qnaVO.qna_num}')"> --%>
+				</form>
+					
 				<c:choose>
 					<c:when test="${qnaVO.mbr_id==sessionScope.loginUser }">
 						<!-- 수정  -->
@@ -132,7 +131,8 @@
 							style="color: white; background-color: black;">목록</button>
 					</c:otherwise>
 				</c:choose>
-			</form>
+				
+			
 
 		</div>
 	</div>

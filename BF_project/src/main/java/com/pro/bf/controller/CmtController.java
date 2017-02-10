@@ -65,6 +65,30 @@ public class CmtController {
 		}
 		return cmtList;
 	}
+	
+/*	@RequestMapping(value="/cmtDelete",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> cmtDelete(Model model ,HttpServletRequest request){
+		//result가져온다
+		int cmtnum=Integer.parseInt(request.getParameter("result"));
+		System.out.println(cmtnum);
+		Map <String,Object> map1=new HashMap();
+		
+		List<CmtVO>listlist=null;
+		
+		try {
+			listlist=CmtServiceImpl.cmtListAn(cmtnum);
+			CmtServiceImpl.deleteCmt(cmtnum);
+			map1.put("listlist", listlist);
+			map1.put("cmtnum", cmtnum);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return map1;
+	}*/
 
 	@RequestMapping(value = "/cmtDelete", method = RequestMethod.POST)
 	@ResponseBody

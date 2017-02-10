@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pro.bf.dao.CommunityDao;
 import com.pro.bf.dao.MbrDao;
 import com.pro.bf.dao.QnADao;
 import com.pro.bf.daoImpl.MbrDaoImpl;
+import com.pro.bf.dto.CommunityVO;
 import com.pro.bf.dto.MbrVO;
 import com.pro.bf.dto.QnAVO;
 import com.pro.bf.service.MbrService;
@@ -30,6 +32,13 @@ public class MbrServiceImpl implements MbrService {
 
 	public void setQnaDAO(QnADao qnaDAO) {
 		this.qnaDAO = qnaDAO;
+	}
+
+	@Autowired
+	private CommunityDao cmmtDAO;
+	
+	public void setCmmtDAO(CommunityDao cmmtDAO) {
+		this.cmmtDAO = cmmtDAO;
 	}
 
 	@Autowired
@@ -118,4 +127,39 @@ public class MbrServiceImpl implements MbrService {
 
 	}
 
+	//////////////////
+	/////추가추가
+	
+	@Override
+	public ArrayList<CommunityVO> getCmmtList(String mbr_id,String admin_id) throws SQLException {
+		ArrayList<CommunityVO> cmmtList = null;
+		try {
+			cmmtList = cmmtDAO.listCmmt(mbr_id,admin_id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cmmtList;
+	}
+
+	@Override
+	public CommunityVO getCmmtVO(int cmmt_num) throws SQLException {
+		CommunityVO cmmtVO = new CommunityVO();
+		try {
+			cmmtVO = cmmtDAO.getCmmt(cmmt_num);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cmmtVO;
+	}
+
+	@Override
+	public void insertCmmt(CommunityVO cmmtVO) throws SQLException {
+		try {
+			cmmtDAO.insertCmmt(cmmtVO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

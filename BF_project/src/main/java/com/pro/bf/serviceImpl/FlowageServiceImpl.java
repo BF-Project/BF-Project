@@ -63,11 +63,16 @@ public class FlowageServiceImpl implements FlowageService{
 		float deviation = totalFlowage(dong) - avg;
 		if(deviation>=0){
 			score=100;
+			System.out.println("flowage score : "+score);
 			return score;
 		}else{
 			score=100+((deviation/avg)*100);
 		}
-		return 0;
+		if(score==0){
+			score=20;
+		}
+		System.out.println("flowage score : "+score);
+		return score;
 	}
 	
 }

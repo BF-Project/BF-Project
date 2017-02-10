@@ -12,12 +12,12 @@
 		.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 		.layer .pop-layer {display:block;}
 
-	.pop-layer {display:none; position: absolute; top: 100px; left: 300px; width: 500px; height:800px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
+	.pop-layer {display:none; position: absolute; top: 150px; left: 300px; width: 500px; height:800px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
 	.pop-layer .pop-container {padding: 20px 25px;}
 	.pop-layer p.ctxt {color: #666; line-height: 25px;}
 	.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
 	
-	.pop-layer2 {display:none; position: absolute; top: 100px; left: 900px; width: 850px; height:800px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
+	.pop-layer2 {display:none; position: absolute; top: 150px; left: 900px; width: 850px; height:800px;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
 	.pop-layer2 .pop-container {padding: 20px 25px;}
 	.pop-layer2 p.ctxt {color: #666; line-height: 25px;}
 	.pop-layer2 .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
@@ -88,11 +88,48 @@ table {
 }
 
 th, td {
-    text-align: center;
+    text-align: left;
     padding: 8px;
 }
 
+#myProgress {
+  width: 100%;
+  height: 30px;
+  background-color: #ddd;
+}
 
+#myBar {
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
+}
+
+#label {
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.button {
+  padding: 15px 25px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #6799FF;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #4374D9}
+
+.button:active {
+  background-color: #4374D9;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 
 </style>
 </head>
@@ -100,29 +137,45 @@ th, td {
 	<%-- <script src="<%=request.getContextPath()%>/resources/js/jquery-1.9.1.js"></script> --%>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/examples-base.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/highlight.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/simulator.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.charts.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.powercharts.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/fusioncharts.widgets.js"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=B3S2a2PwxQRRyezwDNUx&amp;submodules=panorama"></script>
     
   <script>
         var HOME_PATH = '<%=request.getContextPath()%>/resources';
   </script>
+ <section class="breadcrumbs_block clearfix parallax">
+				<div class="container center">
+					<h2>
+						<b>SIMULATOR</b>
+					</h2>
+					<br> <br>
+					<p>창업할 지역을 선택해 주세요</p>
+				</div>
+</section> 
+ 
 <!-- @category DataLayer -->
 
 <div id="page">
 
 <div id="wrap" class="section">
-    <br><br>
-<div style="text-align:center;"><h2>SIMULATOR</h2>
+<br><br>
+<!-- <div style="text-align:center;"><h2>SIMULATOR</h2>
 (창업할 지역을 선택해주세요)</div>
-<hr color="grey" width="1000px">
-    <div id="map" style="width:70%;height:600px; margin:0 auto;"></div>
+<hr color="grey" width="1000px"> -->
+    <div id="map" style="width:70%;height:700px; margin:0 auto;"></div>
 </div>
-<script id="code">
 
+
+
+<script id="code">
 var map = new naver.maps.Map(document.getElementById('map'), {
     zoom: 6,
+    minZoom: 6,
+    maxZoom: 6,
     mapTypeId: 'normal',
     center: new naver.maps.LatLng(33.3718377, 126.5298401)
 
@@ -256,424 +309,253 @@ function layer_open2(el){
 
 }
 
-var cnt = 0;
-function interval(){
-	setTest = setInterval("start()",2000);
-	layer_open2('layer3');
-	
-}
+var cnt = 1;
+var term = 0;
 
-function start(){
+function interval(){
+	term = $("select[name=endPeriod]").val()*1 - $("select[name=startPeriod]").val()*1
 	if($('#addrDetail').val()==''){
 		alert('상세주소를 입력해 주세요');
 		return;
+	}else if($("select[name=startPeriod]").val()>=$("select[name=endPeriod]").val()){
+		alert('영업기간을 정확히 입력해주세요')
+	}else{
+		layer_open2('layer3');	
+		setTest = setInterval("start()",2000);
 	}
+	
+	
+	var elem = document.getElementById("myBar");   
+	  var width = 0;
+	  var id = setInterval(frame, 1000);
+	  function frame() {
+	    if (width >= 100) {
+	      clearInterval(id);
+	    } else {
+	      width += 5;
+	      elem.style.width = width + '%'; 
+	      document.getElementById("label").innerHTML = width * 1  + '%';
+	    }
+	  }
+	
+}
+
+var population = 0;
+var tourist = 0;
+var shop = 0;
+var lent = 0;
+var flowage = 0;
+var salesAccount = 0;
+var expenditure = 0;
+
+var benefit = 0;
+
+function start(){
+	
 	$.ajax({
 		url:"start",
 		type:"post",
+		async:false,
 		data:{"radio":$('input:radio[name="radio"]:checked').val(),
 			"addr":$('#address').val(),
-			"sel":$("select[name=sel]").val(),
-			"addrDetail":$('#addrDetail').val()
+			"startPeriod":$("select[name=startPeriod]").val(),
+			"endPeriod":$("select[name=endPeriod]").val(),
+			"addrDetail":$('#addrDetail').val(),
+			"kind":$("select[name=kind]").val(),
+			"marketing":$('input:radio[name="marketing"]:checked').val(),
+			"prodManage":$('input:radio[name="prodManage"]:checked').val(),
+			"benefit":$('input:radio[name="benefit"]:checked').val(),
+			"sitemap":$('input:radio[name="sitemap"]:checked').val(),
+			"prodDirect":$('input:radio[name="prodDirect"]:checked').val(),
+			"cooperation":$('input:radio[name="cooperation"]:checked').val(),
+			"itemCreativity":$('input:radio[name="itemCreativity"]:checked').val(),
+			"customerManage":$('input:radio[name="customerManage"]:checked').val()
+			
 		},
 		success:function(data){
-			
+			population = data[0];
+			tourist = data[1];
+			shop = data[2];
+			lent = data[3];
+			flowage = data[4];
+			salesAccount = salesAccount*1 + data[5]*term;
+			expenditure = Math.floor((salesAccount*(Math.random()*7+73)/100)/1000)*1000;
+			benefit = Math.floor((salesAccount*1 - expenditure*1)/1000)*1000;
+		},
+		error:function(){
+			alert("통신실패!!!!!!!!!!!");
 		}
+
 	});
 	
 	if(cnt==1){
-		clearInterval(setTest);
-		cnt=0;
+		FusionCharts1();
+		FusionCharts2();
+		FusionCharts3();
 	}
 	
+	if(cnt==10){
+		FusionCharts2();
+		clearInterval(setTest);
+		cnt=0;
+		alert("시뮬레이션이 끝났습니다");
+	}
+	
+	//alert(salesAccount);
 	cnt++;
 	//alert(cnt);
-	
+		
 }
 
-function changeOption1(){
-	$('#offOption').hide();
-	$('.onlineOption').show();
-}
-
-function changeOption2(){
-	$('#offOption').show();
-	$('.onlineOption').hide();
-}
-
-</script>
-</div>
-<!-- dimmed 레이어팝업 -->
-<!-- <div class="layer"> -->  
-	<!-- <div class="bg"></div> -->
-	<div id="layer2" class="pop-layer">
-		<div class="pop-container">
-			<div class="pop-conts">
-				<!--content //-->
-					<form name="frm">
-		<table styleborder:1px>
-			<tr>
-				<td>읍면동 :</td>
-				<td><input type="text" id="address" value=""></td>
-				<!-- <td><input type="button" value="주소검색" onclick="test();" class="btn-r"></td> -->
-			</tr>
-			<tr>
-				<td>상세주소 : </td>
-				<td><input type="text" id="addrDetail"></td>
-			</tr>
-			<tr>
-				<td>보유자산 :</td>
-				<td colspan="2"><input type="text" id="asset"></td>
-			</tr>
-
-			<tr>
-				<td>창업종류 : </td>
-				<td colspan="2">
-						<input type="radio" name="radio" id="radio1" class="radio" value="온라인 창업" checked onclick="changeOption1();"><label for="radio1" style="color:black;"><span></span>온라인 창업</label>&nbsp;&nbsp;
-						<input type="radio" name="radio" id="radio2" class="radio" value="오프라인 창업" onclick="changeOption2();"><label for="radio2" style="color:black;"><span></span>오프라인 창업</label>
-				
-				</td>
-			</tr>
-			<tr style="text-align:center;" id="offOption">
-				<td colspan="3"><select style="width: 200px;">
-						<option value="#">업종을 선택하세요</option>
-						<option value="chicken">치킨/호프</option>
-						<option value="cafe">까페</option>
-						<option value="restaurant">요식업</option>
-						<option value="pension">숙박/펜션</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td>영업시간 : </td>
-				<td>&nbsp;&nbsp;
-				<%
-					String open = "";
-					List<String> openResult = new ArrayList<String>();
-					for(int i=0;i<24;i++){
-						int j=i+1;
-						open = j+"";
-						openResult.add(i, open);
-					}
-				%>
-				<select name="sel">
-					<c:forEach items="<%=openResult%>" var="item" begin="0" end="23">
-						<option value="${item}">${item}</option>
-					</c:forEach>
-				</select>시간
-			</tr>
-			<tr class="onlineOption">
-				<td>마케팅 계획여부 : </td>
-				<td><input type="radio" name="marketing" id="marketing1" value="yes" checked/><label for="marketing1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="marketing" id="marketing2" value="no"><label for="marketing2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>상품관리여부 : </td>
-				<td><input type="radio" name="prodManage" id="prodManage1" value="yes" checked/><label for="prodManage1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="prodManage" id="prodManage2" value="no"><label for="prodManage2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>수익성 분석여부 : </td>
-				<td><input type="radio" name="benefit" id="benefit1" value="yes" checked/><label for="benefit1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="benefit" id="benefit2" value="no"><label for="benefit2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>사이트맵 여부 : </td>
-				<td><input type="radio" name="sitemap" id="sitemap1" value="yes" checked/><label for="sitemap1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="sitemap" id="sitemap2" value="no"><label for="sitemap2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>상품직접생산여부 : </td>
-				<td><input type="radio" name="prodDirect" id="prodDirect1" value="yes" checked/><label for="prodDirect1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="prodDirect" id="prodDirect2" value="no"><label for="prodDirect2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>제조협력업체유무 : </td>
-				<td><input type="radio" name="cooperation" id="cooperation1" value="yes" checked/><label for="cooperation1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="cooperation" id="cooperation2" value="no"><label for="cooperation2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>아이템독창성 : </td>
-				<td><input type="radio" name="itemCreativity" id="itemCreativity1" value="상" checked/><label for="itemCreativity1" style="color:black;"><span></span>상</label>&nbsp;&nbsp;
-				<input type="radio" name="itemCreativity" id="itemCreativity2" value="중"><label for="itemCreativity2" style="color:black;"><span></span>중</label>
-				<input type="radio" name="itemCreativity" id="itemCreativity3" value="하"><label for="itemCreativity3" style="color:black;"><span></span>하</label></td>
-			</tr>
-			<tr class="onlineOption">
-				<td>고객관리계획여부 : </td>
-				<td><input type="radio" name="customerManage" id="customerManage1" value="yes" checked/><label for="customerManage1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
-				<input type="radio" name="customerManage" id="customerManage2" value="no"><label for="customerManage2" style="color:black;"><span></span>No</label></td>
-			</tr>
-			<tr style="height:70px;"></tr>
-			<tr>
-				<td colspan="3"><input type="button" value="start" onclick="interval();"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="reset"/></td>
-			</tr>
-		</table>
-	</form>
-
-				<div class="btn-r">
-					<a href="#" class="cbtn">Close</a>
-				</div>
-				<!--// content-->
-			</div>
-		</div>
-	</div>
-<!-- </div> -->
-
-<div id="layer3" class="pop-layer2">
-		<div class="pop-container">
-			<div class="pop-conts">
-			
-				<table>
-					<tr>
-						<td><div id="chart-container" style="text-align:center;">FusionCharts will render here</div></td>
-						<td><div id="chart-container2">FusionCharts will render here</div></td>
-					</tr>
-					<tr>
-						<td><div id="chart-container3">FusionCharts will render here</div></td>
-						<td><div id="chart-container4">FusionCharts will render here</div></td>
-					</tr>
-				
-				</table>
-			<div class="btn-r">
-					<a href="#" class="cbtn">Close</a>
-				</div>
-			</div>
-		</div>
-</div>
-
-
-
-
-<script>
-FusionCharts.ready(function () {
-    var revenueChart = new FusionCharts({
-        type: 'doughnut2d',
-        renderAt: 'chart-container',
-        width: '300',
-        height: '300',
+function FusionCharts2() {
+    var ageGroupChart = new FusionCharts({
+        type: 'pie2d',
+        renderAt: 'chart-container2',
+        width: '400',
+        height: '300', 
         dataFormat: 'json',
         dataSource: {
             "chart": {
-                "caption": "Split of Revenue by Product Categories",
-                "subCaption": "Last year",
-                "numberPrefix": "$",
+                "caption": "예상 총매출",
+                "subcaption":"(단위:원)",
                 "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
                 "bgColor": "#ffffff",
                 "showBorder": "0",
                 "use3DLighting": "0",
                 "showShadow": "0",
-                "enableSmartLabels": "0",
-                "startingAngle": "310",
-                "showLabels": "0",
+                "enableSmartLabels": "1",
+                "startingAngle": "0",
                 "showPercentValues": "1",
-                "showLegend": "1",
-                "legendShadow": "0",
-                "legendBorderAlpha": "0",
-                "defaultCenterLabel": "Total revenue: $64.08K",
-                "centerLabel": "Revenue from $label: $value",
-                "centerLabelBold": "1",
-                "showTooltip": "0",
-                "decimals": "0",
+                "showPercentInTooltip": "0",
+                "decimals": "1",
                 "captionFontSize": "14",
                 "subcaptionFontSize": "14",
-                "subcaptionFontBold": "0"
+                "subcaptionFontBold": "0",
+                "toolTipColor": "#ffffff",
+                "toolTipBorderThickness": "0",
+                "toolTipBgColor": "#000000",
+                "toolTipBgAlpha": "80",
+                "toolTipBorderRadius": "2",
+                "toolTipPadding": "5",
+                "showHoverEffect":"1",
+                "showLegend": "1",
+                "legendBgColor": "#ffffff",
+                "legendBorderAlpha": '0',
+                "legendShadow": '0',
+                "legendItemFontSize": '10',
+                "legendItemFontColor": '#666666',
+                "formatNumberScale":"0",
+                "numberPrefix":"￦"
             },
             "data": [
                 {
-                    "label": "Food",
-                    "value": "28504"
+                    "label": "총지출",
+                    "value": expenditure
                 }, 
                 {
-                    "label": "Apparels",
-                    "value": "14633"
+                    "label": "순이익",
+                    "value": benefit
                 }, 
-                {
-                    "label": "Electronics",
-                    "value": "10507"
-                }, 
-                {
-                    "label": "Household",
-                    "value": "4910"
-                }
             ]
         }
     }).render();
-});
+};
 
 
-FusionCharts.ready(function() {
-    var revenueChart = new FusionCharts({
-        type: 'scrollcombidy2d',
-        renderAt: 'chart-container2',
-        width: '350',
+function FusionCharts1() {
+    var revBulletChart = new FusionCharts({
+    	id: 'stackedbullet',
+    	type: 'vbullet',
+        renderAt: 'chart-container',
+        width: '170',
         height: '300',
         dataFormat: 'json',
         dataSource: {
             "chart": {
-                "caption": "Revenues and Profits",
-                "subCaption": "(FY 2012 to FY 2013)",
-                "captionFontSize" : "14",
-                "subcaptionFontSize" : "14",
-                "subcaptionFontBold" : "0",
-                "xAxisname": "Month",
-                "pYAxisName": "Amount (In USD)",
-                "sYAxisName": "Profit %",
-                "numberPrefix": "$",
-                "sNumberSuffix": "%",
-                "sYAxisMaxValue": "50",
-                "paletteColors" : "#0075c2,#1aaf5d,#f2c500",
-                "showAlternateHGridColor" : "0",
-                "showPlotBorder": "0",
-                "usePlotGradientColor" : "0",
-                "baseFontColor" : "#333333",
-                "baseFont" : "Helvetica Neue,Arial",
-                "showBorder" : "0",
-                "bgColor" : "#ffffff",
-                "showShadow" : "0",
-                "canvasBgColor" : "#ffffff",
-                "showCanvasBorder": "0",
-                "legendBorderAlpha": "0",
-                "legendShadow": "0",
-                "showValues" : "1",
-                "divlineAlpha" : "100",
-                "divlineColor" : "#999999",
-                "divlineThickness" : "1",
-                "divLineIsDashed" : "1",
-                "divLineDashLen" : "1",
-                "divLineGapLen" : "1",
-                "numVisiblePlot" : "12",
-                "flatScrollBars": "1",
-                "scrollheight": "10"
+                "caption": "총매출",
+                "subcaption": "(단위:천원)",
+                "captionFontSize": "11.5",
+                "subcaptionFontSize": "11.5",
+                "subcaptionFontBold": "1",
+                "captionPadding": "5",
+                "animation": "1",
+                "upperLimit": "12000",
+                "numberprefix": "￦",
+                "targetFillPercent": "75",
+                "targetColor": "#444444",
+                "plotFillPercent": "40",
+                "plotFillColor": "#444444",
+                "formatNumberScale": "0",
+                "baseFontColor": "595959",
+                "plotToolText": "<div>Sales : <b>$$value</b></div>",
+                "targettooltext": "Target : <b>$$targetvalue</b>",
+                "theme": "zune",
+                "dataStreamURL": "../../resources/php/gauge-and-widgets-guide-bullet-chart-real-time-bullet-chart-php-1.php",
+                "refreshInterval": "2"
             },
-            "categories": [
-                {
-                    "category": [
-                        { "label": "Jan 2012" },
-                        { "label": "Feb 2012" },
-                        { "label": "Mar 2012" },
-                        { "label": "Apr 2012" },
-                        { "label": "May 2012" },
-                        { "label": "Jun 2012" },
-                        { "label": "Jul 2012" },
-                        { "label": "Aug 2012" },
-                        { "label": "Sep 2012" },
-                        { "label": "Oct 2012" },
-                        { "label": "Nov 2012" },
-                        { "label": "Dec 2012" },
-                        { "label": "Jan 2013" }, 
-                        { "label": "Feb 2013" }, 
-                        { "label": "Mar 2013" }, 
-                        { "label": "Apr 2013" }, 
-                        { "label": "May 2013" }, 
-                        { "label": "Jun 2013" }, 
-                        { "label": "Jul 2013" }, 
-                        { "label": "Aug 2013" }, 
-                        { "label": "Sep 2013" }, 
-                        { "label": "Oct 2013" }, 
-                        { "label": "Nov 2013" }, 
-                        { "label": "Dec 2013" }
-                    ]
+            "colorRange": {
+                "color": [
+                    {
+                        "minValue": "0",
+                        "maxValue": "6000",
+                        "code": "#999498"
+                    },
+                    {
+                        "minValue": "6000",
+                        "maxValue": "9000",
+                        "code": "#c5c2c6"
+                    },
+                    {
+                        "minValue": "9000",
+                        "maxValue": "12000",
+                        "code": "#e1dee2"
+                    }
+                ]
+            },
+            "value":"300",
+            //"target": "10000"
+        },
+        "events": {
+            "initialized": function (e) {
+                function addLeadingZero(num){
+                    return (num <= 9)? ("0"+num) : num;
                 }
-            ],
-            "dataset": [
-                {
-                    "seriesName": "Revenues",
-                    "data": [
-                        { "value": "16000" },
-                        { "value": "20000" },
-                        { "value": "18000" },
-                        { "value": "19000" },
-                        { "value": "15000" },
-                        { "value": "21000" },
-                        { "value": "16000" },
-                        { "value": "20000" },
-                        { "value": "17000" },
-                        { "value": "22000" },
-                        { "value": "19000" },
-                        { "value": "23000" },
-                        { "value": "24000" },
-                        { "value": "25000" },
-                        { "value": "26000" },
-                        { "value": "24000" },
-                        { "value": "19000" },
-                        { "value": "22000" },
-                        { "value": "18000" },
-                        { "value": "19000" },
-                        { "value": "22000" },
-                        { "value": "21000" },
-                        { "value": "23000" },
-                        { "value": "24000" }
-                    ]
-                }, 
-                {
-                    "seriesName": "Profits",
-                    "renderAs": "area",
-                    "showValues": "0",
-                    "data": [
-                        { "value": "4000" },
-                        { "value": "5000" },
-                        { "value": "3000" },
-                        { "value": "4000" },
-                        { "value": "1000" },
-                        { "value": "7000" },
-                        { "value": "1000" },
-                        { "value": "4000" },
-                        { "value": "1000" },
-                        { "value": "8000" },
-                        { "value": "2000" },
-                        { "value": "7000" },
-                        { "value": "6000" },
-                        { "value": "7000" },
-                        { "value": "4000" },
-                        { "value": "5000" },
-                        { "value": "3000" },
-                        { "value": "9000" },
-                        { "value": "2000" },
-                        { "value": "6000" },
-                        { "value": "2000" },
-                        { "value": "7000" },
-                        { "value": "4000" },
-                        { "value": "6000" }
-                    ]
-                }, 
-                {
-                    "seriesName": "Profit %",
-                    "parentYAxis": "S",
-                    "renderAs": "line",
-                    "showValues": "0",
-                    "data": [
-                        { "value": "25" },
-                        { "value": "25" },
-                        { "value": "16.66" },
-                        { "value": "21.05" },
-                        { "value": "6.66" },
-                        { "value": "33.33" },
-                        { "value": "6.25" },
-                        { "value": "25" },
-                        { "value": "5.88" },
-                        { "value": "36.36" },
-                        { "value": "10.52" },
-                        { "value": "30.43" },
-                        { "value": "25" },
-                        { "value": "28" },
-                        { "value": "15.38" },
-                        { "value": "20.83" },
-                        { "value": "15.79" },
-                        { "value": "40.91" },
-                        { "value": "11.11" },
-                        { "value": "31.58" },
-                        { "value": "9.09" },
-                        { "value": "33.33" },
-                        { "value": "17.39" },
-                        { "value": "25" }
-                    ]
+                function updateData() {
+                    // Get reference to the chart using its ID
+                    var chartRef = FusionCharts("stackedbullet"),
+                        // We need to create a querystring format incremental update, containing
+                        // label in hh:mm:ss format
+                        // and a value (random).
+                        currDate = new Date(),
+                        label = addLeadingZero(currDate.getHours()) + ":" +
+                        addLeadingZero(currDate.getMinutes()) + ":" +
+                        addLeadingZero(currDate.getSeconds()),
+                        // Get random number between 20 & 38 - rounded to 2 decimal places
+                        randomValue = parseInt(Math.random()     
+                                                 * 20000 )  + 7000,
+                        // Build Data String in format &label=...&value=...
+                        newValue=Math.floor(salesAccount/1000);
+                        strData = "&value=" + newValue;
+                    // Feed it to chart.
+                    chartRef.feedData(strData);
                 }
-            ]
+                
+                var myVar = setInterval(function () {
+                    updateData();
+                }, 2000);
+                
+                /* if(cnt==10){
+                	chartRef.stopUpdate();
+                } */
+       
+            }
         }
-    }).render();
-    
-});
+    })
+    .render();
+};
 
-FusionCharts.ready(function () {
+
+function FusionCharts3() {
     var budgetChart = new FusionCharts({
         type: 'radar',
         renderAt: 'chart-container3',
@@ -682,11 +564,10 @@ FusionCharts.ready(function () {
         dataFormat: 'json',
         dataSource: {
             "chart": {
-                "caption": "Budget analysis",
-                "subCaption": "Current month",
+                "caption": "요소별 점수",
                 "captionFontSize": "14",
                 "subcaptionFontSize": "14",
-                "numberPrefix":"$",
+                "numberPrefix":"Score:",
                 "baseFontColor" : "#333333",
                 "baseFont" : "Helvetica Neue,Arial",                        
                 "subcaptionFontBold": "0",
@@ -707,26 +588,25 @@ FusionCharts.ready(function () {
             "categories": [
                 {
                     "category": [
-                        { "label": "Marketing" },
-                        { "label": "Product Management" },
-                        { "label": "Customer Service" },
-                        { "label": "Human Resource" },
-                        { "label": "Sales & Distribution" }
+                        { "label": "인구" },
+                        { "label": "주변상권" },
+                        { "label": "동종업수" },
+                        { "label": "임대료" },
+                        { "label": "유동인구" }
                     ]
                 }
             ],
             "dataset": [
                 {
-                    "seriesname": "Allocated Budget",
                     "data": [
-                        { "value": "19000" },
-                        { "value": "16500" },
-                        { "value": "14300" },
-                        { "value": "10000" },
-                        { "value": "9800" }
+                        { "value": population },
+                        { "value": tourist },
+                        { "value": shop },
+                        { "value": lent },
+                        { "value": flowage }
                     ]
-                },
-                {
+                }
+               /*  {
                     "seriesname": "Actual Cost",
                     "data": [
                         { "value": "6000" },
@@ -735,11 +615,11 @@ FusionCharts.ready(function () {
                         { "value": "8000" },
                         { "value": "9700" }
                     ]
-                }
+                } */
             ]
         }
-    }).render();
-});
+    }).render();    
+};
 
 FusionCharts.ready(function () {
     var revenueChart = new FusionCharts({
@@ -856,7 +736,173 @@ FusionCharts.ready(function () {
     revenueChart.render();
 });
 
+
+function changeOption1(){
+	$('#offOption').hide();
+	$('.onlineOption').show();
+}
+
+function changeOption2(){
+	$('#offOption').show();
+	$('.onlineOption').hide();
+}
+
 </script>
+</div>
+<!-- dimmed 레이어팝업 -->
+<!-- <div class="layer"> -->  
+	<!-- <div class="bg"></div> -->
+	<div id="layer2" class="pop-layer">
+		<div class="pop-container">
+			<div class="pop-conts">
+				<!--content //-->
+					<form name="frm">
+		<table styleborder:1px>
+			<tr>
+				<td style="text-align:center;">읍면동 :</td>
+				<td><input type="text" id="address" value=""></td>
+				<!-- <td><input type="button" value="주소검색" onclick="test();" class="btn-r"></td> -->
+			</tr>
+			<tr>
+				<td style="text-align:center;">상세주소 : </td>
+				<td><input type="text" id="addrDetail"></td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">보유자산 :</td>
+				<td colspan="2"><input type="text" id="asset"></td>
+			</tr>
+
+			<tr>
+				<td style="text-align:center;">창업종류 : </td>
+				<td colspan="2">
+						<input type="radio" name="radio" id="radio1" class="radio" value="online" checked onclick="changeOption1();"><label for="radio1" style="color:black;"><span></span>온라인 창업</label>&nbsp;&nbsp;
+						<input type="radio" name="radio" id="radio2" class="radio" value="offline" onclick="changeOption2();"><label for="radio2" style="color:black;"><span></span>오프라인 창업</label>
+				
+				</td>
+			</tr>
+			<tr style="text-align:center;" id="offOption">
+				<td></td>
+				<td colspan="3"><select style="width: 200px;" name="kind">
+						<option value="#">업종을 선택하세요</option>
+						<option value="chicken">치킨/호프</option>
+						<option value="cafe">까페</option>
+						<option value="restaurant">요식업</option>
+						<option value="pension">숙박/펜션</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">영업기간 : </td>
+				<td>
+				<%
+					String open = "";
+					List<String> openResult = new ArrayList<String>();
+					for(int i=0;i<12;i++){
+						int j=i+1;
+						open = j+"";
+						openResult.add(i, open);
+					}
+				%>
+				<select name="startPeriod">
+					<c:forEach items="<%=openResult%>" var="item" begin="0" end="11">
+						<option value="${item}">${item}월</option>
+					</c:forEach>
+				</select>&nbsp;~&nbsp; 
+				<select name="endPeriod">
+					<c:forEach items="<%=openResult%>" var="item" begin="0" end="11">
+						<option value="${item}">${item}월</option>
+					</c:forEach>
+				</select>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">마케팅 계획여부 : </td>
+				<td><input type="radio" name="marketing" id="marketing1" value="yes" checked/><label for="marketing1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="marketing" id="marketing2" value="no"><label for="marketing2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">상품관리여부 : </td>
+				<td><input type="radio" name="prodManage" id="prodManage1" value="yes" checked/><label for="prodManage1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="prodManage" id="prodManage2" value="no"><label for="prodManage2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">수익성 분석여부 : </td>
+				<td><input type="radio" name="benefit" id="benefit1" value="yes" checked/><label for="benefit1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="benefit" id="benefit2" value="no"><label for="benefit2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">사이트맵 여부 : </td>
+				<td><input type="radio" name="sitemap" id="sitemap1" value="yes" checked/><label for="sitemap1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="sitemap" id="sitemap2" value="no"><label for="sitemap2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">상품직접생산여부 : </td>
+				<td><input type="radio" name="prodDirect" id="prodDirect1" value="yes" checked/><label for="prodDirect1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="prodDirect" id="prodDirect2" value="no"><label for="prodDirect2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">제조협력업체유무 : </td>
+				<td><input type="radio" name="cooperation" id="cooperation1" value="yes" checked/><label for="cooperation1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="cooperation" id="cooperation2" value="no"><label for="cooperation2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">아이템독창성 : </td>
+				<td><input type="radio" name="itemCreativity" id="itemCreativity1" value="high" checked/><label for="itemCreativity1" style="color:black;"><span></span>상</label>&nbsp;&nbsp;
+				<input type="radio" name="itemCreativity" id="itemCreativity2" value="mid"><label for="itemCreativity2" style="color:black;"><span></span>중</label>
+				<input type="radio" name="itemCreativity" id="itemCreativity3" value="low"><label for="itemCreativity3" style="color:black;"><span></span>하</label></td>
+			</tr>
+			<tr class="onlineOption">
+				<td style="text-align:center;">고객관리계획여부 : </td>
+				<td><input type="radio" name="customerManage" id="customerManage1" value="yes" checked/><label for="customerManage1" style="color:black;"><span></span>Yes</label>&nbsp;&nbsp;
+				<input type="radio" name="customerManage" id="customerManage2" value="no"><label for="customerManage2" style="color:black;"><span></span>No</label></td>
+			</tr>
+			<tr style="height:30px;"></tr>
+			<tr style="text-align:center;"><td colspan="2" style="text-align:center;"><b>시뮬레이션 진행율</b></td></tr>
+			<tr style="text-align:center;">
+				<td colspan="2" width="400px">
+					<div id="myProgress">
+  						<div id="myBar">
+    						<div id="label">0%</div>
+  						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:center;"><input class="button" type="button" value="START" onclick="interval();"/>&nbsp;&nbsp;&nbsp;&nbsp;<input class="button" type="reset" value="RESET"/></td>
+			</tr>
+			
+		</table>
+		
+	</form>
+
+				<div class="btn-r">
+					<a href="#" class="cbtn">Close</a>
+				</div>
+				<!--// content-->
+			</div>
+		</div>
+	</div>
+<!-- </div> -->
+
+<div id="layer3" class="pop-layer2">
+		<div class="pop-container">
+			<div class="pop-conts">
+			
+				<table>
+					<tr>
+						<td><div id="chart-container" style="text-align:center;">잠시만 기다려 주세요</div></td>
+						<td><div id="chart-container2" style="text-align:center;">잠시만 기다려 주세요</div></td>
+					</tr>
+					<tr>
+						<td><div id="chart-container3" style="text-align:center;">잠시만 기다려 주세요</div></td>
+						<td><div id="chart-container4" style="text-align:center;">잠시만 기다려 주세요</div></td>
+					</tr>
+				
+				</table>
+			<div class="btn-r">
+					<a href="#" class="cbtn">Close</a>
+				</div>
+			</div>
+		</div>
+</div>
 
 <div style="height:70px;"></div>
 

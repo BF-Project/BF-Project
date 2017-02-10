@@ -70,10 +70,15 @@ public class PopulationServiceImpl implements PopulationService{
 		float score = 0;
 		if(deviation>=0){
 			score=100;
+			System.out.println("population score : "+score);
 			return score;
 		}else{
 			score=100+((deviation/avg())*100);
 		}
+		if(score==0){
+			score=20;
+		}
+		System.out.println("population score : "+score);
 		return score;
 	}
 	

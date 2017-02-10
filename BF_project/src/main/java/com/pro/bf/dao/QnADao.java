@@ -9,7 +9,7 @@ public interface QnADao {
 
 	public ArrayList<QnAVO> listQna(String mbr_id) throws SQLException; // Q&A 리스트
 
-	public ArrayList<QnAVO> listAllQna(int tpage) throws SQLException; // Q&A ALL 리스트
+	public ArrayList<QnAVO> listAllQna(int tpage,String search) throws SQLException; // Q&A ALL 리스트
 
 	public QnAVO getQna(int qna_num) throws SQLException;
 
@@ -19,8 +19,9 @@ public interface QnADao {
 	
 	public int countQna(QnAVO qnaVO) throws SQLException; // 조회수
 
-	public int totalQna() throws SQLException;
+	public int totalQna(String search) throws SQLException;
 
 	public void deleteQna(int qna_num)throws SQLException;//delete
 
+	
 }
