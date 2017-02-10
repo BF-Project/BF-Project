@@ -19,7 +19,7 @@
 
 <script>
    function goUpdate(fre_num) {
-      document.free.action = "update?fre_num=" + fre_num;
+      document.free.action = "update";
       document.free.submit();
    }
 
@@ -223,34 +223,35 @@ $(document).on('click','.writeForm', function(e) {
 			cmtList = jQuery.map(map, function(e){
 				return e;
 			});
-                $('.'+cmtList).html(
-                	'<textarea id="mm">'
-                	+ aa[0].innerHTML
-                	+'</textarea>'
-                	+'<button type="button" id="'+result+'" class="write">등록</button>'
-                );
+			$('.'+cmtList).html(
+				'<textarea id="mm" style="width : 467px;">'
+				+ aa[0].innerHTML
+				+'</textarea>'
+				+'&nbsp;'
+				+'<button type="button" id="'+result+'" class="btnn btn" style="background-color:black;">수정</button>'
+			);
     	}
     });
 });
 
-$(document).on('click','.write', function(e) {
+$(document).on('click','.btnn', function(e) {
 	e.preventDefault();
 	var result = $(this).attr('id');
 	var tt = $('#mm').val();
 	$.ajax({
 		url : "<%=request.getContextPath()%>/cmt/cmtUpdate",
-			data : {
-				"result" : result,
-				"tt" : tt
-			},
-			dataType : 'json',
-			type : 'post',
-			success : function(tt) {
-				$('.' + cmtList).html(tt.cmt_content);
-			}
-		});
-
+		data : {
+			"result" : result,
+			"tt" : tt
+		},
+		dataType : 'json',
+		type : 'post',
+		success : function(tt) {
+			$('.' + cmtList).html(tt.cmt_content);
+		}
 	});
+
+});
 </script>
 
 <style>
@@ -264,10 +265,9 @@ $(document).on('click','.write', function(e) {
 }
 
 #cmt_content {
-	width: 600px;
+	width: 467px;
 	height: 30px;
 }
-
 </style>
 </head>
 <body>
