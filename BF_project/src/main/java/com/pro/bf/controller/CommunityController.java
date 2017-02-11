@@ -29,9 +29,6 @@ import com.pro.bf.serviceImpl.CommunityServiceImpl;
 import com.pro.bf.serviceImpl.MbrServiceImpl;
 import com.pro.bf.serviceImpl.NoticeServiceImpl;
 
-//controller 설정
-//Requestmapping 설정
-
 @Controller
 @RequestMapping(value="/cmmt")
 public class CommunityController {
@@ -39,31 +36,12 @@ public class CommunityController {
 	//@Autowired설정
 	@Autowired(required=false)
 	CommunityServiceImpl cmmtServiceImpl;
-	
-	@Autowired(required=false)
-	MbrServiceImpl mbrServiceImpl;
-	
-	@Autowired(required=false)
-	CommunityDao cmmtDao;
-	
-	@Autowired(required=false)
-	CommunityDaoImpl cmmtDaoImpl;
-	
-	/*@Autowired
-	NoticeServiceImpl noticeService;
-	*/
+
 	//set설정
 	public void setCmmtServiceImpl(CommunityServiceImpl cmmtServiceImpl) {
 		this.cmmtServiceImpl = cmmtServiceImpl;
 	}
 
-	public void setMbrServiceImpl(MbrServiceImpl mbrServiceImpl) {
-		this.mbrServiceImpl = mbrServiceImpl;
-	}
-
-	public void setCmmtDao(CommunityDao cmmtDao) {
-		this.cmmtDao = cmmtDao;
-	}
 
 	//listmapping설정
 	@RequestMapping("/cmmtList")
@@ -105,7 +83,6 @@ public class CommunityController {
 		///////////////////페이징처리
 		model.addAttribute("cmmtList",cmmtList);
 		int n=cmmtList.size();
-		System.out.println("n:"+n);
 		model.addAttribute("cmmtListSize",n);
 		model.addAttribute("paging",paging);
 		
@@ -120,7 +97,7 @@ public class CommunityController {
 		String url="redirect:cmmtList";
 		
 		try{
-			cmmtDao.deleteCmmt(cmmt_num);
+			cmmtServiceImpl.deleteCmmt(cmmt_num);
 		}catch(NumberFormatException e){
 			e.printStackTrace();
 		}catch(SQLException e){
@@ -131,15 +108,18 @@ public class CommunityController {
 	
 	
 		@RequestMapping("/cmmtView")
-		public String cmmtView(@RequestParam("cmmt_num") int cmmt_num,
+		public String cmmtView(@RequestParam(value="cmmt_num",defaultValue="") int cmmt_num,
 				HttpSession session, Model model) throws ServletException,
 				IOException, SQLException {
 
-			String url = "cmmt/cmmtView";
-
-			CommunityVO cmmtVO = mbrServiceImpl.getCmmtVO(cmmt_num);
+			String url = "/cmmt/cmmtView";
+			
+			CommunityVO cmmtVO = cmmtServiceImpl.getCmmtVO(cmmt_num);
 			model.addAttribute("cmmtVO", cmmtVO);
 
+			// 여기서 조회수를 늘려야지
+			cmmtServiceImpl.countCmmt(cmmt_num);
+			
 			return url;
 		}
 
@@ -191,22 +171,22 @@ public class CommunityController {
 		}
 
 		@RequestMapping("/update")
-		public String cmmtUpdate(HttpSession session, Model model, HttpServletRequest request)
+		public String cmmtUpdate(String AAAA, Model model, HttpServletRequest request)
 				throws ServletException, IOException, SQLException {
 			
-			int cmmt_num = Integer.parseInt(request.getParameter("cmmt_num"));
+			// AAA가 글번호야 
+			
 			String url = "cmmt/cmmtUpdate";
 
-			CommunityVO cmmtVO = cmmtServiceImpl.getCmmtDetail((cmmt_num));
-
+			CommunityVO cmmtVO = cmmtServiceImpl.getCmmtDetail(AAAA);
 			model.addAttribute("cmmtVO", cmmtVO);
-			model.addAttribute(cmmt_num);
 
 			return url;
 		}
 
 		@RequestMapping(value = "/cmmtUpdateForm", method = RequestMethod.POST)
-		public String cmmtUpdateForm(@RequestParam("cmmt_num") int cmmt_num,
+		public String cmmtUpdateForm(
+				@RequestParam("cmmt_num") int cmmt_num,
 				@RequestParam("cmmt_title") String cmmt_title,
 				@RequestParam("cmmt_content") String cmmt_content, Model model
 				,
@@ -278,7 +258,7 @@ public class CommunityController {
 			//String currentPage = "main";
 			
 			ArrayList<CommunityVO> cmmtList=null;
-			cmmtList = cmmtDaoImpl.listAllCmmt(Integer.parseInt(tpage), search); // 공지사항 리스트(검색/검색안할때)
+			cmmtList = cmmtServiceImpl.listAllCmmt(Integer.parseInt(tpage), search); // 공지사항 리스트(검색/검색안할때)
 			paging = cmmtServiceImpl.pageNumber(Integer.parseInt(tpage), search); // 
 			
 			int cmmtListSize = 0;

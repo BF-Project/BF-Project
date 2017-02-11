@@ -16,22 +16,10 @@ import com.pro.bf.service.QnAService;
 public class QnAServiceImpl implements QnAService{
 
 	@Autowired
-	QnADao qnaDao;
-	
-	@Autowired
 	QnADaoImpl qnaDaoImpl;
-	
-	private SqlMapClient client;
+		
 	static int view_rows = 10; // 페이지의 개수
 	static int counts = 10; // 한 페이지에 나타낼 게시글 개수
-	
-	public void setClient(SqlMapClient client) {
-		this.client = client;
-	}
-	
-	public void setQnaDao(QnADao qnaDao) {
-		this.qnaDao = qnaDao;
-	}
 	
 	public void setQnaDaoImpl(QnADaoImpl qnaDaoImpl) {
 		this.qnaDaoImpl = qnaDaoImpl;
@@ -39,40 +27,74 @@ public class QnAServiceImpl implements QnAService{
 
 	@Override
 	public ArrayList<QnAVO> getQnaList(int tpage,String search) throws SQLException {
-		ArrayList<QnAVO> qnaList = qnaDao.listAllQna(tpage,search);
+		ArrayList<QnAVO> qnaList = qnaDaoImpl.listAllQna(tpage,search);
 		return qnaList;
 	}
 
+	//조회수
 	@Override
 	public QnAVO getQnaDetail(String qna_num) throws SQLException {
-		QnAVO qnaVO = qnaDao.getQna(Integer.parseInt(qna_num));
+		QnAVO qnaVO = qnaDaoImpl.getQna(Integer.parseInt(qna_num));
 		return qnaVO;
 	}
 
+	//수정
 	@Override
 	public int updateQna(QnAVO qnaVO) throws SQLException {
-		int result = qnaDao.updateQna(qnaVO);
+		int result = qnaDaoImpl.updateQna(qnaVO);
 		return result;
 	}
-
+	
+	//등록
 	@Override
 	public void insertQna(QnAVO qnaVO) throws SQLException {
-		/*qnaVO.setMbr_id(session_id);*/
-		qnaDao.insertQna(qnaVO);
-		
+		qnaDaoImpl.insertQna(qnaVO);
+	
 	}
 
+	//삭제
+	@Override
+	public void deleteQna(int qna_num) throws SQLException {		qnaDaoImpl.deleteQna(qna_num);		
+	
+	}
+	
 	@Override
 	public int countQna(QnAVO qnaVO) throws SQLException {
-		qnaDao.countQna(qnaVO);
+		qnaDaoImpl.countQna(qnaVO);
 		return 0;
 	}
-
+		
+	@Override
+	public ArrayList<QnAVO> listAllQna(int tpage,String search) throws SQLException {
+				
+		if(search.equals("")){ // 검색어가 없을경우
+			search = "%";
+		}
+		int startRow = -1;
+		int endRow = -1;
+		
+		int totalRecord = qnaDaoImpl.totalQna(search);//qna전체개수
+		
+		startRow = (tpage - 1) * counts ;// 초기값 0 --> 현재 몇페이지인지에 대해 제일 먼저 시작하는 qna 글
+		endRow = startRow + counts - 1; // 9 --> 현재 몇페이지인지에 대해 제일 끝에 있는 qna 글
+		if (endRow > totalRecord)
+			endRow = totalRecord;
+		
+		ArrayList<QnAVO> qnaList=qnaDaoImpl.listAllQna(tpage, search);
+		return qnaList;
+	}	
+	//전체개수<검색어로>
+	public int totalQna(String search) throws SQLException {
+		int total_pages = 0; //qna전체개수
+		total_pages = qnaDaoImpl.totalQna(search);
+		return total_pages;
+	}
+	
 	@Override
 	public String pageNumber(int tpage,String search) throws SQLException {
 		String str = "";
-		int total_pages = qnaDaoImpl.totalQna(search);
-		int page_count = total_pages / counts + 1;
+		int total_pages = qnaDaoImpl.totalQna(search);//qna전체개수
+		int page_count = total_pages / counts + 1;//페이지개수
 		
 		if(total_pages % counts == 0) {
 			page_count--;
@@ -124,8 +146,32 @@ public class QnAServiceImpl implements QnAService{
 		return str;
 	}
 
-	
-	
 
+	@Override
+	public QnAVO SearchQnaVo(int qna_num) throws SQLException {
+		QnAVO qnaVo = qnaDaoImpl.SearchQnaVo(qna_num);
+		return qnaVo;
+	}
 
+	@Override
+	public ArrayList<QnAVO> getQnaList(String mbr_id) throws SQLException {
+		ArrayList<QnAVO> qnaList = null;
+		try {
+			qnaList = qnaDaoImpl.listQna(mbr_id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return qnaList;
+	}
+
+	@Override
+	public QnAVO getQnaVO(int qna_num) throws SQLException {
+		QnAVO qnaVO = new QnAVO();
+		try {
+			qnaVO = qnaDaoImpl.getQna(qna_num);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return qnaVO;
+	}
 }

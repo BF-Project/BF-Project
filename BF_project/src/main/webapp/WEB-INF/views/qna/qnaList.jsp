@@ -40,6 +40,28 @@
 		width : 70%;
 	}
 </style>
+	<script>
+		function qnaDetatil(qnanum){
+			$.ajax({
+				url : "<%=request.getContextPath()%>/qna/qnaViewBeforYN",
+				type : "post",
+				dataType : "text",
+				data : ({
+					qna_num : qnanum
+				}),
+				success:function(data){
+					if(data=='yes'){
+						location.href='qnaView?qna_num='+qnanum;
+					}else{
+						alert('비밀글입니다.');
+					}
+				},
+				error:function(error){
+					alert('error');
+				}
+			})
+		}
+	</script>
 </head>
 <body>
 	<!-- PRELOADER -->
@@ -84,23 +106,45 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${qnaList}" var="qnaVO">
-									<tr>
-										<td>${qnaVO.qna_num }</td>
-
-										<!-- 수정1. -->
-										<td><a href="qnaView?qna_num=${qnaVO.qna_num}">
-												${qnaVO.qna_title }</a></td>
-										<td>${qnaVO.mbr_id }</td>
-										<td>${qnaVO.qna_date }</td>
-										<td>${qnaVO.qna_cnt }</td>
-									</tr>
+									<!-- //////////////////////////////////////////// -->
+									<c:if test="${qnaVO.qna_secrit eq 'Y'}">
+										<c:if test="${qnaVO.mbr_id eq sessionScope.loginUser}">
+											<tr onclick="qnaDetatil('${qnaVO.qna_num}')">
+												<td>${qnaVO.qna_num }</td>
+												<td>${qnaVO.qna_title} (비밀글)</td>
+												<td>${qnaVO.mbr_id }</td>
+												<td>${qnaVO.qna_date }</td>
+												<td>${qnaVO.qna_cnt }</td>
+											</tr>
+										</c:if>
+										<c:if test="${!(qnaVO.mbr_id eq sessionScope.loginUser)}">
+											<tr onclick="qnaDetatil('${qnaVO.qna_num}')">
+												<td>${qnaVO.qna_num }</td>
+												<td><b style="color:red"><del>${qnaVO.qna_title} (비밀글)</del></b></td>
+												<td>${qnaVO.mbr_id }</td>
+												<td>${qnaVO.qna_date }</td>
+												<td>${qnaVO.qna_cnt }</td>
+											</tr>
+										</c:if>
+									</c:if>
+									<c:if test="${qnaVO.qna_secrit eq 'N'}">
+										<tr onclick="qnaDetatil('${qnaVO.qna_num}')">
+											<td>${qnaVO.qna_num }</td>
+											<!-- 수정1. -->
+											<td>${qnaVO.qna_title }</td>
+											<td>${qnaVO.mbr_id }</td>
+											<td>${qnaVO.qna_date }</td>
+											<td>${qnaVO.qna_cnt }</td>
+										</tr>
+									</c:if>
+									<!-- //////////////////////////////////////////// -->
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</table>
 
 					<div id="paging">
-						${paging }
+						${paging }                 
 					</div>
 					
 				</div>

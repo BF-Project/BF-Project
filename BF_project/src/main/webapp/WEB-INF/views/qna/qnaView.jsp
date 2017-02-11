@@ -43,7 +43,7 @@
 }
 
 #list2 {
-	margin-left : 235px;
+	margin-left : 500px;
 }
 
 
@@ -105,12 +105,7 @@
 					</tr>
 					
 					</table>
-				</div>
-				<br>
-				<%-- <input type="button" value="수정하기" onclick="goUpdate('${qnaVO.qna_num}')"> --%>
-				</form>
-					
-				<c:choose>
+					<c:choose>
 					<c:when test="${qnaVO.mbr_id==sessionScope.loginUser }">
 						<!-- 수정  -->
 						<button type="button" id="mod" class="btn"
@@ -125,12 +120,21 @@
 							onclick="location.href='qnaList'"
 							style="color: white; background-color: black;">목록</button>
 					</c:when>
+				
 					<c:otherwise>
 						<button type="button" id="list2" class="btn"
 							onclick="location.href='qnaList'"
 							style="color: white; background-color: black;">목록</button>
 					</c:otherwise>
+				
 				</c:choose>
+					
+					
+				</div>
+				<br>
+				</form>
+					
+				
 				
 			
 

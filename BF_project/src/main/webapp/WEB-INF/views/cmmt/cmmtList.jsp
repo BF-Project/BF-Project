@@ -20,6 +20,12 @@
 		document.form1.action = "cmmtWrite";
 		document.form1.submit();
 	}
+
+	function cmmtDetatil(cmmtnum){
+	
+		location.href="<%=request.getContextPath()%>/cmmt/cmmtView?cmmt_num="+cmmtnum;
+		
+	}
 </script>
 
 <style>
@@ -110,17 +116,15 @@
 					
 							<c:otherwise>
 								<c:forEach items="${cmmtList}" var="cmmtVO">
-									<tr>
-										<td>${cmmtVO.cmmt_num}</td>
-
 										<!-- 수정1. -->
-										<td id="a">
-										<a href="cmmtView?cmmt_num=${cmmtVO.cmmt_num}">
-										${cmmtVO.cmmt_title }</a></td>
+										<tr onclick="cmmtDetatil('${cmmtVO.cmmt_num}')">
+										<td>${cmmtVO.cmmt_num}</td>
+										<td>${cmmtVO.cmmt_title }</td>
 										<td>${cmmtVO.mbr_id }</td>
 										<td>${cmmtVO.cmmt_date }</td>
 										<td>${cmmtVO.cmmt_cnt }</td>
 									</tr>
+									
 								</c:forEach>
 							</c:otherwise>
 

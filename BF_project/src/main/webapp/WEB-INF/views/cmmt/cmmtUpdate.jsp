@@ -84,7 +84,7 @@ function goList() {
 			<div class="container">
 				<form name="form2" method="post" action="cmmtUpdateForm"  enctype="multipart/form-data">
 					
-					<input type="text" name="cmmt_num" hidden="hidden" value="${param.cmmt_num}">
+					<input type="text" name="cmmt_num" hidden="hidden" value="${cmmtVO.cmmt_num}">
 					<div class="form-group">
 					<br>
 			

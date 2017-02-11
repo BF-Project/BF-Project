@@ -20,7 +20,7 @@
 
 <script>
    function goUpdate(cmmt_num) {
-      document.formm.action = "update?cmmt_num=" + cmmt_num;
+      document.formm.action = "update?AAAA=" + cmmt_num;
       document.formm.submit();
    }
    /*삭제  */
@@ -225,6 +225,10 @@ $(document).on('click','.write', function(e) {
 	margin: auto;
 	width: 70%;
 }
+#list2{
+	margin-left: 500px;
+	position:realative;
+}
 	
 }
 
@@ -253,7 +257,7 @@ $(document).on('click','.write', function(e) {
 			</section>
 			<!-- //BREADCRUMBS -->
 			<br>
-			
+						
 			<form name="formm" method="post" action="cmmtView">
 				<div class="container">
 					<table class="table table-hover" id="cmmtView">
@@ -262,8 +266,7 @@ $(document).on('click','.write', function(e) {
 						<td>${cmmtVO.cmmt_num }</td>
 						
 						</tr>
-						
-						
+																		
 						<tr>
 						<th>제목</th>
 						<td>${cmmtVO.cmmt_title }</td>
@@ -319,9 +322,6 @@ $(document).on('click','.write', function(e) {
 							</td>
 						</tr>
 					</table>
-				</div>
-				<br>
-		
 				<c:choose>
 					<c:when test="${cmmtVO.mbr_id==sessionScope.loginUser }">
 						<!-- 수정  -->
@@ -344,6 +344,9 @@ $(document).on('click','.write', function(e) {
 							style="background-color: black;">목록</button>
 					</c:otherwise>
 				</c:choose>
+				</div>
+				<br>
+		
 
 				<input type="hidden" value="${cmmtVO.cmmt_num }" id="cmmt_num" name="cmmt_num"> 
 			

@@ -3,8 +3,6 @@ package com.pro.bf.daoImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Repository;
-
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.pro.bf.dao.QnADao;
 import com.pro.bf.dto.QnAVO;
@@ -58,7 +56,6 @@ public class QnADaoImpl implements QnADao {
 
 	@Override
 	public void insertQna(QnAVO qnaVO) throws SQLException {
-		/*qnaVO.setMbr_id(session_id);*/
 		client.insert("insertQna", qnaVO);
 	}
 
@@ -89,5 +86,10 @@ public class QnADaoImpl implements QnADao {
 	
 	}
 
-	
+	@Override
+	public QnAVO SearchQnaVo(int qna_num) throws SQLException {
+		QnAVO qnavo = (QnAVO) client.queryForObject("SearchQnaVo", qna_num);
+		return qnavo;
+		
+	}
 }

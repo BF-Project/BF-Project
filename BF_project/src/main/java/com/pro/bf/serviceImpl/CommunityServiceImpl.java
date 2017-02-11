@@ -12,67 +12,50 @@ import com.pro.bf.dao.QnADao;
 import com.pro.bf.daoImpl.CommunityDaoImpl;
 import com.pro.bf.daoImpl.QnADaoImpl;
 import com.pro.bf.dto.CommunityVO;
+import com.pro.bf.dto.QnAVO;
 import com.pro.bf.service.CommunityService;
 
 @Service
 public class CommunityServiceImpl implements CommunityService{
 
 	@Autowired
-	CommunityDao cmmtDao;
-	
-	@Autowired
 	CommunityDaoImpl cmmtDaoImpl;
 
-	private SqlMapClient client;
-	
 	static int view_rows = 10; // 페이지의 개수
 	static int counts = 10; // 한 페이지에 나타낼 게시글 개수
 	
-	
-	
-	public void setCmmtDao(CommunityDao cmmtDao) {
-		this.cmmtDao = cmmtDao;
-	}
-
 	public void setCmmtDaoImpl(CommunityDaoImpl cmmtDaoImpl) {
 		this.cmmtDaoImpl = cmmtDaoImpl;
 	}
 
-	public void setClient(SqlMapClient client) {
-		this.client = client;
-	}
-
 	@Override
 	public ArrayList<CommunityVO> getCmmtList(int tpage,String search) throws SQLException {
-		ArrayList<CommunityVO> cmmtList=cmmtDao.listAllCmmt(tpage,search);
+		ArrayList<CommunityVO> cmmtList=cmmtDaoImpl.listAllCmmt(tpage,search);
 		return cmmtList;
 	}
 
+		
 	@Override
-	public CommunityVO getCmmtDetail(int cmmt_num) throws SQLException {
-		CommunityVO cmmtVO=cmmtDao.getCmmt(cmmt_num);
+	public CommunityVO getCmmtDetail(String cmmt_num) throws SQLException {
+		CommunityVO cmmtVO=cmmtDaoImpl.getCmmt(Integer.parseInt(cmmt_num));
+		
 		return cmmtVO;
 	}
 
 	@Override
 	public void insertCmmt(CommunityVO cmmtVO) throws SQLException {
-		// TODO Auto-generated method stub
-		cmmtDao.insertCmmt(cmmtVO);
-		
+		cmmtDaoImpl.insertCmmt(cmmtVO);
 	}
 
 	@Override
 	public int updateCmmt(CommunityVO cmmtVO) throws SQLException {
-		// TODO Auto-generated method stub
-		cmmtDao.updateCmmt(cmmtVO);
-		return 0;
+		int result=cmmtDaoImpl.updateCmmt(cmmtVO);
+		return result;
 	}
 
 	@Override
-	public int countCmmt(CommunityVO cmmtVO) throws SQLException {
-		// TODO Auto-generated method stub
-		cmmtDao.countCmmt(cmmtVO);
-		return 0;
+	public void countCmmt(int cmmt_num) throws SQLException {
+		cmmtDaoImpl.countCmmt(cmmt_num);
 	}
 
 	@Override
@@ -104,10 +87,7 @@ public class CommunityServiceImpl implements CommunityService{
 		}
 		
 		int end_page = start_page + (view_rows - 1);
-		
-		/*int start_page = tpage - (tpage % view_rows) + 1;
-		int end_page = start_page + (counts - 1);*/
-		
+				
 		if(end_page > page_count) {
 			end_page = page_count;
 		}
@@ -136,4 +116,62 @@ public class CommunityServiceImpl implements CommunityService{
 		return str;
 	}
 
+	
+	
+	
+	@Override
+	public ArrayList<CommunityVO> getCmmtList(String mbr_id,String admin_id) throws SQLException {
+		ArrayList<CommunityVO> cmmtList = null;
+		try {
+			cmmtList = cmmtDaoImpl.getCmmtList(mbr_id,admin_id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cmmtList;
+	}
+	@Override
+	public CommunityVO getCmmtVO(int cmmt_num) throws SQLException {
+		CommunityVO cmmtVO = new CommunityVO();
+		try {
+			cmmtVO = cmmtDaoImpl.getCmmtVO(cmmt_num);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cmmtVO;
+	}
+	
+
+	@Override
+	public void deleteCmmt(int cmmt_num) throws SQLException {
+		cmmtDaoImpl.deleteCmmt(cmmt_num);
+		
+	}
+
+	@Override
+	public ArrayList<CommunityVO> listAllCmmt(int tpage, String search)
+			throws SQLException {
+		if(search.equals("")){ // 검색어가 없을경우
+			search = "%";
+		}
+	
+		int startRow = -1;
+		int endRow = -1;
+		
+		int totalRecord = cmmtDaoImpl.totalCmmt(search);
+		
+		startRow = (tpage - 1) * counts ; //10
+		endRow = startRow + counts - 1; // 19
+		if (endRow > totalRecord) // 19>16
+			endRow = totalRecord; // 16
+		
+		ArrayList<CommunityVO> cmmtList=cmmtDaoImpl.listAllCmmt(tpage, search);
+		return cmmtList;
+		
+		
+	}
+
+	
+
+	
+		
 }

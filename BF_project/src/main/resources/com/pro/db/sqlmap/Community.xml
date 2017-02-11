@@ -31,8 +31,8 @@
 	</select>
 	
 	<!-- countQna -->
-	<update id="countCmmt" parameterClass="cmmt">
-		update community set cmmt_cnt = #cmmt_cnt#+1
+	<update id="countCmmt" parameterClass="int">
+		update community set cmmt_cnt = cmmt_cnt+1
 		where cmmt_num = #cmmt_num#
 	</update>
 	
