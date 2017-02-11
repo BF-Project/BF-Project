@@ -22,15 +22,4 @@ public interface MbrService {
 
 	Map searchUserPwd(MbrVO mbrVo) throws SQLException;
 
-	public ArrayList<QnAVO> getQnaList(String mbr_id) throws SQLException;
-
-	public QnAVO getQnaVO(int qna_num) throws SQLException;
-
-	public void insertQna(QnAVO qnaVO) throws SQLException;
-
-	public ArrayList<CommunityVO> getCmmtList(String mbr_id,String admin_id) throws SQLException;
-
-	public CommunityVO getCmmtVO(int cmmt_num) throws SQLException;
-
-	public void insertCmmt(CommunityVO cmmtVO) throws SQLException;
 }

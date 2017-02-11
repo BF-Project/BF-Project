@@ -1,13 +1,12 @@
 package com.pro.bf.daoImpl;
 
-import java.awt.color.CMMException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.pro.bf.dao.CommunityDao;
 import com.pro.bf.dto.CommunityVO;
-import com.pro.bf.dto.QnAVO;
 
 public class CommunityDaoImpl implements CommunityDao{
 
@@ -47,19 +46,17 @@ public class CommunityDaoImpl implements CommunityDao{
 			endRow = totalRecord; // 16
 		
 		ArrayList<CommunityVO> cmmtList = (ArrayList<CommunityVO>)client.queryForList("listAllCmmt", search, startRow, counts);
-		System.out.println("cmmtList"+cmmtList);
+		
 		return cmmtList;
 	}
 	@Override
 	public CommunityVO getCmmt(int cmmt_num) throws SQLException {
 		CommunityVO cmmtVO = (CommunityVO) client.queryForObject("getCmmt", cmmt_num);
-		countCmmt(cmmtVO);
-		cmmtVO.setCmmt_cnt(cmmtVO.getCmmt_cnt() + 1);
 		return cmmtVO;
 	}
 	@Override
 	public void insertCmmt(CommunityVO cmmtVO) throws SQLException {
-		// TODO Auto-generated method stub
+	
 		client.insert("insertCmmt", cmmtVO);
 	}
 	@Override
@@ -69,9 +66,8 @@ public class CommunityDaoImpl implements CommunityDao{
 	
 	}
 	@Override
-	public int countCmmt(CommunityVO cmmtVO) throws SQLException {
-		client.update("countCmmt", cmmtVO);
-		return 0;
+	public void countCmmt(int cmmt_num) throws SQLException { // 조회수 맞어?
+		client.update("countCmmt", cmmt_num);
 	}
 	@Override
 	public int totalCmmt(String search) throws SQLException {
@@ -85,5 +81,22 @@ public class CommunityDaoImpl implements CommunityDao{
 		client.delete("deleteCmmt",cmmt_num);		
 		
 	}
+
+	@Override
+	public ArrayList<CommunityVO> getCmmtList(String mbr_id, String admin_id)
+			throws SQLException {
+		ArrayList<CommunityVO> cmmtList = null;
+		cmmtList = (ArrayList<CommunityVO>) client.queryForList(mbr_id, admin_id);
+		return cmmtList;
+	}
+
+	@Override
+	public CommunityVO getCmmtVO(int cmmt_num) throws SQLException {
+		CommunityVO cmmtVO = new CommunityVO();
+		cmmtVO = (CommunityVO) client.queryForObject("getCmmt",cmmt_num);
+		return cmmtVO;
+	}
+
+	
 	
 }

@@ -15,7 +15,24 @@ public class QnAVO {
 	private Date qna_date; // 게시글 게시날짜
 	private String qna_pict_afat; // 파일첨부(사진이름)
 	private String mbr_id; // 회원이름(FK)
-	
+	private String qna_secrit;//비밀글
+		
+	@Override
+	public String toString() {
+		return "QnAVO [qna_num=" + qna_num + ", qna_title=" + qna_title
+				+ ", qna_content=" + qna_content + ", qna_cnt=" + qna_cnt
+				+ ", qna_date=" + qna_date + ", qna_pict_afat=" + qna_pict_afat
+				+ ", mbr_id=" + mbr_id + ", qna_secrit=" + qna_secrit + "]";
+	}
+
+	public String getQna_secrit() {
+		return qna_secrit;
+	}
+
+	public void setQna_secrit(String qna_secrit) {
+		this.qna_secrit = qna_secrit;
+	}
+
 	public int getQna_num() {
 		return qna_num;
 	}
