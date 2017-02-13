@@ -21,6 +21,7 @@
  			background-color: #e8e8e8; 
  		} 
 	</style>
+	
 	<script>
 		function detail(noticeNum){
 			$.ajax({
@@ -77,6 +78,7 @@
 						</tbody>
 					</c:when>
 					<c:otherwise>
+					
 						<tbody>
 							<c:forEach items="${noticeList}" var="NoticeVO" varStatus="count" >
 								<tr id="hoverId" style="font-size: 14px" onclick="detail(${NoticeVO.notice_num})">
@@ -97,15 +99,17 @@
 				${paging }
 			</div>
 		</div>
+			
 			<!-- 검색 -->
 			<center>
 			<div id="searchsearch" style="margin-left: 40px">
 				<form method="get" action="main">
-				<input type="text" id="search" name="search" value="Search" style="font-size: 16px;" 
-				onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
+				<input type="text" id="search" name="search" value="Title Search" style="font-size: 16px;" 
+				onFocus="if (this.value == 'Title Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Title Search';" />
 				</form>
 			</div>
 			</center>
+			
 			<!-- 검색 : end -->
 		<!-- 리스트 : end -->
 		</div>

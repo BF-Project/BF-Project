@@ -43,11 +43,16 @@ public class LentServiceImpl implements LentService{
 		float deviation = totalLent(dong)-avg;
 		float score = 0;
 		if(deviation<=0){
-			score=100+((deviation/avg)*100);
-			return score;
+			score=80+((deviation/avg)*80);
 		}else{
-			score=100;
+			score=80;
+			System.out.println("lent score : "+score);
+			return score;
 		}
+		if(score==0){
+			score=20;
+		}
+		System.out.println("lent score : "+score);
 		return score;
 	}
 	

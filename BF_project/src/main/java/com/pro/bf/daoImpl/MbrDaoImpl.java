@@ -1,6 +1,7 @@
 package com.pro.bf.daoImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.pro.bf.dao.MbrDao;
@@ -49,4 +50,81 @@ public class MbrDaoImpl implements MbrDao{
 		MbrVO result = (MbrVO)client.queryForObject("SearchUserPwd", mbrVo);
 		return result;
 	}
+
+	@Override
+	public ArrayList<MbrVO> memberList(String search, int startRow, int counts) throws SQLException {
+		ArrayList<MbrVO> memberList = (ArrayList<MbrVO>) client.queryForList("MemberList", search, startRow, counts);
+		return memberList;
+	}
+
+	@Override
+	public ArrayList<MbrVO> memberListforId(String search, int startRow, int counts) throws SQLException {
+		ArrayList<MbrVO> memberList = (ArrayList<MbrVO>) client.queryForList("MemberListforId", search, startRow, counts);
+		return memberList;
+	}
+	
+	@Override
+	public ArrayList<MbrVO> memberListforPhone(String search, int startRow, int counts) throws SQLException {
+		ArrayList<MbrVO> memberList = (ArrayList<MbrVO>) client.queryForList("MemberListforPhone", search, startRow, counts);
+		return memberList;
+	}
+	
+	@Override
+	public int totalRecord(String search) throws SQLException {
+		int total_pages = (Integer)client.queryForObject("totalMemberRecord", search);
+		return total_pages;
+	}
+	
+	@Override
+	public int totalRecordforId(String search) throws SQLException {
+		int total_pages = (Integer)client.queryForObject("totalMemberRecordforID", search);
+		return total_pages;
+	}
+
+	@Override
+	public int totalRecordforPhone(String search) throws SQLException {
+		int total_pages = (Integer)client.queryForObject("totalMemberRecordforPhone", search);
+		return total_pages;
+	}
+
+	@Override
+	public void deleteMember(String mbr_id) throws SQLException {
+		client.update("MemberDelete", mbr_id);
+	}
+
+	@Override
+	public String loginIdUseYnCheck(String login) throws SQLException {
+		String loginIdUseYnCheck = (String) client.queryForObject("LoginUserUseYNCheck", login);
+		return loginIdUseYnCheck;
+	}
+
+	@Override
+	public void reuseMember(String memberId) throws SQLException {
+		client.update("ReuseMember",memberId);
+	}
+
+	@Override
+	public ArrayList<MbrVO> memberListForUseyn(String choiceUseYNT) throws SQLException { // UseYN 으로 회원리스트 받아오기
+		ArrayList<MbrVO> memberListUse = (ArrayList<MbrVO>) client.queryForList("MemberListForUseYN", choiceUseYNT);
+		return memberListUse;
+	}
+
+	@Override
+	public MbrVO MemberVoSearch(String memberId) throws SQLException { // 아이디로 회원정보 가져오기 | 상세보기
+		MbrVO memberVo = (MbrVO) client.queryForObject("MemberVoSearch", memberId);
+		return memberVo;
+	}
+
+	@Override
+	public void memberUpdate(MbrVO mbrvo) throws SQLException { // 관리자가 회원정보 수정하기
+		// 관리자가 수정할 수 있는 회원의 정보는  pw | name | phone | email | address  5개만  | id는 key값으로 사용
+		client.update("MemberUpdate",mbrvo);
+	}
+
+	@Override
+	public String memberListCount() throws SQLException { // 회원들중 사용가능자 Y의 전체 수
+		int memberUseYCount = (int)client.queryForObject("memberUseYCount");
+		return memberUseYCount+"";
+	}
+
 }

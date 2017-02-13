@@ -90,7 +90,7 @@
 	
 	<input type="button" id="exitBtn" value="닫기">
     
-    <h1>대화 영역</h1>
+    <h1>대화 영역(Member)</h1>
     <!-- 채팅 글 보이는 영역 -->
     <div id="chatArea">
     	<div id="chatMessageArea"></div>

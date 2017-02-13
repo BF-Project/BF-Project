@@ -47,6 +47,14 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/wow-alert.css">
 	<script src="<%=request.getContextPath()%>/resources/js/wow-alert.js"></script>
     
+    <!-- 실시간 1:1 메시지 -->
+    <script>
+    	function adminAdvice(){
+    		var url = '<%=request.getContextPath()%>/admin/chat'
+			window.open(url, "_blank_1", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=550, height=600, top=200, left=1200");
+    	}
+    </script>
+    
     <decorator:head />
     
 <title>'성공하는 사람들' 관리자 화면</title>
@@ -62,6 +70,14 @@
 		</div>
 		<!-- 상단메뉴 -->
 		<ul class="nav navbar-right top-nav" style="margin-top: 10px; margin-bottom: 15px;">
+			
+			<!-- message 확인용 -->
+				<a href="#" onclick="adminAdvice()" class="dropdown-toggle"	data-toggle="dropdown" style="position:absolute; margin-right: 1000px; margin-top: 80px">
+					<i class="fa fa-envelope"></i>
+					<b class="caret"></b>
+				</a>
+			<!-- message 확인용 -->
+			
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle"	data-toggle="dropdown">
 					<i class="fa fa-envelope"></i>
@@ -195,18 +211,18 @@
 				<li class="aaaa" style="font-size: 16px;"><a href="<%=request.getContextPath()%>/admin/start">
 					<i class="fa fa-fw fa-dashboard"></i> Main X</a>
 				</li>
-				<li class="bbbb" style="font-size: 16px; margin-top: 8px"><a href="#">
-					<i class="fa fa-fw fa-bar-chart-o"></i> 회원관리 X</a>
+				<li class="bbbb" style="font-size: 16px; margin-top: 8px"><a href="<%=request.getContextPath()%>/admin/memberOperate">
+					<i class="fa fa-group"></i> 회원관리</a>
 				</li>
 				<li class="cccc" style="font-size: 16px; margin-top: 8px"><a href="#">
-					<i class="fa fa-fw fa-table"></i> 시뮬레이터 X</a>
+					<i class="fa fa-fw fa-bar-chart-o"></i> 시뮬레이터 X</a>
 				</li>
 				<li class="dddd" style="font-size: 16px; margin-top: 8px"><a href="<%=request.getContextPath()%>/admin/notice">
 					<i class="fa fa-fw fa-edit"></i> 공지사항</a>
 				</li>
 				<li class="gggg" style="font-size: 16px; margin-top: 8px">
 					<a href="javascript:;" data-toggle="collapse" data-target="#demo">
-						<i class="fa fa-fw fa-table"></i> 게시판<i class="fa fa-fw fa-caret-down"></i>
+						<i class="fa fa-fw fa-table"></i> 게시판 X<i class="fa fa-fw fa-caret-down"></i>
 					</a>
 					<ul id="demo" class="collapse">
 						<li><a href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;자유 게시판</a></li>

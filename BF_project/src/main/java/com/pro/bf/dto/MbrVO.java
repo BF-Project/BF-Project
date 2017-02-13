@@ -3,6 +3,7 @@ package com.pro.bf.dto;
 import java.util.Date;
 
 
+
 /**
  * @author 차승현<br>
  * 회원 테이블
@@ -19,14 +20,14 @@ public class MbrVO {
 	private String mbr_gnd; // 성별
 	private Date mbr_date; // 아이디 생성날짜
 	private String mbr_eml_yn; // 이메일 수신 여부 (default 'Y')
-	private String use_yn; // 사용여부(default:Y)
+	private String mbr_use_yn; // 사용여부(default:Y)
 	
-	public String getUse_yn() {
-		return use_yn;
+	public String getMbr_use_yn() {
+		return mbr_use_yn;
 	}
 
-	public void setUse_yn(String use_yn) {
-		this.use_yn = use_yn;
+	public void setMbr_use_yn(String mbr_use_yn) {
+		this.mbr_use_yn = mbr_use_yn;
 	}
 
 	public String getMbr_eml_yn() {
@@ -108,4 +109,15 @@ public class MbrVO {
 	public void setMbr_date(Date mbr_date) {
 		this.mbr_date = mbr_date;
 	}
+
+	@Override
+	public String toString() {
+		return "MbrVO [mbr_id=" + mbr_id + ", mbr_pwd=" + mbr_pwd + ", mbr_nm="
+				+ mbr_nm + ", mbr_eml=" + mbr_eml + ", mbr_phone=" + mbr_phone
+				+ ", mbr_addr=" + mbr_addr + ", mbr_brt=" + mbr_brt
+				+ ", mbr_gnd=" + mbr_gnd + ", mbr_date=" + mbr_date
+				+ ", mbr_eml_yn=" + mbr_eml_yn + ", mbr_use_yn=" + mbr_use_yn
+				+ "]";
+	}
+	
 }

@@ -86,7 +86,7 @@
 							    </a>
 							</td>
 							<!-- 이미지 클릭시 원본 크기로 보게하기위한 div -->
-							<div id="spot" style="visibility: hidden; position:absolute; bottom:20%; left:35%">
+							<div id="spot" style="visibility: hidden; position:absolute; bottom:14%; left:31%">
 				    			<a onclick="showClose('#spot')" href="#">
 				    				<img src="<%=request.getContextPath()%>/upload/${noticeVo.notice_pict_afat}" title="닫으시려면 클릭하세요.">
 				    			</a>

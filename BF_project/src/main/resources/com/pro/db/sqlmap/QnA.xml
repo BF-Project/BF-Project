@@ -21,12 +21,12 @@
 	
 	<!-- insert -->
 	<insert id="insertQna" parameterClass="qna">
-		insert into qna(qna_num, qna_title, qna_content, mbr_id,qna_pict_afat) values(qna_seq.nextval, #qna_title#, #qna_content#, #mbr_id#,#qna_pict_afat#)
+		insert into qna(qna_num, qna_title, qna_content, mbr_id,qna_pict_afat,qna_secrit) values(qna_seq.nextval, #qna_title#, #qna_content#, #mbr_id#,#qna_pict_afat#,#qna_secrit#)
 	</insert>
 	
 	<!-- listAllQna -->
-	<select id="listAllQna" resultClass="qna">
-		select * from qna order by qna_date desc
+	<select id="listAllQna" parameterClass="str" resultClass="qna">
+		select * from qna where qna_title like '%'||#search#||'%' order by qna_date desc
 	</select>
 	
 	<!-- countQna -->
@@ -36,17 +36,20 @@
 	</update>
 	
 	<select id="totalQna" resultClass="int">
-		select count(*) from qna
+		select count(*) from qna where qna_title like '%'||#search#||'%'
 	</select>
 	
 	<update id="updateQna" parameterClass="qna">
-		update qna set qna_content = #qna_content#, qna_pict_afat=#qna_pict_afat# where qna_num=#qna_num#
+		update qna set qna_title=#qna_title#, qna_content = #qna_content#, qna_pict_afat = #qna_pict_afat# where qna_num=#qna_num#
 	</update>
 
 	<delete id="deleteQna" parameterClass="int" >
 		delete from qna where qna_num=#qna_num#
     </delete>
 	
+	<select id = "SearchQnaVo" parameterClass="int" resultClass="qna">
+		select * from qna where qna_num=#qna_num#
+	</select>
 	
 	
 	

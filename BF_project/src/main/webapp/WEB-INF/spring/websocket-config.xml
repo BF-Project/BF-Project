@@ -9,5 +9,6 @@
 	
 	<websocket:handlers>
 		<websocket:mapping handler="chatWebSocketHandler" path="/chat-ws"/>
+		<websocket:mapping handler="chatWebSocketHandler" path="/adminchat-ws"/>
 	</websocket:handlers>
 </beans>

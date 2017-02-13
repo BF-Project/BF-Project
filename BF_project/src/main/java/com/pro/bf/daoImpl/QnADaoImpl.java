@@ -3,8 +3,6 @@ package com.pro.bf.daoImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Repository;
-
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.pro.bf.dao.QnADao;
 import com.pro.bf.dto.QnAVO;
@@ -28,20 +26,23 @@ public class QnADaoImpl implements QnADao {
 	}
 
 	@Override
-	public ArrayList<QnAVO> listAllQna(int tpage) throws SQLException {
+	public ArrayList<QnAVO> listAllQna(int tpage,String search) throws SQLException {
 		ArrayList<QnAVO> qnaList = new ArrayList<QnAVO>();
 		
+		if(search.equals("")){ // 검색어가 없을경우
+			search = "%";
+		}
 		int startRow = -1;
 		int endRow = -1;
 		
-		int totalRecord = totalQna();
+		int totalRecord = totalQna(search);
 		
 		startRow = (tpage - 1) * counts ;
 		endRow = startRow + counts - 1;
 		if (endRow > totalRecord)
 			endRow = totalRecord;
 		
-		qnaList = (ArrayList<QnAVO>) client.queryForList("listAllQna", null, startRow, counts);
+		qnaList = (ArrayList<QnAVO>) client.queryForList("listAllQna", search, startRow, counts);
 		return qnaList;
 	}
 
@@ -55,7 +56,6 @@ public class QnADaoImpl implements QnADao {
 
 	@Override
 	public void insertQna(QnAVO qnaVO) throws SQLException {
-		/*qnaVO.setMbr_id(session_id);*/
 		client.insert("insertQna", qnaVO);
 	}
 
@@ -72,9 +72,9 @@ public class QnADaoImpl implements QnADao {
 	}
 
 	@Override
-	public int totalQna() throws SQLException {
+	public int totalQna(String search) throws SQLException {
 		int total_pages = 0;
-		total_pages = (Integer) client.queryForObject("totalQna", null);
+		total_pages = (Integer) client.queryForObject("totalQna", search);
 		return total_pages;
 	}
 
@@ -86,5 +86,10 @@ public class QnADaoImpl implements QnADao {
 	
 	}
 
-	
+	@Override
+	public QnAVO SearchQnaVo(int qna_num) throws SQLException {
+		QnAVO qnavo = (QnAVO) client.queryForObject("SearchQnaVo", qna_num);
+		return qnavo;
+		
+	}
 }
