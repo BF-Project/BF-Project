@@ -14,7 +14,7 @@
 	</select>
 	
 	<select id="listAllFree" resultClass="free">
-		select * from free order by fre_date desc
+		select * from free order by fre_num desc
 	</select>
 	
 	<insert id="insertFree" parameterClass="free">
@@ -22,7 +22,7 @@
 	</insert>
 	
 	<select id="getFree" parameterClass="int" resultClass="free">
-		select * from free where fre_num=#fre_num#
+		select * from free where fre_num=#fre_num# order by fre_num desc
 	</select>
 	
 	<delete id="deleteFree" parameterClass="int" >
@@ -38,7 +38,17 @@
 		where fre_num = #fre_num#
 	</update>
 	
-	<select id="totalFree" resultClass="int">
-		select count(*) from free
+	<select id="totalFree" parameterClass="str" resultClass="int">
+		select count(*) from free where fre_title like '%'||#fre_title#||'%'
 	</select>
+	
+	<select id="fre_title" resultClass="free">
+		select * from free where fre_title like '%'||#fre_title#||'%'
+	</select>
+	
+	<!-- <select id="articleSearch_seq" parameterClass="int" resultClass="article">
+    select * from notice_article where noar_seq like '%'||#noar_seq#||'%'
+    </select> -->
+	
+	
 </sqlMap>

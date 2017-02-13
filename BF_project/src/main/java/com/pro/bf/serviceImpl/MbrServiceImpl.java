@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pro.bf.dao.CommunityDao;
 import com.pro.bf.dao.MbrDao;
 import com.pro.bf.dao.QnADao;
 import com.pro.bf.daoImpl.MbrDaoImpl;
+import com.pro.bf.dto.CommunityVO;
 import com.pro.bf.dto.MbrVO;
 import com.pro.bf.dto.NoticeVO;
 import com.pro.bf.dto.QnAVO;
@@ -31,6 +33,13 @@ public class MbrServiceImpl implements MbrService {
 
 	public void setQnaDAO(QnADao qnaDAO) {
 		this.qnaDAO = qnaDAO;
+	}
+
+	@Autowired
+	private CommunityDao cmmtDAO;
+	
+	public void setCmmtDAO(CommunityDao cmmtDAO) {
+		this.cmmtDAO = cmmtDAO;
 	}
 
 	@Autowired

@@ -1261,7 +1261,7 @@ textarea {
 textarea {
 	overflow:hidden;
 	min-height:95px;
-	resize: none;
+	resize: none; 
 }
 textarea,
 input[type="text"].last {margin-right:0;

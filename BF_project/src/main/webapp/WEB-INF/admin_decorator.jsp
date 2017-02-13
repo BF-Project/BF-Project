@@ -226,7 +226,7 @@
 					</a>
 					<ul id="demo" class="collapse">
 						<li><a href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;자유 게시판</a></li>
-						<li><a href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;커뮤니티 게시판</a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/free"><i class="fa fa-tag"></i>&nbsp;&nbsp;커뮤니티 게시판</a></li>
 						<li><a href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;Q & A 게시판</a></li>
 					</ul>
 				</li>

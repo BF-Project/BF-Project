@@ -17,10 +17,9 @@
 <script
    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
-
 <script>
    function goUpdate(fre_num) {
-      document.free.action = "update?fre_num=" + fre_num;
+      document.free.action = "update";
       document.free.submit();
    }
 
@@ -43,14 +42,16 @@ $(document).ready(function() {
        data:JSON.stringify(data),
        type:'post',
        success : function(data){
+    	  var loginUser = $('#loginUser').val();
           $.each(data, function(i) {
-             var date = new Date(
-                   data[i].cmt_date);
+        	 if(loginUser == data[i].mbr_id){
+             var date = new Date(data[i].cmt_date);
              var year = date.getFullYear();
              var month = (1 + date.getMonth());
              month = month >= 10 ? month : '0' + month;
              var day = date.getDate();
              day = day >= 10 ? day : '0' + day;
+
              var fullD = year + '년' + month + '월' + day + '일';
              var cmtList = '<div id="'
 						+ data[i].cmt_num   
@@ -73,6 +74,28 @@ $(document).ready(function() {
 						+ '">'
 						+ data[i].cmt_content
 						+'</div></div><br><br>';
+        	 } else {
+        		 var date = new Date(data[i].cmt_date);
+                 var year = date.getFullYear();
+                 var month = (1 + date.getMonth());
+                 month = month >= 10 ? month : '0' + month;
+                 var day = date.getDate();
+                 day = day >= 10 ? day : '0' + day;
+                 var fullD = year + '년' + month + '월' + day + '일';
+                 var cmtList = '<div id="'
+    						+ data[i].cmt_num   
+    						+ '">작성자 : '
+    						+ data[i].mbr_id
+    						+ '  /  ' + '작성 날짜 : '
+    						+ fullD
+    						+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    						+'&nbsp;&nbsp;'
+    						+ '<div class="'
+    						+ data[i].cmt_num
+    						+ '">'
+    						+ data[i].cmt_content
+    						+'</div></div><br><br>';
+        	 }
              $('div#comment').append(cmtList);
           });          
        },
@@ -90,14 +113,17 @@ function commm_go() {
        'cmt_content' : cmt_content
     };
     $.ajax({
+
       url : '<%=request.getContextPath()%>/cmt/cmtWrite',
       data : JSON.stringify(dataWrite),
       type : 'post',
       contentType : 'application/json',
       success : function(data) {
+    	 var loginUser = $('#loginUser').val();
          $('#cmt_content').val('');
          $('div #comment').empty();
          $.each(data, function(i) {
+        	if(loginUser == data[i].mbr_id) {
             var date = new Date(data[i].cmt_date);
             var year = date.getFullYear();
             var month = (1 + date.getMonth());
@@ -126,6 +152,28 @@ function commm_go() {
 						+ '">'
 						+ data[i].cmt_content
 						+'</div></div><br><br>';
+        	} else {
+        		 var date = new Date(data[i].cmt_date);
+                 var year = date.getFullYear();
+                 var month = (1 + date.getMonth());
+                 month = month >= 10 ? month : '0' + month;
+                 var day = date.getDate();
+                 day = day >= 10 ? day : '0' + day;
+                 var fullD = year + '년' + month + '월' + day + '일';
+                 var cmtList = '<div id="'
+     						+ data[i].cmt_num   
+     						+ '">작성자 : '
+     						+ data[i].mbr_id
+     						+ '  /  ' + '작성 날짜 : '
+     						+ fullD
+     						+ '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+     						+'&nbsp;&nbsp;'
+     						+ '<div class="'
+     						+ data[i].cmt_num
+     						+ '">'
+     						+ data[i].cmt_content
+     						+'</div></div><br><br>';
+        	}
             $('div #comment').append(cmtList);
          });
       },
@@ -133,26 +181,32 @@ function commm_go() {
          alert('댓글 등록 실패');
       }
    });
+
+       
 }
 
-$(document).on('click','.delete',function(e){
+
+$(document).on('click','.asd',function(e){
     e.preventDefault();
     var result = $(this).attr('id');
     $.ajax({
-       		url:"<%=request.getContextPath()%>/cmt/cmtDelete",
-			data : {
-				"result" : result
-			},
-			dataType : 'json',
-			type : 'post',
-			success : function(map) {
-				cmtList = jQuery.map(map, function(a) {
-					return a;
-				});
-				$('#' + cmtList).remove();
-			}
-	});
-});
+       url:"<%=request.getContextPath()%>/cmt/cmtDelete",
+       data: {"result" : result},
+       dataType:'json',
+       type:'post',
+       
+       success:function(map1){
+          freeMap = jQuery.map(map1 , function(a){
+             return a;
+          })
+          $('#'+freeMap).remove();
+       }
+    });
+ });
+</script>
+
+<script>
+
 
 $(document).on('click','.writeForm', function(e) {
 	e.preventDefault();
@@ -169,32 +223,34 @@ $(document).on('click','.writeForm', function(e) {
 			cmtList = jQuery.map(map, function(e){
 				return e;
 			});
-                $('.'+cmtList).html(
-                	'<textarea id="mm">'
-                	+ aa[0].innerHTML
-                	+'</textarea>'
-                	+'<button type="button" id="'+result+'" class="write">등록</button>'
-                );
+			$('.'+cmtList).html(
+				'<textarea id="mm" style="width : 467px;">'
+				+ aa[0].innerHTML
+				+'</textarea>'
+				+'&nbsp;'
+				+'<button type="button" id="'+result+'" class="btnn btn" style="background-color:black;">수정</button>'
+			);
     	}
     });
 });
 
-$(document).on('click','.write', function(e) {
+$(document).on('click','.btnn', function(e) {
 	e.preventDefault();
 	var result = $(this).attr('id');
 	var tt = $('#mm').val();
 	$.ajax({
 		url : "<%=request.getContextPath()%>/cmt/cmtUpdate",
-		data : {"result" : result, "tt" : tt},
+		data : {
+			"result" : result,
+			"tt" : tt
+		},
 		dataType : 'json',
 		type : 'post',
 		success : function(tt) {
-			$('.' + cmtList).html(
-				tt.cmt_content	
-			);
+			$('.' + cmtList).html(tt.cmt_content);
 		}
 	});
-	
+
 });
 </script>
 
@@ -209,7 +265,7 @@ $(document).on('click','.write', function(e) {
 }
 
 #cmt_content {
-	width: 600px;
+	width: 467px;
 	height: 30px;
 }
 </style>
@@ -288,17 +344,28 @@ $(document).on('click','.write', function(e) {
 						<button type="button" id="list" class="btn"
 							onclick="location.href='freeList'"
 							style="background-color: black;">목록</button>
+							<br><br>
 					</c:when>
 
 					<c:otherwise>
 						<button type="button" id="list2" class="btn"
 							onclick="location.href='freeList'"
-							style="background-color: black;">목록</button>
+							style="background-color: black; margin-left:67%;">목록</button>
+							<br><br>
 					</c:otherwise>
 				</c:choose>
 
+				<input type="hidden" value="${loginUser }" id="loginUser">
 
 
+
+
+
+				<div id="comment"></div>
+				<input type="hidden" value="${freeVO.fre_num }" id="fre_num" name="fre_num"> 
+				댓글 : <input type="text" id="cmt_content" name="cmt_content"> 
+				<input type="button" id="insertCmt" name="insertCmt" value="등록" onclick="commm_go();">
+			
 
 			</form>
 		</div>

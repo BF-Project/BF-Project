@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.pro.bf.dto.CommunityVO;
 import com.pro.bf.dto.MbrVO;
 import com.pro.bf.dto.NoticeVO;
 import com.pro.bf.dto.QnAVO;

@@ -9,9 +9,15 @@
 	<typeAlias alias="cmt" type="com.pro.bf.dto.CmtVO" />
 
 	<!-- Query 문 작성란 -->
+
 	<select id="cmtList" parameterClass="int" resultClass="cmt">
 		select *
 		from cmt where fre_num=#fre_num# order by cmt_num desc
+		</select>
+
+	<select id="cmtAllList" parameterClass="int" resultClass="cmt">
+		select * from cmt where fre_num=#fre_num# order by cmt_num desc
+
 	</select>
 
 	<insert id="insertCmt" parameterClass="cmt">
@@ -20,12 +26,19 @@
 		#mbr_id#, #fre_num#)
 	</insert>
 
+
+	<update id="updateCmt" parameterClass="cmt">
+		update cmt set cmt_content = #cmt_content# where cmt_num=#cmt_num#
+	</update>
+
+
+		
 	<delete id="deleteCmt" parameterClass="int">
 		delete from cmt where cmt_num=#cmt_num#
 	</delete>
 	
-	<update id="updateCmt" parameterClass="cmt">
-		update cmt set cmt_content = #cmt_content# where cmt_num=#cmt_num#
-	</update>
+	<select id="cmtListAn" parameterClass="int">
+		select * from cmt where cmt_num=#cmt_num#
+	</select>
 
 </sqlMap>

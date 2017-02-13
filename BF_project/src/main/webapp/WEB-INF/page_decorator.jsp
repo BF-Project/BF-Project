@@ -145,7 +145,16 @@ body {
 	height: 1.9em
 }
 
-
+select { 
+   width: 70px; /* 원하는 너비설정 */
+   padding: .3em .2em; /* 여백으로 높이 설정 */ 
+   font-family: inherit; /* 폰트 상속 */ 
+   background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+   border: 1px solid #999; border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+   -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+   -moz-appearance: none; 
+   appearance: none; 
+}
 
 </style>
 
@@ -527,7 +536,7 @@ body {
 									style="font-size: 14px">게시판</a>
 									<ul>
 										<li><a href="<%=request.getContextPath()%>/free/freeList">자유게시판</a></li>
-										<li><a href="javascript:void(0);" style="font-size: 13px">커뮤니티
+										<li><a href="<%=request.getContextPath()%>/cmmt/cmmtList">커뮤니티
 												게시판</a></li>
 										<li><a href="<%=request.getContextPath()%>/qna/qnaList">Q & A 게시판</a></li>
 									</ul></li>

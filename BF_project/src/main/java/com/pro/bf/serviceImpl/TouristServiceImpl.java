@@ -51,6 +51,8 @@ public class TouristServiceImpl implements TouristService{
 		if(grade(dong).size()!=0){
 			scoreAvg = sum/grade(dong).size();
 		}else{
+			score=20;
+			System.out.println("tourist score : "+score);
 			return score;
 		}
 		deviation = scoreAvg-avg();
@@ -59,6 +61,10 @@ public class TouristServiceImpl implements TouristService{
 		}else{
 			score=(1-(deviation/avg()))*100;
 		}
+		if(score==0){
+			score=20;
+		}
+		System.out.println("tourist score : "+score);
 		return score;
 	}
 	
