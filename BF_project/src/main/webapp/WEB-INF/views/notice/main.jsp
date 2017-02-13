@@ -101,8 +101,8 @@
 			<center>
 			<div id="searchsearch" style="margin-left: 40px">
 				<form method="get" action="main">
-				<input type="text" id="search" name="search" value="Search" style="font-size: 16px;" 
-				onFocus="if (this.value == 'Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Search';" />
+				<input type="text" id="search" name="search" value="Title Search" style="font-size: 16px;" 
+				onFocus="if (this.value == 'Title Search') this.value = '';" onBlur="if (this.value == '') this.value = 'Title Search';" />
 				</form>
 			</div>
 			</center>

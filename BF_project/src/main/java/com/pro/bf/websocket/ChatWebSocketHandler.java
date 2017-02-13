@@ -83,7 +83,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
 			}else{
 				// admin이 접속해 있을때
 				users.get(member).sendMessage(message);  
-				users.get(admin).sendMessage(message); // 관리자와 자신 모두 보임
+				users.get(admin).sendMessage(message); // 관리자와 자신 모두 보임				
 			}			
 		}else if(currentMyId=="admin"){ // 현재 컴퓨터의 접속자가 admin일때
 			for(WebSocketSession s : users.values()){

@@ -211,18 +211,18 @@
 				<li class="aaaa" style="font-size: 16px;"><a href="<%=request.getContextPath()%>/admin/start">
 					<i class="fa fa-fw fa-dashboard"></i> Main X</a>
 				</li>
-				<li class="bbbb" style="font-size: 16px; margin-top: 8px"><a href="#">
-					<i class="fa fa-fw fa-bar-chart-o"></i> 회원관리 X</a>
+				<li class="bbbb" style="font-size: 16px; margin-top: 8px"><a href="<%=request.getContextPath()%>/admin/memberOperate">
+					<i class="fa fa-group"></i> 회원관리</a>
 				</li>
 				<li class="cccc" style="font-size: 16px; margin-top: 8px"><a href="#">
-					<i class="fa fa-fw fa-table"></i> 시뮬레이터 X</a>
+					<i class="fa fa-fw fa-bar-chart-o"></i> 시뮬레이터 X</a>
 				</li>
 				<li class="dddd" style="font-size: 16px; margin-top: 8px"><a href="<%=request.getContextPath()%>/admin/notice">
 					<i class="fa fa-fw fa-edit"></i> 공지사항</a>
 				</li>
 				<li class="gggg" style="font-size: 16px; margin-top: 8px">
 					<a href="javascript:;" data-toggle="collapse" data-target="#demo">
-						<i class="fa fa-fw fa-table"></i> 게시판<i class="fa fa-fw fa-caret-down"></i>
+						<i class="fa fa-fw fa-table"></i> 게시판 X<i class="fa fa-fw fa-caret-down"></i>
 					</a>
 					<ul id="demo" class="collapse">
 						<li><a href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;자유 게시판</a></li>

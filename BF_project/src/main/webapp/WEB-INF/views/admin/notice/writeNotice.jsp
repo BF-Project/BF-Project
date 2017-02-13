@@ -47,6 +47,13 @@
 </head>
 
 <body>
+	<c:if test="${!empty sessionScope.noticeINsertNO}">
+		<script>
+			alert('공지사항의 제목과 내용을 입력해주세요');
+		</script>
+		<c:remove var="noticeINsertNO" scope="session"/>
+	</c:if>
+	
 	<div id="wrapper">
 		<div id="page-wrapper" style="text-align: center; height: 924px;">
 			<br><br>

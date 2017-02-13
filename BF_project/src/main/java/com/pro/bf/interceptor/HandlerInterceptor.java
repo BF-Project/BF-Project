@@ -31,7 +31,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter{
 			String userIp = request.getRemoteAddr(); // 접속 아이피
 			String accessUrl = request.getRequestURI(); // 접속한 url
 			String action = getAction(handler); // 실행한 action
-			
+
 			String logMessage = String.format("%s,%s,%s,%s,%s", "아이디→"+userId, " | 접속시간→"+dateTime, " | 아이피주소→"+userIp, " | Url→"+accessUrl, " | Action→"+action);
 			System.err.println(logMessage); // 로그인한 사용자가 이벤트(action)때마다 콘솔에 출력
 			writeFileLine(logMessage, request); // 로그인한 사용자의 이벤트(action)을 기록 

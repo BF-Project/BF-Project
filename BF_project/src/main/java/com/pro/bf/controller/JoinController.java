@@ -157,14 +157,18 @@ public class JoinController {
 		mbrVo.setMbr_id(id);
 		mbrVo.setMbr_pwd(pwd);
 		String login = mbrService.login(mbrVo);
-		String data;
+		String data;		
 		if(!(login==null)){
-			data = "yes";
-			// 로그인 했을시 세션에 로그인한 id를 세션에 저장
-			session.setAttribute("loginUser", login);			
-			// 로그인한 회원 이름 찾기
-			String loginUserName = mbrService.searchUserName(login);
-			session.setAttribute("loginUserName", loginUserName);
+			String loginUseYN = mbrService.loginUseYNCheck(login);
+			data = "no";
+			if(!(loginUseYN.equals("N"))){ // id값을 가져왔을때 useYN을 확인해 N이면 로그인이 불가하다.
+				data = "yes";
+				// 로그인 했을시 세션에 로그인한 id를 세션에 저장
+				session.setAttribute("loginUser", login);			
+				// 로그인한 회원 이름 찾기
+				String loginUserName = mbrService.searchUserName(login);
+				session.setAttribute("loginUserName", loginUserName);
+			}
 		}else{			
 			// 회원 아이디가 없을때 관리자 아이디 로그인 여부
 			String adminLogin = adminService.adminLogin(mbrVo);

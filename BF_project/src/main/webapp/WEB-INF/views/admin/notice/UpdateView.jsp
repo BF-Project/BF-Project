@@ -238,7 +238,7 @@
 	                    <center>
 			            <div style="position:relative; width:650px; margin-top: -25px">
 							<button type="button" class="btn btn-danger" onclick="updateCancel()" style="padding:8px; float:right;">
-								<i class="fa fa-trash"></i>&nbsp;<b style="font-size:14px">수정취소</b>
+								<i class="fa fa-times spaceLeft"></i>&nbsp;<b style="font-size:14px">수정취소</b>
 							</button>
 				            <button type="submit" class="btn btn-success" style="padding:8px; float:right; margin-right:10px;">
 								<i class="fa fa-check-square-o"></i>&nbsp;<b style="font-size:14px">수정완료</b>

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +62,11 @@ public class AdminMainController {
 		if(!(delete==null))
 			session.setAttribute("delete", delete); // 파라메타가 있을경우에만 세션에 저장
 		
+		// 공지사항 select한 것들을 삭제할때 받아오는 delete 파라메타
+		String selectDeleteCount = request.getParameter("selectDelete");
+		if(!(selectDeleteCount==null))
+			session.setAttribute("selectDeleteCount", selectDeleteCount);
+		
 		// 공지사항 리스트 or 검색
 		String search = request.getParameter("search"); // 공지사항 검색, null 일경우 전체리스트 가져옴 | 초기값은 null 
 		if(search==null || search.equals(""))
@@ -108,43 +114,54 @@ public class AdminMainController {
 			@RequestParam(value="page", defaultValue="1")String page) throws SQLException, IOException{
 		request.setCharacterEncoding("UTF-8");
 		
+		String url = "";
+		
 		request.setAttribute("page", page);
 		String noticeTitle = request.getParameter("noticeTitle");
 		String noticeContent = request.getParameter("noticeContent");
 		String admin = (String)session.getAttribute("loginAdmin");
 		
-		NoticeVO noticeVo = new NoticeVO();
-		noticeVo.setNotice_title(noticeTitle);
-		noticeVo.setNotice_content(noticeContent);
-		noticeVo.setAdmin_id(admin);
-		
-		PrintWriter out = response.getWriter();
-		// 파일 업로드
-		if(!multipartFile.isEmpty()){
-			// 파일 업로드  OK
-			String upload = request.getSession().getServletContext().getRealPath("resources/upload"); // 배포폴더
-			File file = new File(upload, System.currentTimeMillis()+"$$"+multipartFile.getOriginalFilename());
-			// uploadPath 경로에 | multipartFile를 저장 (System.currentTimeMillis()+"$$" 를 이름을 줘서 중복되는 명을 없앤다.)
+		// 공지사항은 null로 등록할 수 없다.
+		if(!(noticeTitle==null) && !(noticeTitle.trim().equals(""))){
 			
-			long fileSizeLimit = 1024*1024*10; // 10MB
-			if(multipartFile.getSize() > fileSizeLimit){
-				// 파일 용량이 10MB 이상일때
-				response.setCharacterEncoding("UTF-8");
-				out.println("<script>alert('파일 용량은 10MB 이하로만 등록 가능합니다.'); history.go(-1); </script>");
-				return null;
+			NoticeVO noticeVo = new NoticeVO();
+			noticeVo.setNotice_title(noticeTitle);
+			noticeVo.setNotice_content(noticeContent);
+			noticeVo.setAdmin_id(admin);
+			
+			PrintWriter out = response.getWriter();
+			// 파일 업로드
+			if(!multipartFile.isEmpty()){
+				// 파일 업로드  OK
+				String upload = request.getSession().getServletContext().getRealPath("resources/upload"); // 배포폴더
+				File file = new File(upload, System.currentTimeMillis()+"$$"+multipartFile.getOriginalFilename());
+				// uploadPath 경로에 | multipartFile를 저장 (System.currentTimeMillis()+"$$" 를 이름을 줘서 중복되는 명을 없앤다.)
+				
+				long fileSizeLimit = 1024*1024*10; // 10MB
+				if(multipartFile.getSize() > fileSizeLimit){
+					// 파일 용량이 10MB 이상일때
+					response.setCharacterEncoding("UTF-8");
+					out.println("<script>alert('파일 용량은 10MB 이하로만 등록 가능합니다.'); history.go(-1); </script>");
+					return null;
+				}
+				
+				multipartFile.transferTo(file); // 파일 저장
+				model.addAttribute("fileName", file.getName()); // 파일 이름 
+				model.addAttribute("uploadPath", file.getAbsolutePath()); // 파일 실제경로
+				
+				noticeVo.setNotice_pict_afat(file.getName());
+			}else{
+				noticeVo.setNotice_pict_afat(null);
 			}
-			
-			multipartFile.transferTo(file); // 파일 저장
-			model.addAttribute("fileName", file.getName()); // 파일 이름 
-			model.addAttribute("uploadPath", file.getAbsolutePath()); // 파일 실제경로
-			
-			noticeVo.setNotice_pict_afat(file.getName());
+			noticeService.insertNotice(noticeVo);
+			session.setAttribute("noticeInsertOK", "ok"); // 공지사항 등록여부
+			url = "redirect:/admin/notice?page="+page;	
 		}else{
-			noticeVo.setNotice_pict_afat(null);
+			// 공지사항 등록 못함
+			url = "redirect:/admin/write?page="+page;
+			session.setAttribute("noticeINsertNO", "no");
 		}
-		noticeService.insertNotice(noticeVo);
-		session.setAttribute("noticeInsertOK", "ok"); // 공지사항 등록여부
-		return "redirect:/admin/notice?page="+page; 	
+		return url;
 	}
 	
 	@RequestMapping("noticeDetail")
@@ -270,5 +287,40 @@ public class AdminMainController {
 		NoticeVO noticeVo = noticeService.noticeUpdate(noticeNum);
 		request.setAttribute("noticeVo", noticeVo);
 		return "/admin/notice/DetailView";
+	}
+	
+	@RequestMapping("noticeSelectDelete")
+	@ResponseBody
+	public String noticeSelectDelete(HttpServletRequest request) throws SQLException{
+		String checkNoticeNumValue;
+		int realDeleteCount = 0;
+		try {
+			checkNoticeNumValue = request.getParameter("checkNoticeNumValue");
+			
+			StringTokenizer strToken = new StringTokenizer(checkNoticeNumValue, ",");
+			String noticeNumVal[] = new String[16]; // 최대 16개
+			int deleteCount = 0; 
+			if(!(checkNoticeNumValue==null)){
+				for(int i=0; strToken.hasMoreTokens(); i++){
+					noticeNumVal[i] = strToken.nextToken();
+				}
+				for(int i=0; i < noticeNumVal.length; i++){
+					if(!(noticeNumVal[i]==null||noticeNumVal[i]=="")){
+						if(noticeNumVal[i].contains("undefined")){
+							noticeNumVal[i] = noticeNumVal[i].replace("undefined", "").trim();
+						}
+						if(!(noticeNumVal[i].contains("on"))){							
+							deleteCount++;
+							// noticeNumVal[i]로 공지사항 삭제하면 됨
+							noticeService.noticeDelete(Integer.parseInt(noticeNumVal[i].trim()));
+						}
+					}
+				}
+			}
+			realDeleteCount = deleteCount; // 삭제한 개수
+		} catch (NullPointerException e) {
+			System.out.println("NullPointerException");
+		}
+		return realDeleteCount+"";
 	}
 }
