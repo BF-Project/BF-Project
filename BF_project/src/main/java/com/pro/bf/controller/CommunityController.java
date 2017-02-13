@@ -68,13 +68,7 @@ public class CommunityController {
 		String paging =null;
 		try{
 			cmmtList=cmmtServiceImpl.getCmmtList(Integer.parseInt(tpage), search);
-			//getCmmtList(Integer.parseInt(tpage));
 			paging=cmmtServiceImpl.pageNumber(Integer.parseInt(tpage), search);
-					//pageNumber(Integer.parseInt(tpage),search);
-			
-			for(CommunityVO VO : cmmtList){
-				System.out.println(VO.getCmmt_content());
-			}
 		}
 		catch(SQLException e){
 			e.printStackTrace();
