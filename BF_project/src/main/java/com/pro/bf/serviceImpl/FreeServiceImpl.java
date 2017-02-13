@@ -60,6 +60,7 @@ public class FreeServiceImpl implements FreeService {
 	public String pageNumber(int tpage,String classify) throws SQLException {
 		String str = "";
 		int total_pages = 1;
+		
 		if(classify==null || classify.equals("")){
 			total_pages = freeDaoImpl.totalFree();
 		}else{
